@@ -47,7 +47,7 @@ func start_intro():
 		await get_tree().create_timer(0.2).timeout
 		$Panel/Loading.text=text+"_"
 	await get_tree().create_timer(0.3).timeout
-	$Panel/Loading.text = get_loading_lable("")+"".join(command_dir)+"\nIl volume nell'unità C è MS-DOS_4\nIl numero di serie del volume è 5164-7B1A\nDirectory di C:\\\n    APP        <DIR>       01-01-93  12:00a\n    DATI       <DIR>       01-01-93  12:05a\n    DOC        <DIR>       01-05-93   9:30a\n    GIOCHI     <DIR>       02-10-93   3:15p\n    SYSTEM     <DIR>       03-01-93  11:45a\n    UTILS      <DIR>       03-15-93   4:00p\n       6 File(s)        12345 bytes\n       6 Dir(s)      12345678 bytes free\n"+get_loading_lable("")
+	$Panel/Loading.text = get_loading_lable("")+"".join(command_dir)+"\nIl volume nell'unità C è RE-DOS_4\nIl numero di serie del volume è 5164-7B1A\nDirectory di C:\\\n    APP        <DIR>       01-01-93  12:00a\n    DATI       <DIR>       01-01-93  12:05a\n    DOC        <DIR>       01-05-93   9:30a\n    GIOCHI     <DIR>       02-10-93   3:15p\n    SYSTEM     <DIR>       03-01-93  11:45a\n    UTILS      <DIR>       03-15-93   4:00p\n       6 File(s)        12345 bytes\n       6 Dir(s)      12345678 bytes free\n"+get_loading_lable("")
 	
 	# blinking _
 	text = $Panel/Loading.text

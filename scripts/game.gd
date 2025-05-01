@@ -8,6 +8,8 @@ var storyLable
 var buttons := []
 var containers := []
 func _ready() -> void:
+	if Global.save_data["settings"]["crt"] == false:
+		$CanvasLayer.visible = false
 	storyLable = $Panel/Game_elements/StoryLabel
 	buttons = [
 		$Panel/Game_elements/VBoxContainer/HBoxContainer/Button,
@@ -56,22 +58,51 @@ func insert_username(username: String) -> void:
 		storia.text = new_text
 
 
-func write_text(text:String, object: Control):
+func write_text(text: String, object: Control):
 	var current
 	var previous
-	for i in range(len(text)):
-		if skip_animation == false && Global.save_data["settings"]["skip_animation"]==false:
+	var display_text = ""
+	var i = 0
+	
+	while i < text.length():
+		if skip_animation == false and Global.save_data["settings"]["skip_animation"] == false:
+			if text[i] == "[" and i + 1 < text.length():
+				var next_char = text[i + 1]
+				# Controlliamo se è un tag BBCode valido: inizia con lettera (a-z / A-Z) o '/'
+				if is_ascii_letter(next_char) or next_char == "/":
+					var end_idx = text.find("]", i)
+					if end_idx != -1:
+						# È un tag: aggiungiamo subito senza attendere
+						display_text += text.substr(i, end_idx - i + 1)
+						i = end_idx + 1
+						continue
+			# Non è un tag, scriviamo normalmente
 			current = text[i]
-			previous = text[i-1]
-			object.text = text.substr(0, i+1)
-			if current == " " && previous == " ":
+			previous = text[i - 1] if i > 0 else ""
+			
+			display_text += current
+			object.text = display_text
+			
+			if current == " " and previous == " ":
 				pass
-			else:
+			elif (current == "-" and previous == "-") || (current == "═" and previous == "═") || current == "─" and previous == "─":
+				$Panel/Timer.wait_time = 0.03
 				$Panel/Timer.start()
 				await $Panel/Timer.timeout
+			else:
+				$Panel/Timer.wait_time = 0.05
+				$Panel/Timer.start()
+				await $Panel/Timer.timeout
+			i += 1
 		else:
 			object.text = text
 			break
+
+func is_ascii_letter(letter) -> bool:
+	if letter.to_lower() >= "a" and letter.to_lower() <= "z":
+		return true
+	else: 
+		return false
 
 func clear_buttons() -> void:
 	for i in range(len(containers)):
@@ -162,7 +193,7 @@ func continue_story():
 			await enable_button(0, "0.1") # rovista tra la posta
 			await enable_button(1, "0.2") # affacciati alla finestra
 			await enable_button(2, "0.3") # guarda il calendario
-			
+			await enable_button(3, "1") # siediti alla scrivania
 			buttons[0].grab_focus()
 		"0.1": # rovista tra la posta 
 			await write_text(Global.get_scene_class("0.1").get_scene_text(), storyLable) 

@@ -1,15 +1,16 @@
-TODO 
-1. migliorare i comandi nelle storie, trovare dei colori adatti per i comandi e i nomi nelle chat e aggiungere i <>
-2. sistemare la scrittura della storia con i "\n" 
-3. modificare la storia n 1 per aggiungere delle opzioni per vedere i floppy disk o inserire nel testo qualcosa che centri con le scelte disponibili 
-4. inserire direttamente siediti alla scrivania come opzione iniziale
-5.  
+## TODO
 
+- [ ]  migliorare i comandi nelle storie, trovare dei colori adatti per i comandi e i nomi nelle chat e aggiungere i <>
+- [ ]  sistemare la scrittura della storia con i "\n"
+- [ ]  rimuovere il riferimento a msdos nella schermata di caricamento e inserire il logo della casa di sviluppo prima di farla partire
+- [ ]  modificare la storia n 1 per aggiungere delle opzioni per vedere i floppy disk o inserire nel testo qualcosa che centri con le scelte disponibili
+- [ ]  inserire direttamente siediti alla scrivania come opzione iniziale
+- [ ]  rimodificare la schermata del BBS reinserendo Echo chamber e il sysop
+- [ ]  allungare il caricamento della bsod per far leggere il messaggio
 
-BUG FIX
-1. sistemare l'animazione di scrittura quando incontra espressioni di tipo BBCode
-2. 
+## BUG FIX
 
+- [ ]  sistemare l'animazione di scrittura quando incontra espressioni di tipo BBCode
+- [ ]  
 
-FEATURES
-1. 
+## FEATURES

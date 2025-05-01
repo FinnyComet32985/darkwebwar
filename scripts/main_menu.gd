@@ -68,8 +68,8 @@ func _on_settings_pressed() -> void:
 
 func _on_username_input_text_submitted(new_text: String) -> void:
 	$"../username".visible = 0
-	
-	Global.save_data["username"]=new_text
+	var us = new_text.to_upper()
+	Global.save_data["username"]=us
 	Global.username= Global.save_data["username"]
 	$"../loading".visible = 1
 	$"../loading/AnimationPlayer".play("loading")
