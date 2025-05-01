@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dj67k3x7g7hfu"]
+
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="1_jdw0l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdw0l"]
+
+[resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 40
+Button/fonts/font = ExtResource("1_jdw0l")
+Button/styles/focus = SubResource("StyleBoxEmpty_jdw0l")

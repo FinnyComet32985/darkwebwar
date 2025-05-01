@@ -1,0 +1,449 @@
+[gd_scene load_steps=32 format=3 uid="uid://dgwl6wrflal0s"]
+
+[ext_resource type="Script" uid="uid://bhbpihfdyf10b" path="res://scripts/game.gd" id="1_lbhrr"]
+[ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_yqjtg"]
+[ext_resource type="FontFile" uid="uid://csjco23g15cho" path="res://assets/fonts/fixedsys-2-monospaced.ttf" id="2_iywne"]
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_lnu2h"]
+[ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://cs7hy5vukf4yw" path="res://scripts/button.gd" id="5_p57ef"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbhrr"]
+bg_color = Color(0, 0, 0.666667, 1)
+shadow_size = 5
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_101rs"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_iywne"]
+Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
+
+[sub_resource type="Animation" id="Animation_u5sy4"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["> "]
+}
+
+[sub_resource type="Animation" id="Animation_p57ef"]
+resource_name = "focussed"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["  ", "> "]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gee14"]
+_data = {
+&"RESET": SubResource("Animation_u5sy4"),
+&"focussed": SubResource("Animation_p57ef")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p57ef"]
+
+[sub_resource type="Theme" id="Theme_u5sy4"]
+default_font = ExtResource("2_lnu2h")
+default_font_size = 20
+Button/styles/focus = SubResource("StyleBoxEmpty_p57ef")
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["> "]
+}
+
+[sub_resource type="Animation" id="Animation_gee14"]
+resource_name = "focussed"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["  ", "> "]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vtaks"]
+_data = {
+&"RESET": SubResource("Animation_0tnpc"),
+&"focussed": SubResource("Animation_gee14")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u5sy4"]
+
+[sub_resource type="Theme" id="Theme_gee14"]
+default_font = ExtResource("2_lnu2h")
+default_font_size = 20
+Button/styles/focus = SubResource("StyleBoxEmpty_u5sy4")
+
+[sub_resource type="Animation" id="Animation_kvpfn"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["> "]
+}
+
+[sub_resource type="Animation" id="Animation_vtaks"]
+resource_name = "focussed"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["  ", "> "]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dinhu"]
+_data = {
+&"RESET": SubResource("Animation_kvpfn"),
+&"focussed": SubResource("Animation_vtaks")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0tnpc"]
+
+[sub_resource type="Theme" id="Theme_vtaks"]
+default_font = ExtResource("2_lnu2h")
+default_font_size = 20
+Button/styles/focus = SubResource("StyleBoxEmpty_0tnpc")
+
+[sub_resource type="Animation" id="Animation_kvuet"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["> "]
+}
+
+[sub_resource type="Animation" id="Animation_dinhu"]
+resource_name = "focussed"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["  ", "> "]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trtic"]
+_data = {
+&"RESET": SubResource("Animation_kvuet"),
+&"focussed": SubResource("Animation_dinhu")
+}
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kvpfn"]
+
+[sub_resource type="Theme" id="Theme_dinhu"]
+default_font = ExtResource("2_lnu2h")
+default_font_size = 20
+Button/styles/focus = SubResource("StyleBoxEmpty_kvpfn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]
+shader = ExtResource("3_lnu2h")
+
+[sub_resource type="QuadMesh" id="QuadMesh_iywne"]
+size = Vector2(1152, 648)
+center_offset = Vector3(576, 324, 0)
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lbhrr")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lbhrr")
+
+[node name="StatusBar" type="Control" parent="Panel"]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="Panel" parent="Panel/StatusBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 30.0
+offset_top = 50.0
+offset_right = -30.3201
+offset_bottom = 55.0
+grow_horizontal = 2
+theme = SubResource("Theme_iywne")
+
+[node name="Label" type="Label" parent="Panel/StatusBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_iywne")
+theme_override_font_sizes/font_size = 35
+text = "DARK WEB WAR"
+
+[node name="Label2" type="Label" parent="Panel/StatusBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.0
+offset_right = -30.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_yqjtg")
+theme_override_font_sizes/font_size = 30
+text = "V 1.0"
+
+[node name="Game_elements" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -538.0
+offset_top = -248.0
+offset_right = 541.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="StoryLabel" type="RichTextLabel" parent="Panel/Game_elements"]
+z_index = 1
+texture_filter = 1
+custom_minimum_size = Vector2(0, 370)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_constants/line_separation = 10
+theme_override_fonts/normal_font = ExtResource("2_lnu2h")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+scroll_following = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/Game_elements"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Game_elements/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Game_elements/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lnu2h")
+text = "> "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Game_elements/VBoxContainer/HBoxContainer/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_gee14")
+}
+
+[node name="Button" type="Button" parent="Panel/Game_elements/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_u5sy4")
+flat = true
+script = ExtResource("5_p57ef")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/Game_elements/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Game_elements/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lnu2h")
+text = "> "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Game_elements/VBoxContainer/HBoxContainer2/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_vtaks")
+}
+
+[node name="Button2" type="Button" parent="Panel/Game_elements/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = SubResource("Theme_gee14")
+flat = true
+script = ExtResource("5_p57ef")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/Game_elements/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Game_elements/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lnu2h")
+text = "> "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Game_elements/VBoxContainer/HBoxContainer3/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_dinhu")
+}
+
+[node name="Button3" type="Button" parent="Panel/Game_elements/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme = SubResource("Theme_vtaks")
+flat = true
+script = ExtResource("5_p57ef")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/Game_elements/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Game_elements/VBoxContainer/HBoxContainer4"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lnu2h")
+text = "> "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Game_elements/VBoxContainer/HBoxContainer4/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_trtic")
+}
+
+[node name="Button4" type="Button" parent="Panel/Game_elements/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme = SubResource("Theme_dinhu")
+flat = true
+script = ExtResource("5_p57ef")
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/Game_elements/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Game_elements/VBoxContainer/HBoxContainer5"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lnu2h")
+text = "> "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Game_elements/VBoxContainer/HBoxContainer5/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_trtic")
+}
+
+[node name="Button5" type="Button" parent="Panel/Game_elements/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme = SubResource("Theme_dinhu")
+flat = true
+script = ExtResource("5_p57ef")
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/Game_elements/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Game_elements/VBoxContainer/HBoxContainer6"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lnu2h")
+text = "> "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Game_elements/VBoxContainer/HBoxContainer6/Label"]
+libraries = {
+&"": SubResource("AnimationLibrary_trtic")
+}
+
+[node name="Button6" type="Button" parent="Panel/Game_elements/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme = SubResource("Theme_dinhu")
+flat = true
+script = ExtResource("5_p57ef")
+
+[node name="Timer" type="Timer" parent="Panel"]
+wait_time = 0.05
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_lbhrr")
+mesh = SubResource("QuadMesh_iywne")
+
+[connection signal="pressed" from="Panel/Game_elements/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/Game_elements/VBoxContainer/HBoxContainer2/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/Game_elements/VBoxContainer/HBoxContainer3/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Panel/Game_elements/VBoxContainer/HBoxContainer4/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="Panel/Game_elements/VBoxContainer/HBoxContainer5/Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="Panel/Game_elements/VBoxContainer/HBoxContainer6/Button6" to="." method="_on_button_6_pressed"]
