@@ -797,12 +797,106 @@ func continue_story():
 			await write_text(Global.get_scene_class("8").get_scene_text(), storyLable)
 			await enable_button(0, "8.1") # inserisci la chiave
 			await enable_button(1, "8.2") # esita
+			buttons[0].grab_focus()
+		"8.1": # inserisci la chiave
+			await write_text(Global.get_scene_class("8.1").get_scene_text(), storyLable)
+			await enable_button(0, "9") # contina a monitorare
+			buttons[0].grab_focus()
+		"8.2": # esita
+			await write_text(Global.get_scene_class("8.2").get_scene_text(), storyLable)
+			await enable_button(0, "9") # contina a monitorare
+			buttons[0].grab_focus()
 		"9": # contina a monitorare
 			await write_text(Global.get_scene_class("9").get_scene_text(), storyLable)
 			await enable_button(0, "10") # gioca a defend the bazaar
 			await enable_button(1, "11") # continua la storia
-		"10": # gioca a defend the bazaar
+			buttons[0].grab_focus()
+		"10": #! gioca a defend the bazaar
 			pass
 		"11": # continua la storia
 			await write_text(Global.get_scene_class("11").get_scene_text(), storyLable)
+			await enable_button(0, "11.1") # contatta DC
+			await enable_button(1, "11.2") # indaga autonomamentoe
+			await enable_button(2, "11.3") # contatta DK
+			buttons[0].grab_focus()
+		"11.1": # contatta DC
+			await write_text(Global.get_scene_class("11.1").get_scene_text(), storyLable)
+			await enable_button(0, "12") # continua ad indagare
+			buttons[0].grab_focus()
+		"11.2": # indaga autonomamente
+			await write_text(Global.get_scene_class("11.2").get_scene_text(), storyLable)
+			await enable_button(0, "12") # continua ad indagare
+			buttons[0].grab_focus()
+		"11.3": # contatta DK
+			await write_text(Global.get_scene_class("11.3").get_scene_text(), storyLable)
+			await enable_button(0, "12") # continua ad indagare
+			buttons[0].grab_focus()
+		"12": # continua ad indagare
+			await write_text(Global.get_scene_class("12").get_scene_text(), storyLable)
+			await enable_button(0, "12.1") # continua ...
+			buttons[0].grab_focus()
+		"12.1": # continua ...
+			await write_text(Global.get_scene_class("12.1").get_scene_text(), storyLable)
+			await enable_button(0, "13.1") # mantieni i principi 
+			await enable_button(1, "13.2") # cedi alla concorrenza
+			buttons[0].grab_focus()
+		"13.1": # mantieni i principi
+			await write_text(Global.get_scene_class("13.1").get_scene_text(), storyLable)
+			await enable_button(0, "14") # termina la riunione
+			buttons[0].grab_focus()
+		"13.2": # cedi alla concorrenza
+			await write_text(Global.get_scene_class("13.2").get_scene_text(), storyLable)
+			await enable_button(0, "14") # termina la riunione
+			buttons[0].grab_focus()
+		"14": # termina la riunione
+			await write_text(Global.get_scene_class("14").get_scene_text(), storyLable)
+			await enable_button(0, "15") # gioca ai minigiochi
+			await enable_button(1, "16") # continua la storia
+		"15": #! minigiochi
+			pass
+		"16": # continua la storia
+			await write_text(Global.get_scene_class("16").get_scene_text(), storyLable)
+			if Global.get_scene_class("13.1").get_visited() == true:
+				await enable_button(1, "17") # mantieni i principi
+			elif Global.get_scene_class("13.2").get_visited() == true:
+				await enable_button(1, "18") # non li mantieni
+			buttons[0].grab_focus()
+		# FINALI ETICI
+		"17": # mantieni i principi
+			await write_text(Global.get_scene_class("17").get_scene_text(), storyLable)
+			await enable_button(0, "17.1") # accetta l'offerta di DC
+			await enable_button(1, "17.2") # prenditi tempo per pensare
+			buttons[0].grab_focus()
+		# FINALE 1
+		"17.1": # accetta l'offerta di DC
+			await write_text(Global.get_scene_class("17.1").get_scene_text(), storyLable)
+			# TODO
+		"17.2": # prenditi tempo per pensare
+			await write_text(Global.get_scene_class("17.2").get_scene_text(), storyLable)
+			await enable_button(0, "17.2.1") # accetta la proposta di pahntom
+			await enable_button(1, "17.2.2") # accetta la proposta di DC
+			buttons[0].grab_focus()
+		# FINALE 2
+		"17.2.1": # accetta la proposta di phantom
+			await write_text(Global.get_scene_class("17.2.1").get_scene_text(), storyLable)
+			await enable_button(0, "17.2.1.1") # minigioco
+			await enable_button(1, "17.2.1.2") # continua la storia
+			buttons[0].grab_focus()
+		"17.2.1.1": #! gioca al minigioco
+			pass
+		"17.2.1.2": # finale
+			await write_text(Global.get_scene_class("17.2.1.2").get_scene_text(), storyLable)
 
+		# RITORNO AL FINALE 1
+		"17.2.2": # accetta la proposta di DC
+			await write_text(Global.get_scene_class("17.2.2.1").get_scene_text(), storyLable)
+			buttons[0].disabled = false
+			buttons[0].set_scene_id("17.1")
+			containers[0].visible = true
+			await write_text("Continua ...", buttons[0])
+
+		# FINALI NON ETICI
+
+		# FINALE 1
+		"18": 
+			pass
