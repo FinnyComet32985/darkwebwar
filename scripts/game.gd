@@ -239,7 +239,7 @@ func continue_story():
 		"1.1": # apri il pacco
 			await write_text(Global.get_scene_class("1.1").get_scene_text(), storyLable)
 			await enable_button(0, "1.1.1") # chiama il numero
-			await enable_button(1, "1.2.2") # ignora il postit
+			await enable_button(1, "1.1.2") # ignora il postit
 			buttons[0].grab_focus()
 		"1.1.1": # hai chiamato
 			await write_text(Global.get_scene_class("1.1.1").get_scene_text(), storyLable)
@@ -704,3 +704,58 @@ func continue_story():
 			buttons[0].grab_focus()
 		"3.2.3.3": # sono dentro
 			await write_text(Global.get_scene_class("3.2.3.3").get_scene_text(), storyLable)
+			await enable_button(0, "4") # sviluppa marcketplace
+			buttons[0].grab_focus()
+		"4": # sviluppa marcketplace
+			await write_text(Global.get_scene_class("4").get_scene_text(), storyLable)
+			await enable_button(0, "4.1") # esamina i messaggi di chiper
+			await enable_button(1, "4.2") # collabora con neuromancer
+			await enable_button(2, "5") # partecipa alla riunione di DK
+			buttons[0].grab_focus()
+		"4.1": # esamina i messaggi di chiper
+			await write_text(Global.get_scene_class("4.1").get_scene_text(), storyLable)
+			await enable_button(0, "4.1.1") # proponi routing adattivo
+			await enable_button(1, "4.1.2") # proponi nodi distribuiti
+			buttons[0].grab_focus()
+		"4.1.1": # routing adattivo
+			await write_text(Global.get_scene_class("4.1.1").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("4.2").get_visited() == false:
+				await enable_button(i, "4.2") # collabora con neuromancer
+				i+=1
+			await enable_button(i, "5") # partecipa alla riunione di DK
+			buttons[0].grab_focus()
+		"4.1.2": # nodi distribuiti
+			await write_text(Global.get_scene_class("4.1.2").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("4.2").get_visited() == false:
+				await enable_button(i, "4.2") # collabora con neuromancer
+				i+=1
+			await enable_button(i, "5") # partecipa alla riunione di DK
+			buttons[0].grab_focus()
+		"4.2": # collabora con neuromancer
+			await write_text(Global.get_scene_class("4.2").get_scene_text(), storyLable)
+			await enable_button(0, "4.2.1") # timestamp distribuito
+			await enable_button(1, "4.2.2") # reputazione blind trust
+			buttons[0].grab_focus()
+		"4.2.1": # timestamp distribuito
+			await write_text(Global.get_scene_class("4.2.1").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("4.1").get_visited() == false:
+				await enable_button(i, "4.1") # esamina i messaggi di chiper
+				i+=1
+			await enable_button(i, "5") # partecipa alla riunione di DK
+			buttons[0].grab_focus()
+		"4.2.2": # reputazione blind trust
+			await write_text(Global.get_scene_class("4.2.2").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("4.1").get_visited() == false:
+				await enable_button(i, "4.1") # esamina i messaggi di chiper
+				i+=1
+			await enable_button(i, "5") # partecipa alla riunione di DK
+			buttons[0].grab_focus()
+		"5": # partecipa alla riunione di DK
+			await write_text(Global.get_scene_class("5").get_scene_text(), storyLable)
+			await enable_button(0, "5.1") # modello decentralizzato
+			await enable_button(1, "5.2") # consiglio di amministrazione
+		
