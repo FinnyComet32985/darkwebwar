@@ -758,4 +758,51 @@ func continue_story():
 			await write_text(Global.get_scene_class("5").get_scene_text(), storyLable)
 			await enable_button(0, "5.1") # modello decentralizzato
 			await enable_button(1, "5.2") # consiglio di amministrazione
-		
+			buttons[0].grab_focus()
+		"5.1": # modello decentralizzato
+			await write_text(Global.get_scene_class("5.1").get_scene_text(), storyLable)
+			await enable_button(0, "6")
+			buttons[0].grab_focus()
+		"5.2": # consiglio di amministrazione
+			await write_text(Global.get_scene_class("5.2").get_scene_text(), storyLable)
+			await enable_button(0, "6")
+			buttons[0].grab_focus()
+		"6": # attività sospette
+			await write_text(Global.get_scene_class("6").get_scene_text(), storyLable)
+			await enable_button(0, "6.1") # indaga personalmente
+			await enable_button(1, "6.2") # riferisci a DK
+			buttons[0].grab_focus()
+		"6.1": # indaga personalmente
+			await write_text(Global.get_scene_class("6.1").get_scene_text(), storyLable)
+			await enable_button(0, "7") # procedi con il lancio
+			buttons[0].grab_focus()
+		"6.2": # routing adattivo
+			await write_text(Global.get_scene_class("6.2").get_scene_text(), storyLable)
+			await enable_button(0, "7") #procedi con il lancio
+			buttons[0].grab_focus()
+		"7": # procedi con il lancio
+			await write_text(Global.get_scene_class("7").get_scene_text(), storyLable)
+			await enable_button(0, "7.1") # esprimi preoccupazione
+			await enable_button(1, "7.2") # esprimi ottimismo
+			buttons[0].grab_focus()
+		"7.1": # esprimi preoccupazione
+			await write_text(Global.get_scene_class("7.1").get_scene_text(), storyLable)
+			await enable_button(0, "8") # partecipa alla cerimonia di lancio
+			buttons[0].grab_focus()
+		"7.2": # esprimi ottimismo
+			await write_text(Global.get_scene_class("7.2").get_scene_text(), storyLable)
+			await enable_button(0, "8") # partecipa alla cerimonia di lancio
+			buttons[0].grab_focus()
+		"8": # partecipa alla cerimonia di lancio
+			await write_text(Global.get_scene_class("8").get_scene_text(), storyLable)
+			await enable_button(0, "8.1") # inserisci la chiave
+			await enable_button(1, "8.2") # esita
+		"9": # contina a monitorare
+			await write_text(Global.get_scene_class("9").get_scene_text(), storyLable)
+			await enable_button(0, "10") # gioca a defend the bazaar
+			await enable_button(1, "11") # continua la storia
+		"10": # gioca a defend the bazaar
+			pass
+		"11": # continua la storia
+			await write_text(Global.get_scene_class("11").get_scene_text(), storyLable)
+
