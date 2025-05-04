@@ -190,44 +190,111 @@ func continue_story():
 		"0": # intro
 			await write_text(Global.get_scene_class("0").get_scene_text(), storyLable) 
 			
-			await enable_button(0, "0.1") # rovista tra la posta
-			await enable_button(1, "0.2") # affacciati alla finestra
-			await enable_button(2, "0.3") # guarda il calendario
+			await enable_button(0, "0.0.1") # BACKUP 12
+			await enable_button(1, "0.0.2") # Progetto alfa
+			await enable_button(2, "0.0.3") # TCP/IP illustrated
+			await enable_button(3, "0.0.4") # C language
+			await enable_button(4, "0.1") # guardati attorno
+			buttons[0].grab_focus()
+		"0.0.1": # backup 12
+			await write_text(Global.get_scene_class("0.0.1").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("0.0.2").get_visited() == false: # 
+				await enable_button(0, "0.0.2") # Progetto alfa
+				i+=1
+			if Global.get_scene_class("0.0.3").get_visited() == false: # TCP/IP illustrated
+				await enable_button(i, "0.0.3") # TCP/IP illustrated
+				i+=1
+			if Global.get_scene_class("0.0.4").get_visited() == false: # C language
+				await enable_button(i, "0.0.4") # C language
+				i+=1
+			await enable_button(i, "0.1") # guardati attorno
+			buttons[0].grab_focus()
+		"0.0.2": # progetto alfa
+			await write_text(Global.get_scene_class("0.0.2").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("0.0.1").get_visited() == false: # 
+				await enable_button(0, "0.0.1") # BACKUP 12
+				i+=1
+			if Global.get_scene_class("0.0.3").get_visited() == false: # TCP/IP illustrated
+				await enable_button(i, "0.0.3") # TCP/IP illustrated
+				i+=1
+			if Global.get_scene_class("0.0.4").get_visited() == false: # C language
+				await enable_button(i, "0.0.4") # C language
+				i+=1
+			await enable_button(i, "0.1") # guardati attorno
+			buttons[0].grab_focus()
+		"0.0.3": # tcp/ip
+			await write_text(Global.get_scene_class("0.0.3").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("0.0.1").get_visited() == false: 
+				await enable_button(0, "0.0.1") # BACKUP 12
+				i+=1
+			if Global.get_scene_class("0.0.2").get_visited() == false: 
+				await enable_button(i, "0.0.2") # progetto alfa
+				i+=1
+			if Global.get_scene_class("0.0.4").get_visited() == false:
+				await enable_button(i, "0.0.4") # C language
+				i+=1
+			await enable_button(i, "0.1") # guardati attorno
+			buttons[0].grab_focus()
+		"0.0.4": # c language
+			await write_text(Global.get_scene_class("0.0.4").get_scene_text(), storyLable)
+			var i = 0
+			if Global.get_scene_class("0.0.1").get_visited() == false: 
+				await enable_button(0, "0.0.1") # BACKUP 12
+				i+=1
+			if Global.get_scene_class("0.0.2").get_visited() == false: 
+				await enable_button(i, "0.0.2") # progetto alfa
+				i+=1
+			if Global.get_scene_class("0.0.3").get_visited() == false: 
+				await enable_button(i, "0.0.3") # tcp/ip
+				i+=1
+			await enable_button(i, "0.1") # guardati attorno
+			buttons[0].grab_focus()
+		
+		"0.1": # guardati attorno
+			await write_text(Global.get_scene_class("0.1").get_scene_text(), storyLable) 
+			
+			await enable_button(0, "0.1.1") # rovista tra la posta
+			await enable_button(1, "0.1.2") # affacciati alla finestra
+			await enable_button(2, "0.1.3") # guarda il calendario
 			await enable_button(3, "1") # siediti alla scrivania
 			buttons[0].grab_focus()
-		"0.1": # rovista tra la posta 
-			await write_text(Global.get_scene_class("0.1").get_scene_text(), storyLable) 
+		"0.1.1": # rovista tra la posta 
+			await write_text(Global.get_scene_class("0.1.1").get_scene_text(), storyLable) 
 			var i = 0
-			if Global.get_scene_class("0.2").get_visited() == false: # affacciati alla finestra
-				await enable_button(i, "0.2")
+			if Global.get_scene_class("0.1.2").get_visited() == false: # affacciati alla finestra
+				await enable_button(i, "0.1.2")
 				i+=1
-			if Global.get_scene_class("0.3").get_visited() == false: # guarda il calendario
-				await enable_button(i, "0.3")
+			if Global.get_scene_class("0.1.3").get_visited() == false: # guarda il calendario
+				await enable_button(i, "0.1.3")
 				i+=1
 			await enable_button(i, "1") # siediti alla scrivania
 			buttons[0].grab_focus()
-		"0.2": # affacciati alla finestra 
-			await write_text(Global.get_scene_class("0.2").get_scene_text(), storyLable) 
+		"0.1.2": # affacciati alla finestra 
+			await write_text(Global.get_scene_class("0.1.2").get_scene_text(), storyLable) 
 			var i = 0
-			if Global.get_scene_class("0.1").get_visited() == false: # rovista tra la posta
-				await enable_button(i, "0.1")
+			if Global.get_scene_class("0.1.1").get_visited() == false: # rovista tra la posta
+				await enable_button(i, "0.1.1")
 				i+=1
-			if Global.get_scene_class("0.3").get_visited() == false: #guarda il calendario
-				await enable_button(i, "0.3")
+			if Global.get_scene_class("0.1.3").get_visited() == false: #guarda il calendario
+				await enable_button(i, "0.1.3")
 				i+=1
 			await enable_button(i, "1") # siediti alla scrivania
 			buttons[0].grab_focus()
-		"0.3": # guarda il calendario
-			await write_text(Global.get_scene_class("0.3").get_scene_text(), storyLable)  
+		"0.1.3": # guarda il calendario
+			await write_text(Global.get_scene_class("0.1.3").get_scene_text(), storyLable)  
 			var i = 0
-			if Global.get_scene_class("0.1").get_visited() == false: # rovista tra la posta
-				await enable_button(i, "0.1")
+			if Global.get_scene_class("0.1.1").get_visited() == false: # rovista tra la posta
+				await enable_button(i, "0.1.1")
 				i+=1
-			if Global.get_scene_class("0.2").get_visited() == false: # affacciati alla finestra
-				await enable_button(i, "0.2")
+			if Global.get_scene_class("0.1.2").get_visited() == false: # affacciati alla finestra
+				await enable_button(i, "0.1.2")
 				i+=1
 			await enable_button(i, "1") # siediti alla scrivania
 			buttons[0].grab_focus()
+		
 		"1": # siediti alla scrivania
 			await write_text(Global.get_scene_class("1").get_scene_text(), storyLable) 
 			
@@ -241,7 +308,7 @@ func continue_story():
 			await enable_button(0, "1.1.1") # chiama il numero
 			await enable_button(1, "1.1.2") # ignora il postit
 			buttons[0].grab_focus()
-		"1.1.1": # hai chiamato
+		"1.1.1": # chiami
 			await write_text(Global.get_scene_class("1.1.1").get_scene_text(), storyLable)
 			var i = 0
 			if Global.get_scene_class("1.2").get_visited() == false: # apri il BBS
@@ -250,7 +317,7 @@ func continue_story():
 			
 			await enable_button(i, "1.3") # guarda la mail
 			buttons[0].grab_focus()
-		"1.1.2": # hai ignorato il numero
+		"1.1.2": # non chiami
 			await write_text(Global.get_scene_class("1.1.2").get_scene_text(), storyLable) 
 			var i = 0
 			if Global.get_scene_class("1.2").get_visited() == false:
@@ -259,6 +326,7 @@ func continue_story():
 			
 			await enable_button(i, "1.3") # guarda mail
 			buttons[0].grab_focus()
+		
 		"1.2": # apri il BBS
 			await write_text(Global.get_scene_class("1.2").get_scene_text(), storyLable) 
 			
@@ -378,6 +446,7 @@ func continue_story():
 				i+=1
 			await enable_button(i, "1.3")
 			buttons[0].grab_focus()
+		
 		"1.3": # controlla email
 			await write_text(Global.get_scene_class("1.3").get_scene_text(), storyLable)  
 			
@@ -686,6 +755,7 @@ func continue_story():
 			await enable_button(0, "3.2.3.1") # voglio sapere chi siete
 			await enable_button(1, "3.2.3.2") # ho bisogno di pensarci
 			await enable_button(2, "3.2.3.3") # sono dentro
+			buttons[0].grab_focus()
 		"3.2.3.1": # voglio sapere chi siete
 			await write_text(Global.get_scene_class("3.2.3.1").get_scene_text(), storyLable)
 			var i = 0 
@@ -795,8 +865,8 @@ func continue_story():
 			buttons[0].grab_focus()
 		"8": # partecipa alla cerimonia di lancio
 			await write_text(Global.get_scene_class("8").get_scene_text(), storyLable)
-			await enable_button(0, "8.1") # inserisci la chiave
-			await enable_button(1, "8.2") # esita
+			await enable_button(1, "8.1") # inserisci la chiave
+			await enable_button(0, "8.2") # esita
 			buttons[0].grab_focus()
 		"8.1": # inserisci la chiave
 			await write_text(Global.get_scene_class("8.1").get_scene_text(), storyLable)
@@ -852,14 +922,22 @@ func continue_story():
 			await write_text(Global.get_scene_class("14").get_scene_text(), storyLable)
 			await enable_button(0, "15") # gioca ai minigiochi
 			await enable_button(1, "16") # continua la storia
-		"15": #! minigiochi
+			buttons[0].grab_focus()
+		"15": #! minigioco
 			pass
 		"16": # continua la storia
 			await write_text(Global.get_scene_class("16").get_scene_text(), storyLable)
+			await enable_button(0, "16.1") # minigico 
+			await enable_button(1, "16.2") # continua la storia
+			buttons[0].grab_focus()
+		"16.1": #! minigioco
+			pass
+		"16.2": #  finali
+			await write_text(Global.get_scene_class("16.2").get_scene_text(), storyLable)
 			if Global.get_scene_class("13.1").get_visited() == true:
-				await enable_button(1, "17") # mantieni i principi
+				await enable_button(0, "17") # mantieni i principi
 			elif Global.get_scene_class("13.2").get_visited() == true:
-				await enable_button(1, "18") # non li mantieni
+				await enable_button(0, "18") # non li mantieni
 			buttons[0].grab_focus()
 		# FINALI ETICI
 		"17": # mantieni i principi
@@ -870,7 +948,18 @@ func continue_story():
 		# FINALE 1
 		"17.1": # accetta l'offerta di DC
 			await write_text(Global.get_scene_class("17.1").get_scene_text(), storyLable)
-			# TODO
+			await enable_button(0, "17.1.1") # minigioco
+			await enable_button(1, "17.1.2") # continua la storia
+			buttons[0].grab_focus()
+		
+		"17.1.1": #! minigioco
+			pass
+		"17.1.2": # continua la storia
+			await write_text(Global.get_scene_class("17.1.2").get_scene_text(), storyLable)
+			# FINE
+
+
+		
 		"17.2": # prenditi tempo per pensare
 			await write_text(Global.get_scene_class("17.2").get_scene_text(), storyLable)
 			await enable_button(0, "17.2.1") # accetta la proposta di pahntom
@@ -889,14 +978,47 @@ func continue_story():
 
 		# RITORNO AL FINALE 1
 		"17.2.2": # accetta la proposta di DC
-			await write_text(Global.get_scene_class("17.2.2.1").get_scene_text(), storyLable)
+			await write_text(Global.get_scene_class("17.2.2").get_scene_text(), storyLable)
 			buttons[0].disabled = false
 			buttons[0].set_scene_id("17.1")
 			containers[0].visible = true
 			await write_text("Continua ...", buttons[0])
+			buttons[0].grab_focus()
 
 		# FINALI NON ETICI
 
-		# FINALE 1
 		"18": 
+			await write_text(Global.get_scene_class("18").get_scene_text(), storyLable)
+			await enable_button(0, "18.1") # accetta l'offerta di phantom
+			await enable_button(1, "18.2") # rifiuta la proposta
+			buttons[0].grab_focus()
+		
+		# FINALE 1
+		"18.1": # accetta l'offerta di phantom
+			await write_text(Global.get_scene_class("18.1").get_scene_text(), storyLable)
+			await enable_button(0, "18.1.1") # minigioco
+			await enable_button(1, "18.1.2") # continua la storia
+			buttons[0].grab_focus()
+		"18.1.1": #! gioca al minigioco
 			pass
+		"18.1.2": # finale
+			await write_text(Global.get_scene_class("18.1.2").get_scene_text(), storyLable)
+		
+		# FINALE 2
+		"18.2": 
+			await write_text(Global.get_scene_class("18.2").get_scene_text(), storyLable)
+			await enable_button(0, "18.2.1") # minigioco
+			await enable_button(1, "18.2.2") # continua la storia
+			buttons[0].grab_focus()
+		
+		"18.2.1": # minigioco 
+			pass
+		"18.2.2":
+			await write_text(Global.get_scene_class("18.2.2").get_scene_text(), storyLable)
+			await enable_button(0, "18.2.2.1") # sacrificio
+			await enable_button(1, "18.2.2.2") # fuga
+			buttons[0].grab_focus()
+		"18.2.2.1": # sacrificio
+			await write_text(Global.get_scene_class("18.2.2.1").get_scene_text(), storyLable)
+		"18.2.2.2": # fuga
+			await write_text(Global.get_scene_class("18.2.2.2").get_scene_text(), storyLable)

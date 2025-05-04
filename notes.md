@@ -11,6 +11,6 @@
 ## BUG FIX
 
 - [ ]  sistemare l'animazione di scrittura quando incontra espressioni di tipo BBCode
-- [ ]  
+- [ ]  sistemare nelle storie il [verso dk] con [-> dk] in modo che non venga saltato
 
 ## FEATURES
