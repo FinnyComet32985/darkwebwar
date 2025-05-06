@@ -1011,7 +1011,7 @@ func continue_story():
 			await enable_button(1, "18.2.2") # continua la storia
 			buttons[0].grab_focus()
 		
-		"18.2.1": # minigioco 
+		"18.2.1": #! minigioco 
 			pass
 		"18.2.2":
 			await write_text(Global.get_scene_class("18.2.2").get_scene_text(), storyLable)
