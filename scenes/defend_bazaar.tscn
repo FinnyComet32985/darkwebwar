@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=17 format=3 uid="uid://xvsuu1xly0mk"]
 
+[ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_dr1i0"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
+[ext_resource type="Texture2D" uid="uid://bwntvlhyy5w1m" path="res://assets/temp/DarkWebWar-Level 1.png" id="4_ee5cj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -44,6 +46,7 @@ size = Vector2(1152, 648)
 center_offset = Vector3(576, 324, 0)
 
 [node name="DefendBazaar" type="Node"]
+script = ExtResource("1_i3icg")
 
 [node name="TerminalBar" type="Panel" parent="."]
 anchors_preset = 15
@@ -100,7 +103,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_rao2o")
 theme_override_font_sizes/font_size = 30
-text = "LEVEL 1"
+text = "LEVEL 0"
 
 [node name="Loading" type="RichTextLabel" parent="TerminalBar"]
 z_index = 1
@@ -128,6 +131,10 @@ anchor_left = 0.7
 anchor_top = 0.2
 anchor_right = 0.97
 anchor_bottom = 0.6
+offset_left = -36.4
+offset_top = 0.399994
+offset_right = 7.55994
+offset_bottom = 197.2
 
 [node name="Status-container" type="VBoxContainer" parent="SideBar"]
 layout_mode = 2
@@ -230,14 +237,17 @@ theme_override_constants/separation = 25
 [node name="Btc-label" type="Label" parent="SideBar/Status-container/Stat/BTC"]
 texture_filter = 1
 layout_mode = 2
+size_flags_vertical = 0
 theme = ExtResource("3_dsu3c")
-text = "$"
+text = "₿"
 
 [node name="Btc-stat" type="Label" parent="SideBar/Status-container/Stat/BTC"]
 texture_filter = 1
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "0"
+vertical_alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="SideBar"]
 layout_mode = 2
@@ -272,61 +282,118 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
 layout_mode = 2
 theme_override_constants/separation = 25
 
+[node name="PU" type="Label" parent="SideBar/PassiveDef/Stat/Info-label"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = " PU"
+
 [node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Info-label"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "  Stato  "
+text = "  Stato "
 
 [node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Info-label"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "Livello "
-
-[node name="ZeroDay" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
-layout_mode = 2
-theme_override_constants/separation = 25
-
-[node name="TextureRect" type="TextureRect" parent="SideBar/PassiveDef/Stat/ZeroDay"]
-layout_mode = 2
-
-[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/ZeroDay"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "✅ - [0]"
-
-[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/ZeroDay"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "0/0 - 0 $"
-
-[node name="upgrade-ico" type="Label" parent="SideBar/PassiveDef/Stat/ZeroDay"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "[⬆]"
+text = " Livello "
 
 [node name="Patch" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 22
 
-[node name="TextureRect" type="TextureRect" parent="SideBar/PassiveDef/Stat/Patch"]
+[node name="Label" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
+texture_filter = 1
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🩹"
 
 [node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "❌ - [0]"
+text = "✅ - [0]"
 
 [node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "0/0 - 0 $"
+text = "0 - 0 ₿"
+
+[node name="upgrade-ico" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "[⬆]"
+
+[node name="Antivirus" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🛡️"
+
+[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "❌ - [0]"
+
+[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0 - 0 ₿"
+
+[node name="SocialEngeneering" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="SideBar/PassiveDef/Stat/SocialEngeneering"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🪝"
+
+[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/SocialEngeneering"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "❌ - [0]"
+
+[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/SocialEngeneering"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0 - 0 ₿"
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 31.0
+offset_top = 87.0
+offset_right = 723.0
+offset_bottom = 629.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.0
+offset_top = -262.0
+offset_right = 264.0
+offset_bottom = 479.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_ee5cj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
