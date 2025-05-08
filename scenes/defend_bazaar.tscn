@@ -1,0 +1,335 @@
+[gd_scene load_steps=15 format=3 uid="uid://xvsuu1xly0mk"]
+
+[ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_dr1i0"]
+[ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
+[ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
+bg_color = Color(0, 0, 0.654902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_101rs"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_ee5cj"]
+Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
+
+[sub_resource type="Theme" id="Theme_dr1i0"]
+Label/font_sizes/font_size = 25
+Label/fonts/font = ExtResource("2_dr1i0")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsu3c"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_i3icg"]
+Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee5cj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsu3c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dsu3c"]
+shader = ExtResource("3_dr1i0")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ee5cj"]
+size = Vector2(1152, 648)
+center_offset = Vector3(576, 324, 0)
+
+[node name="DefendBazaar" type="Node"]
+
+[node name="TerminalBar" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rao2o")
+
+[node name="StatusBar" type="Control" parent="TerminalBar"]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="Panel" parent="TerminalBar/StatusBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 30.0
+offset_top = 50.0
+offset_right = -30.3201
+offset_bottom = 55.0
+grow_horizontal = 2
+theme = SubResource("Theme_ee5cj")
+
+[node name="Label" type="Label" parent="TerminalBar/StatusBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_rao2o")
+theme_override_font_sizes/font_size = 30
+text = "Defend The Bazaar"
+
+[node name="Level" type="Label" parent="TerminalBar/StatusBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.0
+offset_right = -30.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_rao2o")
+theme_override_font_sizes/font_size = 30
+text = "LEVEL 1"
+
+[node name="Loading" type="RichTextLabel" parent="TerminalBar"]
+z_index = 1
+texture_filter = 1
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = 76.0
+offset_right = -20.3201
+offset_bottom = -18.68
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_constants/line_separation = 10
+theme_override_fonts/normal_font = ExtResource("2_dr1i0")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+scroll_following = true
+autowrap_mode = 0
+
+[node name="SideBar" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.2
+anchor_right = 0.97
+anchor_bottom = 0.6
+
+[node name="Status-container" type="VBoxContainer" parent="SideBar"]
+layout_mode = 2
+
+[node name="Status-label" type="Label" parent="SideBar/Status-container"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_dr1i0")
+text = "STATUS"
+
+[node name="Separator" type="Panel" parent="SideBar/Status-container"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme = SubResource("Theme_i3icg")
+
+[node name="Stat" type="VBoxContainer" parent="SideBar/Status-container"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
+
+[node name="Wave" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="wave-label" type="Label" parent="SideBar/Status-container/Stat/Wave"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "WAVE"
+
+[node name="wave-stat" type="Label" parent="SideBar/Status-container/Stat/Wave"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0/0"
+
+[node name="HSeparator2" type="HSeparator" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
+
+[node name="Conf" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+
+[node name="conf-stat" type="Label" parent="SideBar/Status-container/Stat/Conf"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "[----------]"
+
+[node name="conf-label" type="Label" parent="SideBar/Status-container/Stat/Conf"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "CONFIDENZIALITA'"
+
+[node name="Integ" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+
+[node name="integ-stat" type="Label" parent="SideBar/Status-container/Stat/Integ"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "[----------]"
+
+[node name="integ-label" type="Label" parent="SideBar/Status-container/Stat/Integ"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "INTEGRITA'"
+
+[node name="Disp" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+
+[node name="disp-stat" type="Label" parent="SideBar/Status-container/Stat/Disp"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "[----------]"
+
+[node name="disp-label" type="Label" parent="SideBar/Status-container/Stat/Disp"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "DISPONIBILITA'"
+
+[node name="HSeparator3" type="HSeparator" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
+
+[node name="BTC" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Btc-label" type="Label" parent="SideBar/Status-container/Stat/BTC"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "$"
+
+[node name="Btc-stat" type="Label" parent="SideBar/Status-container/Stat/BTC"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0"
+
+[node name="HSeparator" type="HSeparator" parent="SideBar"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_dsu3c")
+
+[node name="PassiveDef" type="VBoxContainer" parent="SideBar"]
+layout_mode = 2
+
+[node name="Passive-label" type="Label" parent="SideBar/PassiveDef"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_dr1i0")
+text = "PASSIVE DEFENCE"
+
+[node name="Separator" type="Panel" parent="SideBar/PassiveDef"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme = SubResource("Theme_i3icg")
+
+[node name="Stat" type="VBoxContainer" parent="SideBar/PassiveDef"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HSeparator" type="HSeparator" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
+
+[node name="Info-label" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Info-label"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "  Stato  "
+
+[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Info-label"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Livello "
+
+[node name="ZeroDay" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TextureRect" type="TextureRect" parent="SideBar/PassiveDef/Stat/ZeroDay"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/ZeroDay"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "✅ - [0]"
+
+[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/ZeroDay"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0/0 - 0 $"
+
+[node name="upgrade-ico" type="Label" parent="SideBar/PassiveDef/Stat/ZeroDay"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "[⬆]"
+
+[node name="Patch" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="TextureRect" type="TextureRect" parent="SideBar/PassiveDef/Stat/Patch"]
+layout_mode = 2
+
+[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "❌ - [0]"
+
+[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0/0 - 0 $"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_dsu3c")
+mesh = SubResource("QuadMesh_ee5cj")
