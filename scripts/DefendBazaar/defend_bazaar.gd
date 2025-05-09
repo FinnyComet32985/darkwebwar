@@ -1,5 +1,7 @@
 extends Node
 
+
+
 var conf := 0
 var integ := 0
 var disp := 0
@@ -31,3 +33,6 @@ func level_1() -> void:
 	
 	$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "❌ - [0]"
 	$SideBar/PassiveDef/Stat/SocialEngeneering/level.text="0 - 0 ₿"
+	
+	$PlayZone/Defence_1.position = Vector2(207.0, 227.0)
+	
