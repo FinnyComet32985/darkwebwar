@@ -22,7 +22,7 @@ func _ready():
 
 func init_level(n_level:int) -> void:
 	var playzone = get_node("PlayZone")
-	var level = LevelDefiner.get_level(1)
+	var level = LevelDefiner.get_level(n_level)
 	$TerminalBar/StatusBar/Level.text = "Level "+str(n_level)
 	$"SideBar/Status-container/Stat/Wave/wave-stat".text = "0/"+str(level.n_of_wave)
 	$"SideBar/Status-container/Stat/Conf/conf-stat".text="[##########]"
@@ -42,6 +42,9 @@ func init_level(n_level:int) -> void:
 	$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "❌ - [0]"
 	$SideBar/PassiveDef/Stat/SocialEngeneering/level.text="0 - "+str(level.static_defence_level_cost["phishingRecognizer"][0])+" ₿"
 	
+	var gameArea = load(level.minimap)
+	$PlayZone/TextureRect.texture = gameArea
+
 	for i in range(len(level.placable_defence_position)):
 		var button = defence_button.instantiate()
 		button.position = level.placable_defence_position[i]

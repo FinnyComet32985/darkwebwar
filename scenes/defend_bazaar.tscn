@@ -1,11 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=23 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_dr1i0"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
-[ext_resource type="Texture2D" uid="uid://bwntvlhyy5w1m" path="res://assets/temp/DarkWebWar-Level 1.png" id="4_ee5cj"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/defence_builder.gd" id="7_7n4du"]
 [ext_resource type="Texture2D" uid="uid://bp6km76q8av8n" path="res://assets/temp/Firewall.png" id="8_7n4du"]
 [ext_resource type="Texture2D" uid="uid://wvd7y4r1p004" path="res://assets/temp/Honeypot.png" id="9_jyyir"]
@@ -398,7 +397,6 @@ offset_bottom = 479.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("4_ee5cj")
 
 [node name="DefenceMenu" type="Panel" parent="PlayZone"]
 visible = false
@@ -650,6 +648,13 @@ grow_vertical = 0
 theme = ExtResource("3_dsu3c")
 text = "< indietro"
 
+[node name="Button" type="Button" parent="."]
+offset_left = 1036.0
+offset_top = 82.0
+offset_right = 1105.0
+offset_bottom = 113.0
+text = "level up"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
@@ -662,3 +667,4 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids/BuildIDS" to="PlayZone/DefenceBuilder" method="_on_build_ids_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter/BuildRateLimiter" to="PlayZone/DefenceBuilder" method="_on_build_rate_limiter_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="request_level_up"]
