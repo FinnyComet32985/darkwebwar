@@ -4,9 +4,13 @@ extends Button
 
 var firewall = preload("res://assets/temp/Firewall.png")
 var honeypot = preload("res://assets/temp/Honeypot.png")
+var ids = preload("res://assets/temp/DarkWebWar-IDS.png")
+var ratelimiter = preload("res://assets/temp/DarkWebWar-RateLimiter.png")
 var defence_loaded = {
 	"firewall": firewall,
-	"honeypot": honeypot
+	"honeypot": honeypot,
+	"ids": ids,
+	"ratelimiter": ratelimiter
 }
 
 func _ready() -> void:
@@ -24,10 +28,15 @@ func set_type(new_type: String) -> void:
 	if type == "firewall":
 		self.icon=firewall
 		self.type="firewall"
-		
 	if self.type == "honeypot":
 		self.icon=honeypot
 		self.type = "honeypot"
+	if self.type == "ids":
+		self.icon=ids
+		self.type = "ids"
+	if self.type == "ratelimiter":
+		self.icon=ratelimiter
+		self.type = "ratelimiter"
 
 func open_menu() -> void:
 	if type!="":

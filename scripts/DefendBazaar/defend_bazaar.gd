@@ -35,4 +35,6 @@ func level_1() -> void:
 	$SideBar/PassiveDef/Stat/SocialEngeneering/level.text="0 - 0 ₿"
 	
 	$PlayZone/Defence_1.position = Vector2(207.0, 227.0)
-	
+	$PlayZone/Defence_2.position = Vector2(319, 227)
+	$PlayZone/Defence_3.position = Vector2(431, 227)
+	$PlayZone/Defence_4.position = Vector2(319, 339)
