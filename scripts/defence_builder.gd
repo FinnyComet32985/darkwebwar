@@ -2,10 +2,6 @@ extends Panel
 
 var defence: Button
 
-
-
-
-
 func _on_build_firewall_pressed() -> void:
 	defence.set_type("firewall")
 	$".".visible=0
@@ -23,5 +19,5 @@ func _on_build_rate_limiter_pressed() -> void:
 	defence.set_type("ratelimiter")
 	$".".visible=0
 
-func _on_button_pressed() -> void:
+func _on_back_button_pressed() -> void:
 	$".".visible=0
