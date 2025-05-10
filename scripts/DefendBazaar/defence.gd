@@ -1,6 +1,7 @@
 extends Button
 
 @export var type: String
+@export var level: int = 1
 
 var firewall = preload("res://assets/temp/Firewall.png")
 var honeypot = preload("res://assets/temp/Honeypot.png")
@@ -37,12 +38,25 @@ func set_type(new_type: String) -> void:
 	if self.type == "ratelimiter":
 		self.icon=ratelimiter
 		self.type = "ratelimiter"
+	$"../../".defence_built.append(type)
 
 func open_menu() -> void:
 	if type!="":
 		$"../DefenceMenu".visible=1
 		$"../DefenceMenu/Info/Tipo/tipo-stat".text=self.type
 		$"../DefenceMenu/Info/Tipo/tipo".texture=defence_loaded[self.type]
+		$"../DefenceMenu/Info/Level/level_stat".text = str(self.level)
+
+		var other_info = $"../../".get_defence_other_info(self.type, self.level)
+
+		$"../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
+		
 	else:
 		$"../DefenceBuilder".visible=1
 		$"../DefenceBuilder".defence=self
+
+func upgrade():
+	level+=1
+	$"../DefenceMenu/Info/Level/level_stat".text = str(self.level)
+	var other_info = $"../../".get_defence_other_info(self.type, self.level)
+	$"../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"

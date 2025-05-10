@@ -10,20 +10,12 @@ var levels := [
         "antivirus": [0],
         "phishingRecognizer": [0]
         },
-        { # costi difese piazzabili
-        "firewall":{
-            0:0
-        },
-        "honeypot":{
-            0:0
-        },
-        "ids":{
-            0:0
-        },
-        "rateLimiter": {
-            0:0
-        }
-        # altro
+        { # costi per upgrade edifici piazzabili 
+            "firewall": [0, 3, 6],
+            "honeypot": [0, 1, 3],
+            "ids": [0, 3, 6],
+            "ratelimiter": [0, 2, 7]
+            # altro
         },
         "res://assets/temp/DarkWebWar-Level 1.png",
         { # posizione strutture
@@ -42,20 +34,12 @@ var levels := [
         "antivirus": [0],
         "phishingRecognizer": [0]
         },
-        { # costi difese piazzabili
-        "firewall":{
-            0:0
-        },
-        "honeypot":{
-            0:0
-        },
-        "ids":{
-            0:0
-        },
-        "rateLimiter": {
-            0:0
-        }
-        # altro
+        { # costi per upgrade edifici piazzabili 
+            "firewall": [3, 6],
+            "honeypot": [1, 3],
+            "ids": [3, 6],
+            "rateLimiter": [2, 7]
+            # altro
         },
         "res://assets/temp/DarkWebWar-Level 2.png",
         { # posizione strutture

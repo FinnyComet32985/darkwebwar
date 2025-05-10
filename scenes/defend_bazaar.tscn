@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=24 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -44,6 +44,8 @@ Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyyir"]
 bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyyir"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7n4du"]
 bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
@@ -424,6 +426,7 @@ offset_left = 15.0
 offset_top = 36.0
 offset_right = 447.0
 offset_bottom = 183.0
+theme_override_constants/separation = 20
 
 [node name="Tipo" type="HBoxContainer" parent="PlayZone/DefenceMenu/Info"]
 layout_mode = 2
@@ -435,6 +438,55 @@ layout_mode = 2
 
 [node name="tipo-stat" type="Label" parent="PlayZone/DefenceMenu/Info/Tipo"]
 layout_mode = 2
+
+[node name="Level" type="HBoxContainer" parent="PlayZone/DefenceMenu/Info"]
+layout_mode = 2
+
+[node name="Level_label" type="Label" parent="PlayZone/DefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Livello:"
+
+[node name="level_stat" type="Label" parent="PlayZone/DefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+
+[node name="VSeparator" type="VSeparator" parent="PlayZone/DefenceMenu/Info/Level"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jyyir")
+
+[node name="Cost" type="Label" parent="PlayZone/DefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Costo upgrade:"
+
+[node name="cost_stat" type="Label" parent="PlayZone/DefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+
+[node name="VSeparator2" type="VSeparator" parent="PlayZone/DefenceMenu/Info/Level"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jyyir")
+
+[node name="UpgradeButton" type="Button" parent="PlayZone/DefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 20
+text = "[⬆️]"
+flat = true
+
+[node name="Efficenzy" type="Label" parent="PlayZone/DefenceMenu/Info"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Efficace contro:"
 
 [node name="DefenceBuilder" type="Panel" parent="PlayZone"]
 visible = false
@@ -662,6 +714,8 @@ z_index = 3
 material = SubResource("ShaderMaterial_dsu3c")
 mesh = SubResource("QuadMesh_ee5cj")
 
+[connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall/BuildFirewall" to="PlayZone/DefenceBuilder" method="_on_build_firewall_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot/BuildHoneypot" to="PlayZone/DefenceBuilder" method="_on_build_honeypot_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids/BuildIDS" to="PlayZone/DefenceBuilder" method="_on_build_ids_pressed"]

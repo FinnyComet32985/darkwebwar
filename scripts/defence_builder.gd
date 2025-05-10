@@ -21,3 +21,15 @@ func _on_build_rate_limiter_pressed() -> void:
 
 func _on_back_button_pressed() -> void:
 	$".".visible=0
+
+
+func _on_visibility_changed() -> void:
+	if $".".visible == true:
+		if $"../..".defence_built.find("firewall")!=-1:
+			$ScrollContainer/defence/Firewall.visible = 0
+		if $"../..".defence_built.find("honeypot")!=-1:
+			$ScrollContainer/defence/HoneyPot.visible = 0
+		if $"../..".defence_built.find("ids")!=-1:
+			$ScrollContainer/defence/Ids.visible = 0
+		if $"../..".defence_built.find("ratelimiter")!=-1:
+			$ScrollContainer/defence/RateLimiter.visible = 0

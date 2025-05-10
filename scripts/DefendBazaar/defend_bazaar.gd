@@ -9,7 +9,7 @@ var integ := 0
 var disp := 0
 
 var defence_buttons := []
-
+var defence_built := []
 var n_level_playing = 1
 
 func _ready():
@@ -63,3 +63,25 @@ func _on_level_up_requested():
 
 func request_level_up():
 	emit_signal("level_up_requested")
+
+
+func get_defence_other_info(type: String, defence_level: int) -> Array:
+	print(type)
+	var level = LevelDefiner.get_level(n_level_playing)
+	print(level.get_upgrade_level_cost(type, defence_level))
+	var value = []
+	value.append(level.get_upgrade_level_cost(type, defence_level))
+	return value
+
+
+
+
+
+	
+func _on_upgrade_button_pressed() -> void:
+	var button
+	for i in defence_buttons:
+		if i.type==$"PlayZone/DefenceMenu/Info/Tipo/tipo-stat".text:
+			button = i
+			break
+	button.upgrade()
