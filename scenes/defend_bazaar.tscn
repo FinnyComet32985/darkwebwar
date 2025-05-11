@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=31 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
 [ext_resource type="Texture2D" uid="uid://b2q70q0mk1tjy" path="res://assets/DarkWebWar-UpgradeIco.png" id="5_5nxig"]
+[ext_resource type="Texture2D" uid="uid://bwntvlhyy5w1m" path="res://assets/temp/DarkWebWar-Level 1.png" id="5_n7olq"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/defence_builder.gd" id="7_7n4du"]
 [ext_resource type="Texture2D" uid="uid://bp6km76q8av8n" path="res://assets/temp/Firewall.png" id="8_7n4du"]
 [ext_resource type="Texture2D" uid="uid://8hwoy8w0atps" path="res://assets/DarkWebWar-BuildIco.png" id="8_toq7d"]
@@ -44,6 +45,21 @@ Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsu3c"]
 
+[sub_resource type="Animation" id="Animation_n7olq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["[-----]"]
+}
+
 [sub_resource type="Animation" id="Animation_toq7d"]
 resource_name = "btc_gen"
 length = 5.5
@@ -61,21 +77,6 @@ tracks/0/keys = {
 "values": ["[-----]", "[#----]", "[##---]", "[###--]", "[####-]", "[#####]"]
 }
 
-[sub_resource type="Animation" id="Animation_n7olq"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["[-----]"]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wq2sp"]
 _data = {
 &"RESET": SubResource("Animation_n7olq"),
@@ -89,6 +90,9 @@ bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7n4du"]
 bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n7olq"]
+size = Vector2(58.5, 55)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dsu3c"]
 shader = ExtResource("3_dr1i0")
@@ -442,6 +446,7 @@ offset_bottom = 479.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_n7olq")
 
 [node name="BtcGen_stat" type="Label" parent="PlayZone"]
 texture_filter = 1
@@ -788,6 +793,18 @@ grow_vertical = 0
 theme = ExtResource("3_dsu3c")
 text = "< indietro"
 
+[node name="Attack" type="Node2D" parent="PlayZone"]
+
+[node name="AttackSpawner" type="Timer" parent="PlayZone/Attack"]
+wait_time = 2.0
+
+[node name="Area2D" type="Area2D" parent="PlayZone"]
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayZone/Area2D"]
+position = Vector2(234, 372)
+shape = SubResource("RectangleShape2D_n7olq")
+
 [node name="Button" type="Button" parent="."]
 offset_left = 1036.0
 offset_top = 82.0
@@ -811,4 +828,6 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids/BuildIDS" to="PlayZone/DefenceBuilder" method="_on_build_ids_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter/BuildRateLimiter" to="PlayZone/DefenceBuilder" method="_on_build_rate_limiter_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
+[connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
+[connection signal="body_entered" from="PlayZone/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="pressed" from="Button" to="." method="request_level_up"]

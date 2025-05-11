@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxdvhdb3nq0vg"]
+
+[ext_resource type="Script" uid="uid://bwhaur2ovh0qi" path="res://scripts/DefendBazaar/attack.gd" id="1_45h55"]
+[ext_resource type="Texture2D" uid="uid://bdvje6favyhjj" path="res://assets/temp/DarkWebWar-DDoS.png" id="1_y8g6r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45h55"]
+size = Vector2(84, 50)
+
+[node name="RigidBody2D" type="RigidBody2D"]
+mass = 0.1
+gravity_scale = 0.1
+script = ExtResource("1_45h55")
+speed = 90.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_45h55")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+texture_filter = 1
+texture = ExtResource("1_y8g6r")

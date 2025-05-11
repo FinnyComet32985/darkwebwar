@@ -3,6 +3,7 @@ extends Node
 signal level_up_requested
 
 var defence_button = preload("res://scenes/DefendBazaar/defence_button.tscn")
+var attack = preload("res://scenes/DefendBazaar/Attack.tscn")
 
 var conf := 0
 var integ := 0
@@ -12,6 +13,7 @@ var btc := 0
 
 var defence_buttons := []
 var defence_built := []
+var attack_spawned := []
 var n_level_playing = 1
 
 func _ready():
@@ -59,6 +61,7 @@ func init_level(n_level:int) -> void:
 	$PlayZone/BtcGen_stat.position = level.btc_gen_position
 	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
+	start_wave()
 
 func _on_level_up_requested():
 	$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
@@ -102,3 +105,22 @@ func _on_button_pressed() -> void:
 func _on_btc_gen_timeout() -> void:
 	btc += 10
 	update_btc()
+
+
+var attack_spawn_position := [Vector2(230.0, 35), Vector2(347.0, 35), Vector2(480.0, 35)]
+
+func start_wave() -> void:
+	$PlayZone/Attack/AttackSpawner.start()
+
+
+func _on_attack_spawner_timeout() -> void:
+	var numero_random = randi_range(0, 2)
+	var new_attack = attack.instantiate()
+	new_attack.position = attack_spawn_position[numero_random]
+	$PlayZone/Attack.add_child(new_attack)
+	attack_spawned.append(new_attack)
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if attack_spawned.find(body):
+		body.entered_protected_node=true
