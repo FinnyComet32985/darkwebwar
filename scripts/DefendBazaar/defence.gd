@@ -3,6 +3,8 @@ extends Button
 @export var type: String
 @export var level: int = 1
 
+var _cost := 0
+
 var firewall = preload("res://assets/temp/Firewall.png")
 var honeypot = preload("res://assets/temp/Honeypot.png")
 var ids = preload("res://assets/temp/DarkWebWar-IDS.png")
@@ -11,7 +13,7 @@ var defence_loaded = {
 	"firewall": firewall,
 	"honeypot": honeypot,
 	"ids": ids,
-	"ratelimiter": ratelimiter
+	"Rate Limiter": ratelimiter
 }
 
 func _ready() -> void:
@@ -35,9 +37,9 @@ func set_type(new_type: String) -> void:
 	if self.type == "ids":
 		self.icon=ids
 		self.type = "ids"
-	if self.type == "ratelimiter":
+	if self.type == "Rate Limiter":
 		self.icon=ratelimiter
-		self.type = "ratelimiter"
+		self.type = "Rate Limiter"
 	$"../../".defence_built.append(type)
 
 func open_menu() -> void:
@@ -48,14 +50,19 @@ func open_menu() -> void:
 		$"../DefenceMenu/Info/Level/level_stat".text = str(self.level)
 
 		var other_info = $"../../".get_defence_other_info(self.type, self.level)
-
+		_cost = other_info[0]
 		$"../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
+
+		if _cost > $"../../".btc:
+			$"../DefenceMenu/Info/Level/UpgradeButton".visible = 0 
 		
 	else:
 		$"../DefenceBuilder".visible=1
 		$"../DefenceBuilder".defence=self
 
 func upgrade():
+	$"../../".btc=$"../../".btc-_cost
+	$"../../".update_btc()
 	level+=1
 	$"../DefenceMenu/Info/Level/level_stat".text = str(self.level)
 	var other_info = $"../../".get_defence_other_info(self.type, self.level)

@@ -11,10 +11,10 @@ var levels := [
         "phishingRecognizer": [0]
         },
         { # costi per upgrade edifici piazzabili 
-            "firewall": [0, 3, 6],
-            "honeypot": [0, 1, 3],
-            "ids": [0, 3, 6],
-            "ratelimiter": [0, 2, 7]
+            "firewall": [1, 3, 6],
+            "honeypot": [2, 1, 3],
+            "ids": [1, 3, 6],
+            "Rate Limiter": [3, 2, 7]
             # altro
         },
         "res://assets/temp/DarkWebWar-Level 1.png",
@@ -23,7 +23,8 @@ var levels := [
         1: Vector2(319, 227),
         2: Vector2(431, 227),
         3: Vector2(319, 339)
-        }
+        },
+        Vector2(196, 420)
     ),
     # Level 2
     LevelClass.new(
@@ -38,7 +39,7 @@ var levels := [
             "firewall": [3, 6],
             "honeypot": [1, 3],
             "ids": [3, 6],
-            "rateLimiter": [2, 7]
+            "Rate Limiter": [2, 7]
             # altro
         },
         "res://assets/temp/DarkWebWar-Level 2.png",
@@ -48,7 +49,8 @@ var levels := [
         2: Vector2(431, 227),
         3: Vector2(319, 339),
         4: Vector2(431, 339)
-        }
+        },
+        Vector2(196, 420)
     )
 ]
 

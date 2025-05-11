@@ -1,12 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=29 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_dr1i0"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
+[ext_resource type="Texture2D" uid="uid://b2q70q0mk1tjy" path="res://assets/DarkWebWar-UpgradeIco.png" id="5_5nxig"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/defence_builder.gd" id="7_7n4du"]
 [ext_resource type="Texture2D" uid="uid://bp6km76q8av8n" path="res://assets/temp/Firewall.png" id="8_7n4du"]
+[ext_resource type="Texture2D" uid="uid://8hwoy8w0atps" path="res://assets/DarkWebWar-BuildIco.png" id="8_toq7d"]
 [ext_resource type="Texture2D" uid="uid://wvd7y4r1p004" path="res://assets/temp/Honeypot.png" id="9_jyyir"]
 [ext_resource type="Texture2D" uid="uid://cif8ndykhqlhx" path="res://assets/temp/DarkWebWar-IDS.png" id="10_5nxig"]
 [ext_resource type="Texture2D" uid="uid://crt4l2umcmal6" path="res://assets/temp/DarkWebWar-RateLimiter.png" id="11_toq7d"]
@@ -41,6 +43,44 @@ Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee5cj"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsu3c"]
+
+[sub_resource type="Animation" id="Animation_toq7d"]
+resource_name = "btc_gen"
+length = 5.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.03333, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["[-----]", "[#----]", "[##---]", "[###--]", "[####-]", "[#####]"]
+}
+
+[sub_resource type="Animation" id="Animation_n7olq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["[-----]"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wq2sp"]
+_data = {
+&"RESET": SubResource("Animation_n7olq"),
+&"btc_gen": SubResource("Animation_toq7d")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyyir"]
 bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
@@ -261,6 +301,9 @@ theme = ExtResource("3_dsu3c")
 text = "0"
 vertical_alignment = 2
 
+[node name="BtcGen" type="Timer" parent="SideBar/Status-container/Stat/BTC"]
+wait_time = 5.5
+
 [node name="HSeparator" type="HSeparator" parent="SideBar"]
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -400,12 +443,27 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 
+[node name="BtcGen_stat" type="Label" parent="PlayZone"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -165.0
+offset_top = 28.0
+offset_right = -97.0
+offset_bottom = 51.0
+theme = ExtResource("3_dsu3c")
+text = "[-----]"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayZone/BtcGen_stat"]
+libraries = {
+&"": SubResource("AnimationLibrary_wq2sp")
+}
+
 [node name="DefenceMenu" type="Panel" parent="PlayZone"]
 visible = false
 z_index = 2
 layout_mode = 0
 offset_left = 115.0
-offset_top = 310.0
+offset_top = 32.0
 offset_right = 578.0
 offset_bottom = 509.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jyyir")
@@ -426,7 +484,7 @@ offset_left = 15.0
 offset_top = 36.0
 offset_right = 447.0
 offset_bottom = 183.0
-theme_override_constants/separation = 20
+theme_override_constants/separation = 30
 
 [node name="Tipo" type="HBoxContainer" parent="PlayZone/DefenceMenu/Info"]
 layout_mode = 2
@@ -475,18 +533,36 @@ theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxEmpty_jyyir")
 
 [node name="UpgradeButton" type="Button" parent="PlayZone/DefenceMenu/Info/Level"]
-texture_filter = 1
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 theme_override_font_sizes/font_size = 20
-text = "[⬆️]"
+icon = ExtResource("5_5nxig")
 flat = true
+expand_icon = true
 
-[node name="Efficenzy" type="Label" parent="PlayZone/DefenceMenu/Info"]
+[node name="Efficenzy-label" type="Label" parent="PlayZone/DefenceMenu/Info"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "Efficace contro:"
+
+[node name="Button" type="Button" parent="PlayZone/DefenceMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.5
+offset_top = -24.0
+offset_right = 42.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_dsu3c")
+text = "< Indietro"
 
 [node name="DefenceBuilder" type="Panel" parent="PlayZone"]
 visible = false
@@ -540,6 +616,7 @@ text = "Firewall"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 20
 text = "[?]"
 flat = true
 
@@ -552,13 +629,15 @@ text = "-"
 [node name="Cost" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "100 ₿"
+text = "0 ₿"
 
 [node name="BuildFirewall" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "🛠️"
+icon = ExtResource("8_toq7d")
 flat = true
+expand_icon = true
 
 [node name="HoneyPot" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
 layout_mode = 2
@@ -580,6 +659,7 @@ text = "HoneyPot"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 20
 text = "[?]"
 flat = true
 
@@ -593,13 +673,15 @@ text = "-"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "70 ₿"
+text = "0 ₿"
 
 [node name="BuildHoneypot" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "🛠️"
+icon = ExtResource("8_toq7d")
 flat = true
+expand_icon = true
 
 [node name="Ids" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
 layout_mode = 2
@@ -621,6 +703,7 @@ text = "IDS"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 20
 text = "[?]"
 flat = true
 
@@ -634,13 +717,15 @@ text = "-"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "90 ₿"
+text = "0 ₿"
 
 [node name="BuildIDS" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "🛠️"
+icon = ExtResource("8_toq7d")
 flat = true
+expand_icon = true
 
 [node name="RateLimiter" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
 layout_mode = 2
@@ -662,6 +747,7 @@ text = "Rate limiter"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 20
 text = "[?]"
 flat = true
 
@@ -675,13 +761,15 @@ text = "-"
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "60 ₿"
+text = "0 ₿"
 
 [node name="BuildRateLimiter" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "🛠️"
+icon = ExtResource("8_toq7d")
 flat = true
+expand_icon = true
 
 [node name="BackButton" type="Button" parent="PlayZone/DefenceBuilder"]
 texture_filter = 1
@@ -714,7 +802,9 @@ z_index = 3
 material = SubResource("ShaderMaterial_dsu3c")
 mesh = SubResource("QuadMesh_ee5cj")
 
+[connection signal="timeout" from="SideBar/Status-container/Stat/BTC/BtcGen" to="." method="_on_btc_gen_timeout"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="PlayZone/DefenceMenu/Button" to="." method="_on_button_pressed"]
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall/BuildFirewall" to="PlayZone/DefenceBuilder" method="_on_build_firewall_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot/BuildHoneypot" to="PlayZone/DefenceBuilder" method="_on_build_honeypot_pressed"]

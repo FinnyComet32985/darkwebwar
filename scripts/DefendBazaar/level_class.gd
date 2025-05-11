@@ -21,13 +21,15 @@ var minimap: String # path to minimap
 
 var placable_defence_position: Dictionary # { int: Vector2}
 
-func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_placable_defence_position) -> void:
+var btc_gen_position: Vector2
+func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_placable_defence_position, new_btc_gen_position:Vector2) -> void:
 	self.level_num = new_level_num
 	self.n_of_wave = new_n_of_wave
 	self.static_defence_level_cost = new_static_defence_level_cost
 	self.placable_defence_level_cost = new_placable_defence_level_cost
 	self.minimap = new_minimap
 	self.placable_defence_position = new_placable_defence_position
+	self.btc_gen_position = new_btc_gen_position
 
 
 func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
@@ -37,7 +39,7 @@ func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
 		return self.placable_defence_level_cost["honeypot"][level]
 	elif upgrade_type == "ids":
 		return self.placable_defence_level_cost["ids"][level]
-	elif upgrade_type == "ratelimiter":
-		return self.placable_defence_level_cost["ratelimiter"][level]
+	elif upgrade_type == "Rate Limiter":
+		return self.placable_defence_level_cost["Rate Limiter"][level]
 	else:
 		return 0

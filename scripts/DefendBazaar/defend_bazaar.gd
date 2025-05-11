@@ -8,6 +8,8 @@ var conf := 0
 var integ := 0
 var disp := 0
 
+var btc := 0
+
 var defence_buttons := []
 var defence_built := []
 var n_level_playing = 1
@@ -31,7 +33,9 @@ func init_level(n_level:int) -> void:
 	integ = 10
 	$"SideBar/Status-container/Stat/Disp/disp-stat".text="[##########]"
 	disp = 10
-	$"SideBar/Status-container/Stat/BTC/Btc-stat".text="0"
+
+	btc=10
+	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
 	
 	$SideBar/PassiveDef/Stat/Patch/Status.text = "❌ - [0]"
 	$SideBar/PassiveDef/Stat/Patch/level.text = "0 - "+str(level.static_defence_level_cost["patch"][0])+" ₿"
@@ -52,8 +56,13 @@ func init_level(n_level:int) -> void:
 		playzone.add_child(button)
 		defence_buttons.append(button)
 	
+	$PlayZone/BtcGen_stat.position = level.btc_gen_position
+	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
+	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
 
 func _on_level_up_requested():
+	$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
+	$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
 	n_level_playing += 1
 	for i in defence_buttons:
 		i.queue_free()
@@ -66,16 +75,15 @@ func request_level_up():
 
 
 func get_defence_other_info(type: String, defence_level: int) -> Array:
-	print(type)
 	var level = LevelDefiner.get_level(n_level_playing)
-	print(level.get_upgrade_level_cost(type, defence_level))
 	var value = []
 	value.append(level.get_upgrade_level_cost(type, defence_level))
 	return value
 
 
 
-
+func update_btc() -> void:
+	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
 
 	
 func _on_upgrade_button_pressed() -> void:
@@ -85,3 +93,12 @@ func _on_upgrade_button_pressed() -> void:
 			button = i
 			break
 	button.upgrade()
+
+
+func _on_button_pressed() -> void:
+	$PlayZone/DefenceMenu.visible=0
+
+
+func _on_btc_gen_timeout() -> void:
+	btc += 10
+	update_btc()
