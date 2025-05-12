@@ -16,6 +16,9 @@ var defence_built := []
 var attack_spawned := []
 var n_level_playing = 1
 
+var curve_to_router: Array
+
+
 func _ready():
 	if Global.save_data["settings"]["crt"] == false:
 		$CanvasLayer.visible = false
@@ -61,6 +64,24 @@ func init_level(n_level:int) -> void:
 	$PlayZone/BtcGen_stat.position = level.btc_gen_position
 	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
+
+	var curve_to_router_0 = Curve2D.new()
+	curve_to_router_0.add_point(Vector2(249.0, 101.0))
+	curve_to_router_0.add_point(Vector2(372.0, 224.0))
+	curve_to_router.append(curve_to_router_0)
+
+	var curve_to_router_1 = Curve2D.new()
+	curve_to_router_1.add_point(Vector2(378.0, 97.0))
+	curve_to_router_1.add_point(Vector2(378.0, 215.0))
+	curve_to_router.append(curve_to_router_1)
+
+
+	var curve_to_router_2 = Curve2D.new()
+	curve_to_router_2.add_point(Vector2(507.0, 102.0))
+	curve_to_router_2.add_point(Vector2(393.0, 215.0))
+	curve_to_router.append(curve_to_router_2)
+
+	
 	start_wave()
 
 func _on_level_up_requested():
@@ -118,9 +139,10 @@ func _on_attack_spawner_timeout() -> void:
 	var new_attack = attack.instantiate()
 	new_attack.position = attack_spawn_position[numero_random]
 	$PlayZone/Attack.add_child(new_attack)
+	new_attack.start_following_curve(curve_to_router[numero_random])
 	attack_spawned.append(new_attack)
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if attack_spawned.find(body):
-		body.entered_protected_node=true
+func _on_router_body_entered(body: Node2D) -> void:
+	if attack_spawned.find(body)!=-1:
+		var prefered_target = LevelDefiner.get_prefered_target(n_level_playing, body.attack_type)

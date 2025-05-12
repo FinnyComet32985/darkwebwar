@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://drsqid4m6tif0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxcaj"]
+size = Vector2(58.5, 55)
+
+[node name="PrimaryStructure" type="Area2D"]
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dxcaj")
