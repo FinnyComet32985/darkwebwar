@@ -14,3 +14,5 @@
 - [ ]  sistemare nelle storie il [verso dk] con [-> dk] in modo che non venga saltato
 
 ## FEATURES
+
+- []

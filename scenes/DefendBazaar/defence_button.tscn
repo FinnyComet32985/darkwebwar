@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bau6xo8nxq5p5"]
+[gd_scene load_steps=3 format=3 uid="uid://bau6xo8nxq5p5"]
 
 [ext_resource type="Script" uid="uid://cm32frsqb58e2" path="res://scripts/DefendBazaar/defence.gd" id="1_cjsyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjsyo"]
+size = Vector2(56, 56)
 
 [node name="DefenceButton" type="Button"]
 offset_left = -102.0
@@ -10,3 +13,9 @@ offset_bottom = 36.0
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("1_cjsyo")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(28, 28)
+shape = SubResource("RectangleShape2D_cjsyo")

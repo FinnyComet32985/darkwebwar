@@ -18,13 +18,24 @@ var levels := [
 			# altro
 		},
 		"res://assets/temp/DarkWebWar-Level 1.png",
-		{ # posizione strutture difensive
-		0: Vector2(207.0, 227.0),
-		1: Vector2(319, 227),
-		2: Vector2(431, 227),
-		3: Vector2(319, 339)
-		},
-		Vector2(196, 420),
+
+		#TODO path
+		[
+			[ # path 1
+				Web_node.new("defence", Vector2(207.0, 227.0), [Vector2(378, 218), Vector2(269, 305)]),
+				Web_node.new("transaction_server", Vector2(237, 373), [Vector2(265, 377), Vector2(265, 427)])
+			],
+			[ # path 2
+				Web_node.new("defence", Vector2(319, 227), [Vector2(377, 251), Vector2(377, 308)]),
+				Web_node.new("defence", Vector2(431, 227), [Vector2(377, 251), Vector2(377, 293)]),
+				Web_node.new("backend", Vector2(346, 482), [Vector2(377, 251), Vector2(377, 303)])
+			],
+			[ # path 3
+				Web_node.new("defence", Vector2(319, 339), [Vector2(381, -18), Vector2(485, 74)]),
+				Web_node.new("defence_c", Vector2(431, 227), [Vector2(490, 137), Vector2(414, 204)]),
+				Web_node.new("backend_c", Vector2(446, 482), [Vector2(377, 251), Vector2(377, 303)])
+			]
+		],
 		[
 			AttackClass.new("DDoS", ["firewall"], ["backend"], 30)
 		]
@@ -46,14 +57,11 @@ var levels := [
 			# altro
 		},
 		"res://assets/temp/DarkWebWar-Level 2.png",
-		{ # posizione strutture difensive
-		0: Vector2(207.0, 227.0),
-		1: Vector2(319, 227),
-		2: Vector2(431, 227),
-		3: Vector2(319, 339),
-		4: Vector2(431, 339)
-		},
-		Vector2(196, 420),
+		
+		
+		[
+
+		],
 		[
 			AttackClass.new("DDoS", ["firewall"], ["backend"], 30)
 		]
@@ -65,6 +73,15 @@ func get_level(levelNum: int) -> LevelClass:
 	return levels[levelNum-1]
 
 func get_prefered_target(level: int, attack_type: String) -> Array:
-	var attacks = levels[level].attacks
+	var attacks = levels[level-1].attacks
 	var find = attacks.filter(func(attack): return attack.attack_type == attack_type)
 	return find[0].prefered_target
+
+func find_path(level:int, structure_name:String) -> Array:
+	var structure_name_c = structure_name+"_c"
+	var return_path = []
+	for path in levels[level-1].paths:
+		for node in path:
+			if node.type == structure_name || node.type==structure_name_c:
+				return_path.append(path)
+	return return_path

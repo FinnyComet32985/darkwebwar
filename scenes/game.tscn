@@ -1,11 +1,11 @@
 [gd_scene load_steps=32 format=3 uid="uid://dgwl6wrflal0s"]
 
-[ext_resource type="Script" uid="uid://bhbpihfdyf10b" path="res://scripts/game.gd" id="1_lbhrr"]
+[ext_resource type="Script" uid="uid://bhbpihfdyf10b" path="res://scripts/Story/game.gd" id="1_lbhrr"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_yqjtg"]
 [ext_resource type="FontFile" uid="uid://csjco23g15cho" path="res://assets/fonts/fixedsys-2-monospaced.ttf" id="2_iywne"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_lnu2h"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_lnu2h"]
-[ext_resource type="Script" uid="uid://cs7hy5vukf4yw" path="res://scripts/button.gd" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://cs7hy5vukf4yw" path="res://scripts/MainMenu/button.gd" id="5_p57ef"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbhrr"]
 bg_color = Color(0, 0, 0.666667, 1)

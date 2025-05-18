@@ -4,12 +4,15 @@ signal level_up_requested
 
 var defence_button = preload("res://scenes/DefendBazaar/defence_button.tscn")
 var attack = preload("res://scenes/DefendBazaar/Attack.tscn")
+var structure = preload("res://scenes/DefendBazaar/primary_structure.tscn")
 
 var conf := 0
 var integ := 0
 var disp := 0
 
 var btc := 0
+
+var structures := []
 
 var defence_buttons := []
 var defence_built := []
@@ -28,7 +31,8 @@ func _ready():
 
 
 func init_level(n_level:int) -> void:
-	var playzone = get_node("PlayZone")
+	var defence = get_node("PlayZone/Defence")
+	var structure_area = get_node("PlayZone/Structure")
 	var level = LevelDefiner.get_level(n_level)
 	$TerminalBar/StatusBar/Level.text = "Level "+str(n_level)
 	$"SideBar/Status-container/Stat/Wave/wave-stat".text = "0/"+str(level.n_of_wave)
@@ -54,14 +58,21 @@ func init_level(n_level:int) -> void:
 	var gameArea = load(level.minimap)
 	$PlayZone/TextureRect.texture = gameArea
 
-	for i in range(len(level.placable_defence_position)):
-		var button = defence_button.instantiate()
-		button.position = level.placable_defence_position[i]
-		button.z_index = 1 
-		playzone.add_child(button)
-		defence_buttons.append(button)
-	
-	$PlayZone/BtcGen_stat.position = level.btc_gen_position
+	for path in level.paths:
+		for node in path:
+			if node.type=="defence":
+				var button = defence_button.instantiate()
+				button.position = node.position
+				defence.add_child(button)
+				defence_buttons.append(button)
+			elif node.type=="transaction_server" || node.type=="backend":
+				var struct = structure.instantiate()
+				struct.position = node.position
+				structure_area.add_child(struct)
+				structures.append(struct)
+				if node.type=="transaction_server":
+						$PlayZone/BtcGen_stat.position = Vector2(node.position.x-42, node.position.y+45)
+
 	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
 
@@ -146,3 +157,6 @@ func _on_attack_spawner_timeout() -> void:
 func _on_router_body_entered(body: Node2D) -> void:
 	if attack_spawned.find(body)!=-1:
 		var prefered_target = LevelDefiner.get_prefered_target(n_level_playing, body.attack_type)
+		var path = LevelDefiner.find_path(n_level_playing, prefered_target[0])
+		
+		print(path)

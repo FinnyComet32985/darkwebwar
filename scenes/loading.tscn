@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://mvoe3lhvalfl"]
 
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="1_101rs"]
-[ext_resource type="Script" uid="uid://doy3c2dn48r0o" path="res://scripts/loading.gd" id="1_ir5ef"]
+[ext_resource type="Script" uid="uid://doy3c2dn48r0o" path="res://scripts/Loading/loading.gd" id="1_ir5ef"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="2_yc7uc"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="3_dhqfv"]
 

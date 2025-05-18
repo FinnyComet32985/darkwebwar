@@ -1,14 +1,14 @@
 [gd_scene load_steps=51 format=3 uid="uid://dlushfwcksg2i"]
 
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_l6cm7"]
-[ext_resource type="Script" uid="uid://3xfrpny5t3ay" path="res://scripts/main_menu.gd" id="2_bqqt6"]
+[ext_resource type="Script" uid="uid://3xfrpny5t3ay" path="res://scripts/MainMenu/main_menu.gd" id="2_bqqt6"]
 [ext_resource type="FontFile" uid="uid://bl87psmw0c2a3" path="res://assets/fonts/ROBOTO-MEDIUM.TTF" id="2_oa1go"]
 [ext_resource type="Theme" uid="uid://dj67k3x7g7hfu" path="res://assets/main_menu/main_menu_button_white.tres" id="3_wu84c"]
-[ext_resource type="Script" uid="uid://brvdhgkgu1hf7" path="res://scripts/settings_main_menu.gd" id="4_8ln24"]
+[ext_resource type="Script" uid="uid://brvdhgkgu1hf7" path="res://scripts/MainMenu/settings_main_menu.gd" id="4_8ln24"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="4_wu84c"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="5_rtw2f"]
-[ext_resource type="Script" uid="uid://8np2ji0x3cmo" path="res://scripts/username_input.gd" id="7_tbmy8"]
-[ext_resource type="Script" uid="uid://c3qvdmwcpk3v3" path="res://scripts/intro.gd" id="8_jk1qb"]
+[ext_resource type="Script" uid="uid://8np2ji0x3cmo" path="res://scripts/MainMenu/username_input.gd" id="7_tbmy8"]
+[ext_resource type="Script" uid="uid://c3qvdmwcpk3v3" path="res://scripts/MainMenu/intro.gd" id="8_jk1qb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
 bg_color = Color(0, 0, 0.666667, 1)

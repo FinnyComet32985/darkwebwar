@@ -21,8 +21,8 @@ func _ready() -> void:
 	
 
 func _on_pressed() -> void:
-	if $"../DefenceMenu".visible == true:
-		$"../DefenceMenu".visible=0
+	if $"../../DefenceMenu".visible == true:
+		$"../../DefenceMenu".visible=0
 	else:
 		open_menu()
 
@@ -40,25 +40,25 @@ func set_type(new_type: String) -> void:
 	if self.type == "Rate Limiter":
 		self.icon=ratelimiter
 		self.type = "Rate Limiter"
-	$"../../".defence_built.append(type)
+	$"../../../".defence_built.append(type)
 
 func open_menu() -> void:
 	if type!="":
-		$"../DefenceMenu".visible=1
-		$"../DefenceMenu/Info/Tipo/tipo-stat".text=self.type
-		$"../DefenceMenu/Info/Tipo/tipo".texture=defence_loaded[self.type]
-		$"../DefenceMenu/Info/Level/level_stat".text = str(self.level)
+		$"../../DefenceMenu".visible=1
+		$"../../DefenceMenu/Info/Tipo/tipo-stat".text=self.type
+		$"../../DefenceMenu/Info/Tipo/tipo".texture=defence_loaded[self.type]
+		$"../../DefenceMenu/Info/Level/level_stat".text = str(self.level)
 
-		var other_info = $"../../".get_defence_other_info(self.type, self.level)
+		var other_info = $"../../../".get_defence_other_info(self.type, self.level)
 		_cost = other_info[0]
-		$"../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
+		$"../../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
 
-		if _cost > $"../../".btc:
-			$"../DefenceMenu/Info/Level/UpgradeButton".visible = 0 
+		if _cost > $"../../../".btc:
+			$"../../DefenceMenu/Info/Level/UpgradeButton".visible = 0 
 		
 	else:
-		$"../DefenceBuilder".visible=1
-		$"../DefenceBuilder".defence=self
+		$"../../DefenceBuilder".visible=1
+		$"../../DefenceBuilder".defence=self
 
 func upgrade():
 	$"../../".btc=$"../../".btc-_cost

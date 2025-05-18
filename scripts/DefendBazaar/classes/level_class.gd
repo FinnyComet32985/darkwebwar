@@ -19,20 +19,34 @@ var placable_defence_level_cost: Dictionary
 # }
 var minimap: String # path to minimap
 
-var placable_defence_position: Dictionary # { int: Vector2}
+# TODO working refactor
+var paths: Array
+# [
+# 	[ // path 1 
+#		node(
+#			type // defence
+#			vector2 // posizione della difesa
+#			curve // curva fino alla struttura
+#		),
+# 		node(
+#			type // struttura primaria
+#			vector2 // posizione struttura	
+#			curve // curva dal nodo precedente alla struttura		
+#		)
+#	], ...
+# ]
 
-var btc_gen_position: Vector2
+
 
 var attacks: Array
 
-func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_placable_defence_position, new_btc_gen_position:Vector2, new_attacks: Array) -> void:
+func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array) -> void:
 	self.level_num = new_level_num
 	self.n_of_wave = new_n_of_wave
 	self.static_defence_level_cost = new_static_defence_level_cost
 	self.placable_defence_level_cost = new_placable_defence_level_cost
 	self.minimap = new_minimap
-	self.placable_defence_position = new_placable_defence_position
-	self.btc_gen_position = new_btc_gen_position
+	self.paths = new_paths
 	self.attacks=new_attacks
 
 

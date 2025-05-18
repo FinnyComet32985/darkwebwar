@@ -448,6 +448,16 @@ grow_vertical = 2
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_n7olq")
 
+[node name="Defence" type="Control" parent="PlayZone"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Structure" type="Node2D" parent="PlayZone"]
+
 [node name="BtcGen_stat" type="Label" parent="PlayZone"]
 texture_filter = 1
 layout_mode = 0
@@ -813,6 +823,7 @@ offset_bottom = 113.0
 text = "level up"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
 z_index = 3
