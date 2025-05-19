@@ -12,10 +12,19 @@ var disp := 0
 
 var btc := 0
 
+
+var paths := []
+
+
+
 var structures := []
 
 var defence_buttons := []
+
+
 var defence_built := []
+
+
 var attack_spawned := []
 var n_level_playing = 1
 
@@ -33,7 +42,13 @@ func _ready():
 func init_level(n_level:int) -> void:
 	var defence = get_node("PlayZone/Defence")
 	var structure_area = get_node("PlayZone/Structure")
+	
+	
 	var level = LevelDefiner.get_level(n_level)
+	
+	paths = level.paths 
+
+
 	$TerminalBar/StatusBar/Level.text = "Level "+str(n_level)
 	$"SideBar/Status-container/Stat/Wave/wave-stat".text = "0/"+str(level.n_of_wave)
 	$"SideBar/Status-container/Stat/Conf/conf-stat".text="[##########]"
@@ -63,6 +78,7 @@ func init_level(n_level:int) -> void:
 			if node.type=="defence":
 				var button = defence_button.instantiate()
 				button.position = node.position
+				button.node_id = node.id
 				defence.add_child(button)
 				defence_buttons.append(button)
 			elif node.type=="transaction_server" || node.type=="backend":
@@ -157,6 +173,40 @@ func _on_attack_spawner_timeout() -> void:
 func _on_router_body_entered(body: Node2D) -> void:
 	if attack_spawned.find(body)!=-1:
 		var prefered_target = LevelDefiner.get_prefered_target(n_level_playing, body.attack_type)
-		var path = LevelDefiner.find_path(n_level_playing, prefered_target[0])
+		var defined_paths = find_path(prefered_target)
 		
-		print(path)
+		if len(defined_paths)!=0:
+			var effective_defence = LevelDefiner.get_effective_defence(n_level_playing, body.attack_type)
+			var excluded_paths = []
+
+			for defence in effective_defence:
+				for path in defined_paths:
+					for node in path:
+						if node.type== defence:
+							excluded_paths.append(path)
+
+			var optimal_paths = []
+			for path in defined_paths:
+				if not excluded_paths.has(path):
+					optimal_paths.append(path)
+			
+			if len(optimal_paths)==0:
+				body.set_curve_to_follow(defined_paths[randi_range(0, len(defined_paths)-1)])
+			elif len(optimal_paths)==1:
+				body.set_curve_to_follow(optimal_paths[0])
+			else:
+				body.set_curve_to_follow(optimal_paths[randi_range(0, len(optimal_paths)-1)])
+		else:
+			print("No path found for attack type: "+body.attack_type)
+			return
+
+
+func find_path(structure_names:Array) -> Array:
+	var return_path = []
+	for structure_name in structure_names: 
+		var structure_name_c = structure_name+"_c"
+		for path in paths:
+			for node in path:
+				if node.type == structure_name || node.type==structure_name_c:
+					return_path.append(path)
+	return return_path

@@ -1,6 +1,6 @@
 ## TODO
 
-- [ ]  migliorare i comandi nelle storie, trovare dei colori adatti per i comandi e i nomi nelle chat e aggiungere i <>
+- [x]  migliorare i comandi nelle storie, trovare dei colori adatti per i comandi e i nomi nelle chat e aggiungere i <>
 - [x]  sistemare la scrittura della storia con i "\n"
 - [ ]  rimuovere il riferimento a msdos nella schermata di caricamento e inserire il logo della casa di sviluppo prima di farla partire
 - [x]  modificare la storia n 1 per aggiungere delle opzioni per vedere i floppy disk o inserire nel testo qualcosa che centri con le scelte disponibili
@@ -11,8 +11,12 @@
 ## BUG FIX
 
 - [x]  sistemare l'animazione di scrittura quando incontra espressioni di tipo BBCode
-- [ ]  sistemare nelle storie il [verso dk] con [-> dk] in modo che non venga saltato
+- [x]  sistemare nelle storie il [verso dk] con [-> dk] in modo che non venga saltato
 
 ## FEATURES
 
 - []
+
+## REFINEMENT
+- [ ] capire se è il caso di far costruire più strutture uguali al giocatore in defend the bazaar
+- [ ] vapire se fare un bottone start wave/farle partire a tempo o far andare sempre gli attacchi

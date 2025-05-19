@@ -6,12 +6,14 @@ func _on_build_firewall_pressed() -> void:
 	$"../..".btc=$"../..".btc-$"../..".get_defence_other_info("firewall", 0)[0]
 	$"../../".update_btc()
 	defence.set_type("firewall")
+	defence.update_path()
 	$".".visible=0
 
 func _on_build_honeypot_pressed() -> void:
 	$"../..".btc=$"../..".btc-$"../..".get_defence_other_info("honeypot", 0)[0]
 	$"../../".update_btc()
 	defence.set_type("honeypot")
+	defence.update_path()
 	$".".visible=0
 
 
@@ -19,12 +21,14 @@ func _on_build_ids_pressed() -> void:
 	$"../..".btc=$"../..".btc-$"../..".get_defence_other_info("ids", 0)[0]
 	$"../../".update_btc()
 	defence.set_type("ids")
+	defence.update_path()
 	$".".visible=0
 
 func _on_build_rate_limiter_pressed() -> void:
 	$"../..".btc=$"../..".btc-$"../..".get_defence_other_info("Rate Limiter", 0)[0]
 	$"../../".update_btc()
 	defence.set_type("Rate Limiter")
+	defence.update_path()
 	$".".visible=0
 
 func _on_back_button_pressed() -> void:

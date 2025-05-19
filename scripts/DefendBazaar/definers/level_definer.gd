@@ -22,22 +22,22 @@ var levels := [
 		#TODO path
 		[
 			[ # path 1
-				Web_node.new("defence", Vector2(207.0, 227.0), [Vector2(378, 218), Vector2(269, 305)]),
-				Web_node.new("transaction_server", Vector2(237, 373), [Vector2(265, 377), Vector2(265, 427)])
+				Web_node.new(1, "defence", Vector2(207.0, 227.0), [Vector2(378, 218), Vector2(269, 305)]),
+				Web_node.new(2, "transaction_server", Vector2(237, 373), [Vector2(265, 377), Vector2(265, 427)])
 			],
 			[ # path 2
-				Web_node.new("defence", Vector2(319, 227), [Vector2(377, 251), Vector2(377, 308)]),
-				Web_node.new("defence", Vector2(431, 227), [Vector2(377, 251), Vector2(377, 293)]),
-				Web_node.new("backend", Vector2(346, 482), [Vector2(377, 251), Vector2(377, 303)])
+				Web_node.new(3, "defence", Vector2(319, 227), [Vector2(377, 219), Vector2(377, 310)]),
+				Web_node.new(4, "defence", Vector2(319, 339), [Vector2(377, 372), Vector2(377, 424)]),
+				Web_node.new(5, "backend", Vector2(346, 482), [Vector2(377, 483), Vector2(377, 541)])
 			],
-			[ # path 3
-				Web_node.new("defence", Vector2(319, 339), [Vector2(381, -18), Vector2(485, 74)]),
-				Web_node.new("defence_c", Vector2(431, 227), [Vector2(490, 137), Vector2(414, 204)]),
-				Web_node.new("backend_c", Vector2(446, 482), [Vector2(377, 251), Vector2(377, 303)])
+			[ # path 3 
+				Web_node.new(6, "defence", Vector2(431, 227), [Vector2(386, 221), Vector2(488, 312)]),
+				Web_node.new(4, "defence_c", Vector2(319, 339), [Vector2(493, 373), Vector2(408, 444)]),
+				Web_node.new(5, "backend_c", Vector2(446, 482), [Vector2(377, 483), Vector2(377, 541)])
 			]
 		],
 		[
-			AttackClass.new("DDoS", ["firewall"], ["backend"], 30)
+			AttackClass.new("DDoS", ["firewall", "Rate Limiter"], ["backend"], 30),
 		]
 	),
 	# Level 2
@@ -77,11 +77,7 @@ func get_prefered_target(level: int, attack_type: String) -> Array:
 	var find = attacks.filter(func(attack): return attack.attack_type == attack_type)
 	return find[0].prefered_target
 
-func find_path(level:int, structure_name:String) -> Array:
-	var structure_name_c = structure_name+"_c"
-	var return_path = []
-	for path in levels[level-1].paths:
-		for node in path:
-			if node.type == structure_name || node.type==structure_name_c:
-				return_path.append(path)
-	return return_path
+func get_effective_defence(level:int, attack_type: String) -> Array:
+	var attacks = levels[level-1].attacks
+	var find = attacks.filter(func(attack): return attack.attack_type == attack_type)
+	return find[0].attack_defence
