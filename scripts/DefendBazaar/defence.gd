@@ -56,6 +56,11 @@ func open_menu() -> void:
 
 		if _cost > $"../../../".btc:
 			$"../../DefenceMenu/Info/Level/UpgradeButton".visible = 0 
+
+		var blocked_attack = ""
+		for attack in other_info[1]:
+			blocked_attack += attack + "\n"
+		$"../../DefenceMenu/Info/Eff_label".text = blocked_attack
 		
 	else:
 		$"../../DefenceBuilder".visible=1
@@ -78,7 +83,7 @@ func update_path() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var finded = false
-	for defence_type in LevelDefiner.get_effective_defence($"../../../".n_level_playing, body.attack_type):
+	for defence_type in DB_Level_definer.get_effective_defence($"../../../".n_level_playing, body.attack_type):
 		if defence_type == self.type:
 			finded=true
 			body.life -= 20

@@ -458,6 +458,11 @@ grow_vertical = 2
 
 [node name="Structure" type="Node2D" parent="PlayZone"]
 
+[node name="Attack" type="Node2D" parent="PlayZone"]
+
+[node name="AttackSpawner" type="Timer" parent="PlayZone/Attack"]
+wait_time = 2.0
+
 [node name="BtcGen_stat" type="Label" parent="PlayZone"]
 texture_filter = 1
 layout_mode = 0
@@ -561,6 +566,10 @@ texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "Efficace contro:"
+
+[node name="Eff_label" type="Label" parent="PlayZone/DefenceMenu/Info"]
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
 
 [node name="Button" type="Button" parent="PlayZone/DefenceMenu"]
 texture_filter = 1
@@ -803,11 +812,6 @@ grow_vertical = 0
 theme = ExtResource("3_dsu3c")
 text = "< indietro"
 
-[node name="Attack" type="Node2D" parent="PlayZone"]
-
-[node name="AttackSpawner" type="Timer" parent="PlayZone/Attack"]
-wait_time = 2.0
-
 [node name="Router" type="Area2D" parent="PlayZone"]
 position = Vector2(346, 151)
 input_pickable = false
@@ -830,6 +834,7 @@ material = SubResource("ShaderMaterial_dsu3c")
 mesh = SubResource("QuadMesh_ee5cj")
 
 [connection signal="timeout" from="SideBar/Status-container/Stat/BTC/BtcGen" to="." method="_on_btc_gen_timeout"]
+[connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Button" to="." method="_on_button_pressed"]
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
@@ -838,6 +843,5 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids/BuildIDS" to="PlayZone/DefenceBuilder" method="_on_build_ids_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter/BuildRateLimiter" to="PlayZone/DefenceBuilder" method="_on_build_rate_limiter_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
-[connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]
 [connection signal="pressed" from="Button" to="." method="request_level_up"]

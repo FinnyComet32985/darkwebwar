@@ -1,6 +1,6 @@
 extends Node
 
-class_name Web_node
+class_name DB_Web_node
 var id: int
 var type: String
 var position: Vector2

@@ -3,7 +3,6 @@ extends CharacterBody2D
 @export var attack_type: String
 var life:int = 100
 
-
 var curve: Curve2D = null
 var path_position := 0.0
 @export var speed := 100.0
@@ -33,5 +32,10 @@ func set_curve_to_follow(curves: Array) -> void:
 func continue_new_curve() -> void:
 	path_index+=1
 	path_position = 0.0
-	$Life.text=str(life)
+	$Life.text=str(self.life)
 	self.start_following_curve(paths[path_index].curve)
+
+
+func make_damage(structure_type) -> void:
+	# avvio animazione danno alla struttura
+	$"../../../".update_damage(self.attack_type, structure_type)

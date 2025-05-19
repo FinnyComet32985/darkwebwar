@@ -1,6 +1,6 @@
 extends Node
 
-class_name LevelClass
+class_name DB_Level_class
 var level_num: int
 var n_of_wave: int
 var static_defence_level_cost: Dictionary
@@ -39,6 +39,22 @@ var paths: Array
 
 
 var attacks: Array
+# [
+#	[ // attack 1
+#		type // DDoS
+#		attack_defence // difese che lo counterano
+#		succ_perc // probabilità di successo
+# 		damage {
+#			attack_type: [damage conf, damage int, damage disp]
+#			
+#		}
+#	]
+# ]
+
+
+
+
+
 
 func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array) -> void:
 	self.level_num = new_level_num
@@ -61,3 +77,11 @@ func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
 		return self.placable_defence_level_cost["Rate Limiter"][level]
 	else:
 		return 0
+
+func get_blocked_attack(defence_type: String) -> Array:
+	var attacks_return = []
+	for attack in attacks:
+		for defence in attack.attack_defence:
+			if defence == defence_type:
+				attacks_return.append(attack.attack_type)
+	return attacks_return

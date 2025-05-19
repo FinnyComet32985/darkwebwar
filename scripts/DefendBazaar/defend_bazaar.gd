@@ -44,19 +44,14 @@ func init_level(n_level:int) -> void:
 	var structure_area = get_node("PlayZone/Structure")
 	
 	
-	var level = LevelDefiner.get_level(n_level)
+	var level = DB_Level_definer.get_level(n_level)
 	
 	paths = level.paths 
 
 
 	$TerminalBar/StatusBar/Level.text = "Level "+str(n_level)
 	$"SideBar/Status-container/Stat/Wave/wave-stat".text = "0/"+str(level.n_of_wave)
-	$"SideBar/Status-container/Stat/Conf/conf-stat".text="[##########]"
-	conf = 10
-	$"SideBar/Status-container/Stat/Integ/integ-stat".text="[##########]"
-	integ = 10
-	$"SideBar/Status-container/Stat/Disp/disp-stat".text="[##########]"
-	disp = 10
+	update_stat(10, 10, 10)
 
 	btc=10
 	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
@@ -84,6 +79,7 @@ func init_level(n_level:int) -> void:
 			elif node.type=="transaction_server" || node.type=="backend":
 				var struct = structure.instantiate()
 				struct.position = node.position
+				struct.structure_type= node.type
 				structure_area.add_child(struct)
 				structures.append(struct)
 				if node.type=="transaction_server":
@@ -111,6 +107,15 @@ func init_level(n_level:int) -> void:
 	
 	start_wave()
 
+func update_stat(new_conf, new_integ, new_disp) -> void:
+	$"SideBar/Status-container/Stat/Conf/conf-stat".text="["+"#".repeat(new_conf)+"-".repeat(10-new_conf)+"]" 
+	self.conf = new_conf
+	$"SideBar/Status-container/Stat/Integ/integ-stat".text="["+"#".repeat(new_integ)+"-".repeat(10-new_integ)+"]" 
+	self.integ = new_integ
+	$"SideBar/Status-container/Stat/Disp/disp-stat".text="["+"#".repeat(new_disp)+"-".repeat(10-new_disp)+"]" 
+	self.disp = new_disp
+
+
 func _on_level_up_requested():
 	$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
@@ -126,9 +131,11 @@ func request_level_up():
 
 
 func get_defence_other_info(type: String, defence_level: int) -> Array:
-	var level = LevelDefiner.get_level(n_level_playing)
+	var level = DB_Level_definer.get_level(n_level_playing)
 	var value = []
 	value.append(level.get_upgrade_level_cost(type, defence_level))
+	value.append(level.get_blocked_attack(type))
+	
 	return value
 
 
@@ -172,11 +179,11 @@ func _on_attack_spawner_timeout() -> void:
 
 func _on_router_body_entered(body: Node2D) -> void:
 	if attack_spawned.find(body)!=-1:
-		var prefered_target = LevelDefiner.get_prefered_target(n_level_playing, body.attack_type)
+		var prefered_target = DB_Level_definer.get_prefered_target(n_level_playing, body.attack_type)
 		var defined_paths = find_path(prefered_target)
 		
 		if len(defined_paths)!=0:
-			var effective_defence = LevelDefiner.get_effective_defence(n_level_playing, body.attack_type)
+			var effective_defence = DB_Level_definer.get_effective_defence(n_level_playing, body.attack_type)
 			var excluded_paths = []
 
 			for defence in effective_defence:
@@ -197,7 +204,7 @@ func _on_router_body_entered(body: Node2D) -> void:
 			else:
 				body.set_curve_to_follow(optimal_paths[randi_range(0, len(optimal_paths)-1)])
 		else:
-			print("No path found for attack type: "+body.attack_type)
+			body.queue_free()
 			return
 
 
@@ -210,3 +217,11 @@ func find_path(structure_names:Array) -> Array:
 				if node.type == structure_name || node.type==structure_name_c:
 					return_path.append(path)
 	return return_path
+
+func update_damage(attack_type, structure_type) -> void:
+	var damage = DB_Level_definer.get_damage(n_level_playing, attack_type, structure_type)
+	if len(damage)!=0:
+		if conf-damage[0]>=0 && integ-damage[1]>=0 && disp-damage[2]>=0:
+			update_stat(conf-damage[0], integ-damage[1], disp-damage[2])
+		else:
+			print("GAME OVER")
