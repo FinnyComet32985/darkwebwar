@@ -628,6 +628,7 @@ offset_bottom = -11.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
 text = "< indietro"
 
 [node name="Router" type="Area2D" parent="PlayZone"]

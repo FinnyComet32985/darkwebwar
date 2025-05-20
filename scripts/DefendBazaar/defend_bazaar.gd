@@ -184,7 +184,6 @@ func _on_attack_spawner_timeout() -> void:
 	var attacks = DB_Level_definer.levels[n_level_playing-1].attacks
 	var attack_type = attacks[randi_range(0, len(attacks)-1)]
 	var new_attack = attack.instantiate()
-	print(attack_type.attack_type)
 	new_attack.set_attack(attack_type.attack_type, attack_type.succ_perc) 
 	new_attack.position = attack_spawn_position[spawn_position]
 	$PlayZone/Attack.add_child(new_attack)

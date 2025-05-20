@@ -16,16 +16,35 @@ shape = SubResource("RectangleShape2D_45h55")
 [node name="TextureRect" type="TextureRect" parent="CollisionShape2D"]
 texture_filter = 1
 custom_minimum_size = Vector2(80, 65)
-offset_left = -41.0
-offset_top = -34.0
-offset_right = 39.0
-offset_bottom = 31.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -25.0
+offset_right = 56.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 expand_mode = 1
+
+[node name="Attack" type="Label" parent="."]
+offset_left = -85.0
+offset_top = 16.0
+offset_right = 85.0
+offset_bottom = 39.0
+theme = ExtResource("3_twiyg")
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
 
 [node name="Life" type="Label" parent="."]
 offset_left = -35.0
-offset_top = 26.0
+offset_top = 39.0
 offset_right = 35.0
-offset_bottom = 49.0
+offset_bottom = 62.0
 theme = ExtResource("3_twiyg")
 horizontal_alignment = 1

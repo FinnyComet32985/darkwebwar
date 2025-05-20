@@ -13,16 +13,24 @@ var path_index: int
 func set_attack(type: String, percentage: int) -> void:
 	self.attack_type = type
 	self.life = percentage
+	$Attack.text = self.attack_type
 	$Life.text = str(life)
 
 	match type:
 		"DDoS":
 			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-DDoS.svg")
+			$CollisionShape2D/TextureRect.size = Vector2(90, 65.0)
+			$CollisionShape2D/TextureRect.position = Vector2(-28, -25)
 		"Port scanning":
 			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-PortScanning.svg")
 		"Banner grabbing":
+			$CollisionShape2D/TextureRect.scale = Vector2(0.4, 0.4) 
+			$CollisionShape2D/TextureRect.size = Vector2(168.0, 65.0)
 			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-BannerGrab.svg")
+			$CollisionShape2D/TextureRect.position = Vector2(-36, -25)
+
 		"Path trasversal":
+			$CollisionShape2D/TextureRect.scale = Vector2(0.5, 0.5) 
 			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-PathTrasversal.svg")
 		_:
 			pass
