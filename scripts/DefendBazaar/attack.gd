@@ -9,9 +9,23 @@ var path_position := 0.0
 var paths:Array = []
 var path_index: int
 
-func _ready() -> void:
-	self.attack_type="DDoS"
+
+func set_attack(type: String, percentage: int) -> void:
+	self.attack_type = type
+	self.life = percentage
 	$Life.text = str(life)
+
+	match type:
+		"DDoS":
+			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-DDoS.svg")
+		"Port scanning":
+			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-PortScanning.svg")
+		"Banner grabbing":
+			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-BannerGrab.svg")
+		"Path trasversal":
+			$CollisionShape2D/TextureRect.texture = load("res://assets/DefendBazaar/attacks/DarkWebWar-PathTrasversal.svg")
+		_:
+			pass
 
 func _physics_process(delta: float) -> void:
 	if curve==null:

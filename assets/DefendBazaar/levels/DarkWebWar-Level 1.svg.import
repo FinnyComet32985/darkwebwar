@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwntvlhyy5w1m"
-path="res://.godot/imported/DarkWebWar-Level 1.png-559fdbfd619444a2ff3496ac7576c353.ctex"
+uid="uid://cecfrq0rpk81q"
+path="res://.godot/imported/DarkWebWar-Level 1.svg-6dc88d9d8bddeed193e9a12555792320.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/temp/DarkWebWar-Level 1.png"
-dest_files=["res://.godot/imported/DarkWebWar-Level 1.png-559fdbfd619444a2ff3496ac7576c353.ctex"]
+source_file="res://assets/DefendBazaar/levels/DarkWebWar-Level 1.svg"
+dest_files=["res://.godot/imported/DarkWebWar-Level 1.svg-6dc88d9d8bddeed193e9a12555792320.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

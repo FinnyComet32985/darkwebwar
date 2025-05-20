@@ -7,13 +7,13 @@ func init_element() -> void:
 	var icon
 	match defence_type:
 		"Firewall": 
-			icon = preload("res://assets/temp/Firewall.png")
+			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-Firewall.svg")
 		"WAF":
-			icon = preload("res://assets/temp/DarkWebWar-WAF.png")
+			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-WAF.svg")
 		"IDS":
-			icon = preload("res://assets/temp/DarkWebWar-IDS.png")
+			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-IDS.svg")
 		"Rate Limiter":
-			icon = preload("res://assets/temp/DarkWebWar-RateLimiter.png")
+			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-RateLimiter.svg")
 		_:
 			print("error loading icon")
 	$TextureRect.texture=icon

@@ -6,6 +6,7 @@
 size = Vector2(56, 56)
 
 [node name="DefenceButton" type="Button"]
+texture_filter = 1
 offset_left = -102.0
 offset_top = -20.0
 offset_right = -46.0

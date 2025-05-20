@@ -180,11 +180,15 @@ func start_wave() -> void:
 
 
 func _on_attack_spawner_timeout() -> void:
-	var numero_random = randi_range(0, 2)
+	var spawn_position = randi_range(0, 2)
+	var attacks = DB_Level_definer.levels[n_level_playing-1].attacks
+	var attack_type = attacks[randi_range(0, len(attacks)-1)]
 	var new_attack = attack.instantiate()
-	new_attack.position = attack_spawn_position[numero_random]
+	print(attack_type.attack_type)
+	new_attack.set_attack(attack_type.attack_type, attack_type.succ_perc) 
+	new_attack.position = attack_spawn_position[spawn_position]
 	$PlayZone/Attack.add_child(new_attack)
-	new_attack.start_following_curve(curve_to_router[numero_random])
+	new_attack.start_following_curve(curve_to_router[spawn_position])
 	attack_spawned.append(new_attack)
 
 

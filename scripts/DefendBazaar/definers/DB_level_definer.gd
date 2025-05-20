@@ -17,7 +17,7 @@ var levels := [
 			"Rate Limiter": [3, 2, 7]
 			# altro
 		},
-		"res://assets/temp/DarkWebWar-Level 1.png",
+		"res://assets/DefendBazaar/levels/DarkWebWar-Level 1.svg",
 
 		#TODO path
 		[

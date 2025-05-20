@@ -6,10 +6,10 @@ extends Button
 
 var _cost := 0
 
-var firewall = preload("res://assets/temp/Firewall.png")
-var waf = preload("res://assets/temp/DarkWebWar-WAF.png")
-var ids = preload("res://assets/temp/DarkWebWar-IDS.png")
-var ratelimiter = preload("res://assets/temp/DarkWebWar-RateLimiter.png")
+var firewall = preload("res://assets/DefendBazaar/defences/DarkWebWar-Firewall.svg")
+var waf = preload("res://assets/DefendBazaar/defences/DarkWebWar-WAF.svg")
+var ids = preload("res://assets/DefendBazaar/defences/DarkWebWar-IDS.svg")
+var ratelimiter = preload("res://assets/DefendBazaar/defences/DarkWebWar-RateLimiter.svg")
 var defence_loaded = {
 	"Firewall": firewall,
 	"WAF": waf,
