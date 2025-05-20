@@ -19,7 +19,6 @@ var placable_defence_level_cost: Dictionary
 # }
 var minimap: String # path to minimap
 
-# TODO working refactor
 var paths: Array
 # [
 # 	[ // path 1 
@@ -51,7 +50,7 @@ var attacks: Array
 #	]
 # ]
 
-
+# var static_attack: Array
 
 
 
@@ -67,12 +66,12 @@ func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost
 
 
 func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
-	if upgrade_type == "firewall":
-		return self.placable_defence_level_cost["firewall"][level]
-	elif upgrade_type == "honeypot":
-		return self.placable_defence_level_cost["honeypot"][level]
-	elif upgrade_type == "ids":
-		return self.placable_defence_level_cost["ids"][level]
+	if upgrade_type == "Firewall":
+		return self.placable_defence_level_cost["Firewall"][level]
+	elif upgrade_type == "Web Application Firewall":
+		return self.placable_defence_level_cost["Web Application Firewall"][level]
+	elif upgrade_type == "Intrusion Detection System":
+		return self.placable_defence_level_cost["Intrusion Detection System"][level]
 	elif upgrade_type == "Rate Limiter":
 		return self.placable_defence_level_cost["Rate Limiter"][level]
 	else:

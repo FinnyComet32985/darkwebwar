@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=25 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -6,13 +6,7 @@
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
 [ext_resource type="Texture2D" uid="uid://b2q70q0mk1tjy" path="res://assets/DarkWebWar-UpgradeIco.png" id="5_5nxig"]
-[ext_resource type="Texture2D" uid="uid://bwntvlhyy5w1m" path="res://assets/temp/DarkWebWar-Level 1.png" id="5_n7olq"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/DefendBazaar/defence_builder.gd" id="7_7n4du"]
-[ext_resource type="Texture2D" uid="uid://bp6km76q8av8n" path="res://assets/temp/Firewall.png" id="8_7n4du"]
-[ext_resource type="Texture2D" uid="uid://8hwoy8w0atps" path="res://assets/DarkWebWar-BuildIco.png" id="8_toq7d"]
-[ext_resource type="Texture2D" uid="uid://wvd7y4r1p004" path="res://assets/temp/Honeypot.png" id="9_jyyir"]
-[ext_resource type="Texture2D" uid="uid://cif8ndykhqlhx" path="res://assets/temp/DarkWebWar-IDS.png" id="10_5nxig"]
-[ext_resource type="Texture2D" uid="uid://crt4l2umcmal6" path="res://assets/temp/DarkWebWar-RateLimiter.png" id="11_toq7d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -446,7 +440,6 @@ offset_bottom = 479.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("5_n7olq")
 
 [node name="Defence" type="Control" parent="PlayZone"]
 layout_mode = 1
@@ -620,181 +613,6 @@ offset_bottom = 467.0
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="Firewall" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("8_7n4du")
-expand_mode = 1
-
-[node name="tipo-stat" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "Firewall"
-
-[node name="Help" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-theme_override_font_sizes/font_size = 20
-text = "[?]"
-flat = true
-
-[node name="Label" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "-"
-
-[node name="Cost" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "0 ₿"
-
-[node name="BuildFirewall" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall"]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-icon = ExtResource("8_toq7d")
-flat = true
-expand_icon = true
-
-[node name="HoneyPot" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("9_jyyir")
-expand_mode = 1
-
-[node name="tipo-stat" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "HoneyPot"
-
-[node name="Help" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-theme_override_font_sizes/font_size = 20
-text = "[?]"
-flat = true
-
-[node name="Label" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "-"
-
-[node name="Cost" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "0 ₿"
-
-[node name="BuildHoneypot" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot"]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-icon = ExtResource("8_toq7d")
-flat = true
-expand_icon = true
-
-[node name="Ids" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("10_5nxig")
-expand_mode = 1
-
-[node name="tipo-stat" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "IDS"
-
-[node name="Help" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-theme_override_font_sizes/font_size = 20
-text = "[?]"
-flat = true
-
-[node name="Label" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "-"
-
-[node name="Cost" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "0 ₿"
-
-[node name="BuildIDS" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids"]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-icon = ExtResource("8_toq7d")
-flat = true
-expand_icon = true
-
-[node name="RateLimiter" type="HBoxContainer" parent="PlayZone/DefenceBuilder/ScrollContainer/defence"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = ExtResource("11_toq7d")
-expand_mode = 1
-
-[node name="tipo-stat" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "Rate limiter"
-
-[node name="Help" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-theme_override_font_sizes/font_size = 20
-text = "[?]"
-flat = true
-
-[node name="Label" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "-"
-
-[node name="Cost" type="Label" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "0 ₿"
-
-[node name="BuildRateLimiter" type="Button" parent="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter"]
-custom_minimum_size = Vector2(45, 45)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-icon = ExtResource("8_toq7d")
-flat = true
-expand_icon = true
-
 [node name="BackButton" type="Button" parent="PlayZone/DefenceBuilder"]
 texture_filter = 1
 layout_mode = 1
@@ -838,10 +656,6 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Button" to="." method="_on_button_pressed"]
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
-[connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Firewall/BuildFirewall" to="PlayZone/DefenceBuilder" method="_on_build_firewall_pressed"]
-[connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/HoneyPot/BuildHoneypot" to="PlayZone/DefenceBuilder" method="_on_build_honeypot_pressed"]
-[connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/Ids/BuildIDS" to="PlayZone/DefenceBuilder" method="_on_build_ids_pressed"]
-[connection signal="pressed" from="PlayZone/DefenceBuilder/ScrollContainer/defence/RateLimiter/BuildRateLimiter" to="PlayZone/DefenceBuilder" method="_on_build_rate_limiter_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]
 [connection signal="pressed" from="Button" to="." method="request_level_up"]

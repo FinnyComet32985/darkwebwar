@@ -7,13 +7,13 @@ extends Button
 var _cost := 0
 
 var firewall = preload("res://assets/temp/Firewall.png")
-var honeypot = preload("res://assets/temp/Honeypot.png")
+var waf = preload("res://assets/temp/DarkWebWar-WAF.png")
 var ids = preload("res://assets/temp/DarkWebWar-IDS.png")
 var ratelimiter = preload("res://assets/temp/DarkWebWar-RateLimiter.png")
 var defence_loaded = {
-	"firewall": firewall,
-	"honeypot": honeypot,
-	"ids": ids,
+	"Firewall": firewall,
+	"WAF": waf,
+	"IDS": ids,
 	"Rate Limiter": ratelimiter
 }
 
@@ -22,26 +22,19 @@ func _ready() -> void:
 	
 
 func _on_pressed() -> void:
-	if $"../../DefenceMenu".visible == true:
-		$"../../DefenceMenu".visible=0
-	else:
-		open_menu()
+	open_menu()
 
 func set_type(new_type: String) -> void:
 	self.type = new_type
-	if type == "firewall":
-		self.icon=firewall
-		self.type="firewall"
-	if self.type == "honeypot":
-		self.icon=honeypot
-		self.type = "honeypot"
-	if self.type == "ids":
-		self.icon=ids
-		self.type = "ids"
-	if self.type == "Rate Limiter":
-		self.icon=ratelimiter
-		self.type = "Rate Limiter"
-	$"../../../".defence_built.append(type)
+	match type:
+		"Firewall":
+			self.icon=firewall
+		"WAF":
+			self.icon=waf
+		"IDS":
+			self.icon=ids
+		"Rate Limiter":
+			self.icon=ratelimiter
 
 func open_menu() -> void:
 	if type!="":
@@ -64,15 +57,15 @@ func open_menu() -> void:
 		
 	else:
 		$"../../DefenceBuilder".visible=1
-		$"../../DefenceBuilder".defence=self
+		$"../../DefenceBuilder".defence_button=self
 
-func upgrade():
-	$"../../".btc=$"../../".btc-_cost
-	$"../../".update_btc()
+func upgrade() -> void:
+	$"../../../".btc=$"../../../".btc-_cost
+	$"../../../".update_btc()
 	level+=1
-	$"../DefenceMenu/Info/Level/level_stat".text = str(self.level)
-	var other_info = $"../../".get_defence_other_info(self.type, self.level)
-	$"../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
+	$"../../DefenceMenu/Info/Level/level_stat".text = str(self.level)
+	var other_info = $"../../../".get_defence_other_info(self.type, self.level)
+	$"../../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
 
 func update_path() -> void:
 	for path in $"../../../".paths:

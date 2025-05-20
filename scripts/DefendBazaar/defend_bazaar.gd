@@ -5,6 +5,7 @@ signal level_up_requested
 var defence_button = preload("res://scenes/DefendBazaar/defence_button.tscn")
 var attack = preload("res://scenes/DefendBazaar/Attack.tscn")
 var structure = preload("res://scenes/DefendBazaar/primary_structure.tscn")
+var element_defence_builder = preload("res://scenes/DefendBazaar/defence_builder_elements.tscn")
 
 var conf := 0
 var integ := 0
@@ -22,8 +23,6 @@ var structures := []
 var defence_buttons := []
 
 
-var defence_built := []
-
 
 var attack_spawned := []
 var n_level_playing = 1
@@ -40,8 +39,9 @@ func _ready():
 
 
 func init_level(n_level:int) -> void:
-	var defence = get_node("PlayZone/Defence")
+	var defence_area = get_node("PlayZone/Defence")
 	var structure_area = get_node("PlayZone/Structure")
+	var defence_builder_area = get_node("PlayZone/DefenceBuilder/ScrollContainer/defence")
 	
 	
 	var level = DB_Level_definer.get_level(n_level)
@@ -69,21 +69,32 @@ func init_level(n_level:int) -> void:
 	$PlayZone/TextureRect.texture = gameArea
 
 	for path in level.paths:
-		for node in path:
+		for node in path:				
 			if node.type=="defence":
 				var button = defence_button.instantiate()
 				button.position = node.position
 				button.node_id = node.id
-				defence.add_child(button)
+				defence_area.add_child(button)
 				defence_buttons.append(button)
-			elif node.type=="transaction_server" || node.type=="backend":
-				var struct = structure.instantiate()
-				struct.position = node.position
-				struct.structure_type= node.type
-				structure_area.add_child(struct)
-				structures.append(struct)
-				if node.type=="transaction_server":
-						$PlayZone/BtcGen_stat.position = Vector2(node.position.x-42, node.position.y+45)
+			elif len(node.type)>=2:
+				if node.type[len(node.type)-2]!="_":
+					var struct = structure.instantiate()
+					struct.position = node.position
+					struct.structure_type= node.type
+					structure_area.add_child(struct)
+					structures.append(struct)
+					if node.type=="transaction_server":
+							$PlayZone/BtcGen_stat.position = Vector2(node.position.x-42, node.position.y+45)
+
+	var defences = level.placable_defence_level_cost.keys()
+	for defence in defences:
+		var defence_element = element_defence_builder.instantiate()
+		defence_element.defence_type = defence
+		defence_element.build_cost = level.placable_defence_level_cost[defence][0]
+		defence_element.init_element()
+		defence_builder_area.add_child(defence_element)
+
+
 
 	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")

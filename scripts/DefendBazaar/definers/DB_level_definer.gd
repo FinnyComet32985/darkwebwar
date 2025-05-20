@@ -11,9 +11,9 @@ var levels := [
 		"phishingRecognizer": [0]
 		},
 		{ # costi per upgrade edifici piazzabili 
-			"firewall": [1, 3, 6],
-			"honeypot": [2, 1, 3],
-			"ids": [1, 3, 6],
+			"Firewall": [1, 3, 6],
+			"WAF": [2, 1, 3],
+			"IDS": [1, 3, 6],
 			"Rate Limiter": [3, 2, 7]
 			# altro
 		},
@@ -28,16 +28,19 @@ var levels := [
 			[ # path 2
 				DB_Web_node.new(3, "defence", Vector2(319, 227), [Vector2(377, 219), Vector2(377, 310)]),
 				DB_Web_node.new(4, "defence", Vector2(319, 339), [Vector2(377, 372), Vector2(377, 424)]),
-				DB_Web_node.new(5, "backend", Vector2(346, 482), [Vector2(377, 483), Vector2(377, 541)])
+				DB_Web_node.new(5, "file_server", Vector2(346, 482), [Vector2(377, 483), Vector2(377, 541)])
 			],
 			[ # path 3 
 				DB_Web_node.new(6, "defence", Vector2(431, 227), [Vector2(386, 221), Vector2(488, 312)]),
 				DB_Web_node.new(4, "defence_c", Vector2(319, 339), [Vector2(493, 373), Vector2(408, 444)]),
-				DB_Web_node.new(5, "backend_c", Vector2(446, 482), [Vector2(377, 483), Vector2(377, 541)])
+				DB_Web_node.new(5, "file_server_c", Vector2(446, 482), [Vector2(377, 483), Vector2(377, 541)])
 			]
 		],
 		[
-			DB_Attack_class.new("DDoS", ["firewall", "Rate Limiter"], 30, {"backend": [0, 0, 2]}),
+			DB_Attack_class.new("Port scanning", ["Firewall", "IDS"], 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}), 
+			DB_Attack_class.new("Banner grabbing", ["Firewall"], 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}),
+			DB_Attack_class.new("Path trasversal", ["WAF"], 30, {"file_server": [3, 2, 1]}),
+			DB_Attack_class.new("DDoS", ["Firewall", "Rate Limiter"], 30, {"transaction_server": [0, 0, 2], "file_server": [0, 0, 2]}),
 		]
 	),
 	# Level 2
