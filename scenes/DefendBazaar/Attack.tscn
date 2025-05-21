@@ -33,18 +33,21 @@ size_flags_vertical = 4
 expand_mode = 1
 
 [node name="Attack" type="Label" parent="."]
+texture_filter = 1
 offset_left = -85.0
 offset_top = 16.0
 offset_right = 85.0
-offset_bottom = 39.0
+offset_bottom = 32.0
 theme = ExtResource("3_twiyg")
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
 
 [node name="Life" type="Label" parent="."]
+texture_filter = 1
 offset_left = -35.0
-offset_top = 39.0
+offset_top = 32.0
 offset_right = 35.0
-offset_bottom = 62.0
+offset_bottom = 46.0
 theme = ExtResource("3_twiyg")
+theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1

@@ -4,19 +4,7 @@ var defence_type: String
 var build_cost: int
 
 func init_element() -> void:
-	var icon
-	match defence_type:
-		"Firewall": 
-			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-Firewall.svg")
-		"WAF":
-			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-WAF.svg")
-		"IDS":
-			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-IDS.svg")
-		"Rate Limiter":
-			icon = preload("res://assets/DefendBazaar/defences/DarkWebWar-RateLimiter.svg")
-		_:
-			print("error loading icon")
-	$TextureRect.texture=icon
+	$TextureRect.texture= DB_Icons.load_icon(defence_type)
 	$"tipo-stat".text=defence_type
 	$Cost.text=str(build_cost)+" ₿"
 

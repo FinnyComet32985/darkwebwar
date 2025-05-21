@@ -26,21 +26,21 @@ var levels := [
 				DB_Web_node.new(2, "transaction_server", Vector2(237, 373), [Vector2(265, 377), Vector2(265, 427)])
 			],
 			[ # path 2
-				DB_Web_node.new(3, "defence", Vector2(319, 227), [Vector2(377, 219), Vector2(377, 310)]),
-				DB_Web_node.new(4, "defence", Vector2(319, 339), [Vector2(377, 372), Vector2(377, 424)]),
-				DB_Web_node.new(5, "file_server", Vector2(346, 482), [Vector2(377, 483), Vector2(377, 541)])
+				DB_Web_node.new(3, "defence", Vector2(319, 227), [Vector2(380, 219), Vector2(380, 310)]),
+				DB_Web_node.new(4, "defence", Vector2(319, 339), [Vector2(380, 372), Vector2(380, 424)]),
+				DB_Web_node.new(5, "file_server", Vector2(346, 482), [Vector2(380, 483), Vector2(380, 541)])
 			],
 			[ # path 3 
 				DB_Web_node.new(6, "defence", Vector2(431, 227), [Vector2(386, 221), Vector2(488, 312)]),
 				DB_Web_node.new(4, "defence_c", Vector2(319, 339), [Vector2(493, 373), Vector2(408, 444)]),
-				DB_Web_node.new(5, "file_server_c", Vector2(446, 482), [Vector2(377, 483), Vector2(377, 541)])
+				DB_Web_node.new(5, "file_server_c", Vector2(446, 482), [Vector2(380, 483), Vector2(380, 541)])
 			]
 		],
 		[
-			DB_Attack_class.new("Port scanning", ["Firewall", "IDS"], 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}), 
-			DB_Attack_class.new("Banner grabbing", ["Firewall"], 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}),
-			DB_Attack_class.new("Path trasversal", ["WAF"], 30, {"file_server": [3, 2, 1]}),
-			DB_Attack_class.new("DDoS", ["Firewall", "Rate Limiter"], 30, {"transaction_server": [0, 0, 2], "file_server": [0, 0, 2]}),
+			DB_Attack_class.new("Port scanning", {"Firewall": [10, 15], "IDS": [20, 25], "Rate Limiter": [5, 10] }, 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}), 
+			DB_Attack_class.new("Banner grabbing", {"Firewall": [30]}, 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}),
+			DB_Attack_class.new("Path trasversal", {"WAF": [30]}, 30, {"file_server": [3, 2, 1]}),
+			DB_Attack_class.new("DDoS", {"Firewall": [10], "Rate Limiter": [20]}, 30, {"transaction_server": [0, 0, 2], "file_server": [0, 0, 2]}),
 		]
 	),
 	# Level 2
@@ -66,7 +66,7 @@ var levels := [
 
 		],
 		[
-			DB_Attack_class.new("DDoS", ["firewall"], 30, {"backend": [0, 0, 20]})
+			DB_Attack_class.new("DDoS", {"firewall": 30}, 30, {"backend": [0, 0, 20]})
 		]
 	)
 ]
@@ -83,7 +83,7 @@ func get_prefered_target(level: int, attack_type: String) -> Array:
 			return attack.damage.keys()
 	return []
 
-func get_effective_defence(level:int, attack_type: String) -> Array:
+func get_effective_defence(level:int, attack_type: String) -> Dictionary:
 	var attacks = levels[level-1].attacks
 	var find = attacks.filter(func(attack): return attack.attack_type == attack_type)
 	return find[0].attack_defence

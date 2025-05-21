@@ -1,11 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=27 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_dr1i0"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
-[ext_resource type="Texture2D" uid="uid://b2q70q0mk1tjy" path="res://assets/DarkWebWar-UpgradeIco.png" id="5_5nxig"]
+[ext_resource type="Script" uid="uid://buj2btobv46jw" path="res://scripts/DefendBazaar/defence_menu.gd" id="5_7n4du"]
+[ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="5_frwa5"]
+[ext_resource type="Texture2D" uid="uid://bhhg6puqjr00p" path="res://assets/DefendBazaar/GUI/DarkWebWar-UpgradeIco.svg" id="6_frwa5"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/DefendBazaar/defence_builder.gd" id="7_7n4du"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
@@ -454,7 +456,7 @@ grow_vertical = 2
 [node name="Attack" type="Node2D" parent="PlayZone"]
 
 [node name="AttackSpawner" type="Timer" parent="PlayZone/Attack"]
-wait_time = 2.0
+wait_time = 3.0
 
 [node name="BtcGen_stat" type="Label" parent="PlayZone"]
 texture_filter = 1
@@ -480,6 +482,7 @@ offset_top = 32.0
 offset_right = 578.0
 offset_bottom = 509.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_jyyir")
+script = ExtResource("5_7n4du")
 
 [node name="Label" type="Label" parent="PlayZone/DefenceMenu"]
 texture_filter = 1
@@ -504,11 +507,25 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="tipo" type="TextureRect" parent="PlayZone/DefenceMenu/Info/Tipo"]
+texture_filter = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
 [node name="tipo-stat" type="Label" parent="PlayZone/DefenceMenu/Info/Tipo"]
+texture_filter = 1
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
+vertical_alignment = 2
+
+[node name="Help" type="Button" parent="PlayZone/DefenceMenu/Info/Tipo"]
+texture_filter = 1
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("5_frwa5")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="Level" type="HBoxContainer" parent="PlayZone/DefenceMenu/Info"]
 layout_mode = 2
@@ -537,8 +554,10 @@ text = "Costo upgrade:"
 
 [node name="cost_stat" type="Label" parent="PlayZone/DefenceMenu/Info/Level"]
 texture_filter = 1
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+horizontal_alignment = 2
 
 [node name="VSeparator2" type="VSeparator" parent="PlayZone/DefenceMenu/Info/Level"]
 layout_mode = 2
@@ -546,11 +565,10 @@ theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxEmpty_jyyir")
 
 [node name="UpgradeButton" type="Button" parent="PlayZone/DefenceMenu/Info/Level"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
-theme = ExtResource("3_dsu3c")
 theme_override_font_sizes/font_size = 20
-icon = ExtResource("5_5nxig")
+icon = ExtResource("6_frwa5")
 flat = true
 expand_icon = true
 
@@ -563,6 +581,16 @@ text = "Efficace contro:"
 [node name="Eff_label" type="Label" parent="PlayZone/DefenceMenu/Info"]
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+
+[node name="Efficenzy-container" type="ScrollContainer" parent="PlayZone/DefenceMenu"]
+layout_mode = 2
+offset_left = 15.0
+offset_top = 252.0
+offset_right = 447.0
+offset_bottom = 437.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayZone/DefenceMenu/Efficenzy-container"]
+layout_mode = 2
 
 [node name="Button" type="Button" parent="PlayZone/DefenceMenu"]
 texture_filter = 1
@@ -654,6 +682,7 @@ mesh = SubResource("QuadMesh_ee5cj")
 
 [connection signal="timeout" from="SideBar/Status-container/Stat/BTC/BtcGen" to="." method="_on_btc_gen_timeout"]
 [connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
+[connection signal="visibility_changed" from="PlayZone/DefenceMenu" to="." method="_on_defence_menu_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Button" to="." method="_on_button_pressed"]
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]

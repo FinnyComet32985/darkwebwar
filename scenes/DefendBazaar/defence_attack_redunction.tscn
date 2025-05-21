@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmrjh4861ukgu"]
+
+[ext_resource type="Script" uid="uid://codachfi0bsop" path="res://scripts/DefendBazaar/defence_attack_redunction.gd" id="1_k6n1w"]
+[ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="1_t8nvg"]
+[ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="2_k6n1w"]
+
+[node name="DefenceAttackRedunction" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_k6n1w")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(70, 50)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="AttackName" type="Label" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("1_t8nvg")
+
+[node name="AttackLifeRedunction" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="Help" type="Button" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("2_k6n1w")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true

@@ -105,8 +105,8 @@ func init_level(n_level:int) -> void:
 	curve_to_router.append(curve_to_router_0)
 
 	var curve_to_router_1 = Curve2D.new()
-	curve_to_router_1.add_point(Vector2(378.0, 97.0))
-	curve_to_router_1.add_point(Vector2(378.0, 215.0))
+	curve_to_router_1.add_point(Vector2(380.0, 97.0))
+	curve_to_router_1.add_point(Vector2(380.0, 215.0))
 	curve_to_router.append(curve_to_router_1)
 
 
@@ -158,7 +158,7 @@ func update_btc() -> void:
 func _on_upgrade_button_pressed() -> void:
 	var button
 	for i in defence_buttons:
-		if i.type==$"PlayZone/DefenceMenu/Info/Tipo/tipo-stat".text:
+		if i.node_id==$"PlayZone/DefenceMenu".defence_id:
 			button = i
 			break
 	button.upgrade()
@@ -239,3 +239,9 @@ func update_damage(attack_type, structure_type) -> void:
 			update_stat(conf-damage[0], integ-damage[1], disp-damage[2])
 		else:
 			print("GAME OVER")
+
+
+func _on_defence_menu_visibility_changed() -> void:
+	if $PlayZone/DefenceMenu.visible==false:
+		for child in $"PlayZone/DefenceMenu/Efficenzy-container/VBoxContainer".get_children():
+			child.queue_free()
