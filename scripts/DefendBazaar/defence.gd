@@ -48,11 +48,12 @@ func update_path() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var finded = false
-	var attack_keys = DB_Level_definer.get_effective_defence($"../../../".n_level_playing, body.attack_type)
-	for defence_type in attack_keys.keys():
+	var attack_countered = DB_Level_definer.get_effective_defence($"../../../".n_level_playing, body.attack_type)
+
+	for defence_type in attack_countered.keys():
 		if defence_type == self.type:
 			finded=true
-			body.life -= attack_keys[defence_type][level-1]
+			body.life -= attack_countered[defence_type][level-1]
 			if body.life > 0:
 				body.continue_new_curve() 
 			else:

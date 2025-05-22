@@ -1,11 +1,12 @@
 extends Node
 
-signal level_up_requested
-
 var defence_button = preload("res://scenes/DefendBazaar/defence_button.tscn")
 var attack = preload("res://scenes/DefendBazaar/Attack.tscn")
 var structure = preload("res://scenes/DefendBazaar/primary_structure.tscn")
 var element_defence_builder = preload("res://scenes/DefendBazaar/defence_builder_elements.tscn")
+
+
+var wave:= 0
 
 var conf := 0
 var integ := 0
@@ -29,13 +30,13 @@ var n_level_playing = 1
 
 var curve_to_router: Array
 
+var level
 
 func _ready():
 	if Global.save_data["settings"]["crt"] == false:
 		$CanvasLayer.visible = false
 	
 	init_level(n_level_playing)
-	connect("level_up_requested", Callable(self, "_on_level_up_requested"))
 
 
 func init_level(n_level:int) -> void:
@@ -44,18 +45,21 @@ func init_level(n_level:int) -> void:
 	var defence_builder_area = get_node("PlayZone/DefenceBuilder/ScrollContainer/defence")
 	
 	
-	var level = DB_Level_definer.get_level(n_level)
+	level = DB_Level_definer.get_level(n_level)
 	
 	paths = level.paths 
 
 
 	$TerminalBar/StatusBar/Level.text = "Level "+str(n_level)
-	$"SideBar/Status-container/Stat/Wave/wave-stat".text = "0/"+str(level.n_of_wave)
+	$"SideBar/Status-container/Stat/Wave/wave-stat".text = str(wave)+"/"+str(len(level.waves)-1)
 	update_stat(10, 10, 10)
 
 	btc=10
-	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
+	update_btc()
 	
+
+
+	#TODO refactor
 	$SideBar/PassiveDef/Stat/Patch/Status.text = "❌ - [0]"
 	$SideBar/PassiveDef/Stat/Patch/level.text = "0 - "+str(level.static_defence_level_cost["patch"][0])+" ₿"
 	
@@ -65,6 +69,8 @@ func init_level(n_level:int) -> void:
 	$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "❌ - [0]"
 	$SideBar/PassiveDef/Stat/SocialEngeneering/level.text="0 - "+str(level.static_defence_level_cost["phishingRecognizer"][0])+" ₿"
 	
+
+
 	var gameArea = load(level.minimap)
 	$PlayZone/TextureRect.texture = gameArea
 
@@ -99,6 +105,9 @@ func init_level(n_level:int) -> void:
 	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
 
+
+
+
 	var curve_to_router_0 = Curve2D.new()
 	curve_to_router_0.add_point(Vector2(249.0, 101.0))
 	curve_to_router_0.add_point(Vector2(372.0, 224.0))
@@ -115,8 +124,16 @@ func init_level(n_level:int) -> void:
 	curve_to_router_2.add_point(Vector2(393.0, 215.0))
 	curve_to_router.append(curve_to_router_2)
 
-	
-	start_wave()
+	if wave == 0:
+		await get_tree().create_timer(level.waves[wave][1]).timeout
+		wave+=1
+		start_wave()
+	else:
+		start_wave()
+
+
+
+
 
 func update_stat(new_conf, new_integ, new_disp) -> void:
 	$"SideBar/Status-container/Stat/Conf/conf-stat".text="["+"#".repeat(new_conf)+"-".repeat(10-new_conf)+"]" 
@@ -127,7 +144,7 @@ func update_stat(new_conf, new_integ, new_disp) -> void:
 	self.disp = new_disp
 
 
-func _on_level_up_requested():
+func game_level_up():
 	$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
 	n_level_playing += 1
@@ -137,12 +154,9 @@ func _on_level_up_requested():
 
 
 
-func request_level_up():
-	emit_signal("level_up_requested")
 
 
 func get_defence_other_info(type: String, defence_level: int) -> Array:
-	var level = DB_Level_definer.get_level(n_level_playing)
 	var value = []
 	value.append(level.get_upgrade_level_cost(type, defence_level))
 	value.append(level.get_blocked_attack(type))
@@ -176,7 +190,25 @@ func _on_btc_gen_timeout() -> void:
 var attack_spawn_position := [Vector2(230.0, 35), Vector2(347.0, 35), Vector2(480.0, 35)]
 
 func start_wave() -> void:
+	$WaveTimer.wait_time = level.waves[wave][0]
+	$WaveTimer.start()
+	$WaveTimer.next_wave_timer = level.waves[wave][1]
 	$PlayZone/Attack/AttackSpawner.start()
+
+
+func _on_wave_timer_timeout() -> void:
+	if $WaveTimer.next_wave_timer!=0:
+		$PlayZone/Attack/AttackSpawner.stop()
+		$WaveTimer.stop()
+		$WaveTimer.wait_time=$WaveTimer.next_wave_timer
+		$WaveTimer.next_wave_timer=0
+		$WaveTimer.start()
+	else:
+		$WaveTimer.stop()
+		wave += 1
+		start_wave()
+
+
 
 
 func _on_attack_spawner_timeout() -> void:

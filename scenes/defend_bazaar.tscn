@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=28 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
 [ext_resource type="Script" uid="uid://buj2btobv46jw" path="res://scripts/DefendBazaar/defence_menu.gd" id="5_7n4du"]
 [ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="5_frwa5"]
+[ext_resource type="Script" uid="uid://chf1sry8duw5j" path="res://scenes/wave_timer.gd" id="5_jyyir"]
 [ext_resource type="Texture2D" uid="uid://bhhg6puqjr00p" path="res://assets/DefendBazaar/GUI/DarkWebWar-UpgradeIco.svg" id="6_frwa5"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/DefendBazaar/defence_builder.gd" id="7_7n4du"]
 
@@ -421,6 +422,9 @@ layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "0 - 0 ₿"
 
+[node name="WaveTimer" type="Timer" parent="."]
+script = ExtResource("5_jyyir")
+
 [node name="PlayZone" type="Panel" parent="."]
 offset_left = 31.0
 offset_top = 87.0
@@ -666,13 +670,6 @@ input_pickable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayZone/Router"]
 shape = SubResource("RectangleShape2D_wq2sp")
 
-[node name="Button" type="Button" parent="."]
-offset_left = 1036.0
-offset_top = 82.0
-offset_right = 1105.0
-offset_bottom = 113.0
-text = "level up"
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
@@ -681,6 +678,7 @@ material = SubResource("ShaderMaterial_dsu3c")
 mesh = SubResource("QuadMesh_ee5cj")
 
 [connection signal="timeout" from="SideBar/Status-container/Stat/BTC/BtcGen" to="." method="_on_btc_gen_timeout"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
 [connection signal="visibility_changed" from="PlayZone/DefenceMenu" to="." method="_on_defence_menu_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
@@ -688,4 +686,3 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]
-[connection signal="pressed" from="Button" to="." method="request_level_up"]

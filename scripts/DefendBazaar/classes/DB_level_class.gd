@@ -2,7 +2,6 @@ extends Node
 
 class_name DB_Level_class
 var level_num: int
-var n_of_wave: int
 var static_defence_level_cost: Dictionary
 # {
 #     "patch": [0, 10, ...], index = level, value = cost
@@ -52,17 +51,24 @@ var attacks: Array
 
 # var static_attack: Array
 
+var waves: Dictionary
+# {
+#	"wave 1": 
+#		[ 
+#			int // tempo durata ondata
+#			int // tempo alla prossima ondata
+#		]
+# } 
 
 
-
-func _init(new_level_num: int, new_n_of_wave: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array) -> void:
+func _init(new_level_num: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array, new_waves: Dictionary) -> void:
 	self.level_num = new_level_num
-	self.n_of_wave = new_n_of_wave
 	self.static_defence_level_cost = new_static_defence_level_cost
 	self.placable_defence_level_cost = new_placable_defence_level_cost
 	self.minimap = new_minimap
 	self.paths = new_paths
 	self.attacks=new_attacks
+	self.waves = new_waves
 
 
 func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
