@@ -14,6 +14,7 @@ var disp := 0
 
 var btc := 0
 
+var critical_event_percentage = 10
 
 var paths := []
 
@@ -34,10 +35,12 @@ var level
 
 
 var timer
+signal critical_event_closed
 
 func _ready():
 	if Global.save_data["settings"]["crt"] == false:
 		$CanvasLayer.visible = false
+	$CriticalEvent.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	init_level(n_level_playing)
 
@@ -109,7 +112,7 @@ func init_level(n_level:int) -> void:
 
 
 
-
+	# set curve to router
 	var curve_to_router_0 = Curve2D.new()
 	curve_to_router_0.add_point(Vector2(249.0, 101.0))
 	curve_to_router_0.add_point(Vector2(372.0, 224.0))
@@ -217,8 +220,8 @@ func start_wave() -> void:
 	$WaveTimer.start()
 	$WaveTimer.next_wave_timer = level.waves[wave][1]
 	_on_attack_spawner_timeout()
-	$PlayZone/Attack/AttackSpawner.start()
-
+	$CriticalEventTimer.start()
+	
 
 func _on_wave_timer_timeout() -> void:
 	if $WaveTimer.next_wave_timer!=0:
@@ -226,6 +229,7 @@ func _on_wave_timer_timeout() -> void:
 		$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
 		$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
 		$PlayZone/Attack/AttackSpawner.stop()
+		$CriticalEventTimer.stop()
 		$WaveTimer.stop()
 		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Inizio ondata tra: "
 		$WaveTimer.wait_time=$WaveTimer.next_wave_timer
@@ -310,3 +314,37 @@ func _on_defence_menu_visibility_changed() -> void:
 	if $PlayZone/DefenceMenu.visible==false:
 		for child in $"PlayZone/DefenceMenu/Efficenzy-container/VBoxContainer".get_children():
 			child.queue_free()
+
+
+func _on_critical_event_timeout() -> void:
+	var perc = randi_range(1, 100)
+	if perc <=critical_event_percentage:
+		get_tree().paused = true
+		var random_number = randi_range(0, 1)
+		var critical_event
+		if random_number==0:
+			random_number = randi_range(0, len(level.critical_events["0 day"])-1)
+			critical_event = level.critical_events["0 day"][random_number]
+			$CriticalEvent/CriticalMenu/attack_type.text = critical_event.attack_name
+			$CriticalEvent/CriticalMenu/Description.text = critical_event.description
+			$CriticalEvent/CriticalMenu/conf_damage.text = "Confidenzialità: -"+str(critical_event.damage[0])
+			$CriticalEvent/CriticalMenu/integ_damage.text = "Integrità: -"+str(critical_event.damage[1])
+			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Avaiabilità: -"+str(critical_event.damage[2])
+			update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
+		else:
+			random_number = randi_range(0, len(level.critical_events["Social Engineering"])-1)
+			critical_event = level.critical_events["Social Engineering"][random_number]
+			$CriticalEvent/CriticalMenu/attack_type.text = critical_event.attack_name
+			$CriticalEvent/CriticalMenu/Description.text = critical_event.description
+			$CriticalEvent/CriticalMenu/conf_damage.text = "Confidenzialità: -"+str(critical_event.damage[0])
+			$CriticalEvent/CriticalMenu/integ_damage.text = "Integrità: -"+str(critical_event.damage[1])
+			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Avaiabilità: -"+str(critical_event.damage[2])
+		$CriticalEvent/AnimationPlayer.play("critical appear")
+		await critical_event_closed
+		update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
+
+
+func _on_close_button_pressed() -> void:
+	critical_event_closed.emit()
+	get_tree().paused = false
+	$CriticalEvent/AnimationPlayer.play("RESET")

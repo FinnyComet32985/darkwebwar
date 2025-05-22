@@ -60,8 +60,14 @@ var waves: Dictionary
 #		]
 # } 
 
+var critical_events: Dictionary
+# {
+# 	"0 day": [
+# 		critical_attack (name, description, [conf, integ,disp])
+# 	]
+# }
 
-func _init(new_level_num: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array, new_waves: Dictionary) -> void:
+func _init(new_level_num: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array, new_waves: Dictionary, new_critical_events) -> void:
 	self.level_num = new_level_num
 	self.static_defence_level_cost = new_static_defence_level_cost
 	self.placable_defence_level_cost = new_placable_defence_level_cost
@@ -69,6 +75,7 @@ func _init(new_level_num: int, new_static_defence_level_cost, new_placable_defen
 	self.paths = new_paths
 	self.attacks=new_attacks
 	self.waves = new_waves
+	self.critical_events = new_critical_events
 
 
 func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
@@ -115,5 +122,4 @@ func get_perc_redunction(attack_type:String, defence_type:String, defence_level:
 		if attack.attack_type == attack_type:
 			if defence_type in attack.attack_defence:
 				return attack.attack_defence[defence_type][defence_level]
-			
 	return 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=31 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -86,10 +86,93 @@ bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyyir"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7n4du"]
-bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wq2sp"]
 size = Vector2(83, 22.3828)
+
+[sub_resource type="Animation" id="Animation_5nxig"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.133333, 0.133333, 0.133333, 0.913725), Color(0.133333, 0.133333, 0.133333, 0.913725), Color(0.184314, 0.184314, 0.184314, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CriticalMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.933333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jyyir"]
+resource_name = "critical appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.184314, 0.184314, 0.184314, 0), Color(0.133333, 0.133333, 0.133333, 0.913725)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CriticalMenu:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_toq7d"]
+_data = {
+&"RESET": SubResource("Animation_5nxig"),
+&"critical appear": SubResource("Animation_jyyir")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dsu3c"]
 shader = ExtResource("3_dr1i0")
@@ -110,6 +193,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rao2o")
 
 [node name="StatusBar" type="Control" parent="TerminalBar"]
+z_index = 1
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 1.0
@@ -444,6 +528,8 @@ text = "0 - 0 ₿"
 [node name="WaveTimer" type="Timer" parent="."]
 script = ExtResource("5_jyyir")
 
+[node name="CriticalEventTimer" type="Timer" parent="."]
+
 [node name="PlayZone" type="Panel" parent="."]
 offset_left = 31.0
 offset_top = 87.0
@@ -690,6 +776,162 @@ input_pickable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayZone/Router"]
 shape = SubResource("RectangleShape2D_wq2sp")
 
+[node name="CriticalEvent" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CriticalEvent"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.133333, 0.133333, 0.913725)
+
+[node name="CriticalMenu" type="Panel" parent="CriticalEvent"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = 108.0
+offset_top = 120.0
+offset_right = 650.0
+offset_bottom = 599.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7n4du")
+
+[node name="Label" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 8.0
+offset_right = 171.0
+offset_bottom = 31.0
+theme = ExtResource("3_dsu3c")
+text = "EVENTO CRITICO"
+
+[node name="Separator" type="Panel" parent="CriticalEvent/CriticalMenu"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 30.0
+offset_right = -10.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme = SubResource("Theme_i3icg")
+
+[node name="attack_type_label" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 53.0
+offset_right = 171.0
+offset_bottom = 76.0
+theme = ExtResource("3_dsu3c")
+text = "Tipo di attacco:"
+
+[node name="attack_type" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 204.0
+offset_top = 53.0
+offset_right = 384.0
+offset_bottom = 76.0
+theme = ExtResource("3_dsu3c")
+
+[node name="Description_label" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 101.0
+offset_right = 238.0
+offset_bottom = 124.0
+theme = ExtResource("3_dsu3c")
+text = "Descrizione attacco:"
+
+[node name="Description" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 126.0
+offset_right = 525.0
+offset_bottom = 277.0
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
+
+[node name="damage" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.0
+offset_top = 297.0
+offset_right = 191.0
+offset_bottom = 320.0
+theme = ExtResource("3_dsu3c")
+text = "Danno riportato:"
+
+[node name="conf_damage" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 329.0
+offset_right = 193.0
+offset_bottom = 345.0
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
+text = "Confidenzialità:"
+
+[node name="integ_damage" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.0
+offset_top = 352.0
+offset_right = 191.0
+offset_bottom = 368.0
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
+text = "Integrità:"
+
+[node name="avaiab_damage" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 377.0
+offset_right = 193.0
+offset_bottom = 393.0
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
+text = "Disponibilità: "
+
+[node name="CloseButton" type="Button" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = -36.0
+offset_right = 43.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
+text = "X Chiudi"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CriticalEvent"]
+libraries = {
+&"": SubResource("AnimationLibrary_toq7d")
+}
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
@@ -699,6 +941,7 @@ mesh = SubResource("QuadMesh_ee5cj")
 
 [connection signal="timeout" from="SideBar/Status-container/Stat/BTC/BtcGen" to="." method="_on_btc_gen_timeout"]
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
+[connection signal="timeout" from="CriticalEventTimer" to="." method="_on_critical_event_timeout"]
 [connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
 [connection signal="visibility_changed" from="PlayZone/DefenceMenu" to="." method="_on_defence_menu_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
@@ -706,3 +949,4 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]
+[connection signal="pressed" from="CriticalEvent/CriticalMenu/CloseButton" to="." method="_on_close_button_pressed"]
