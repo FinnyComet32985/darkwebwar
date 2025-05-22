@@ -32,11 +32,21 @@ var curve_to_router: Array
 
 var level
 
+
+var timer
+
 func _ready():
 	if Global.save_data["settings"]["crt"] == false:
 		$CanvasLayer.visible = false
 	
 	init_level(n_level_playing)
+
+func _physics_process(delta: float) -> void:
+	if timer!=null && timer.is_stopped() == false:
+		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-stat".text = str(int(timer.time_left)) + " s"
+	if $WaveTimer!=null && $WaveTimer.is_stopped() == false:
+		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-stat".text = str(int($WaveTimer.time_left)) + " s"
+
 
 
 func init_level(n_level:int) -> void:
@@ -51,7 +61,7 @@ func init_level(n_level:int) -> void:
 
 
 	$TerminalBar/StatusBar/Level.text = "Level "+str(n_level)
-	$"SideBar/Status-container/Stat/Wave/wave-stat".text = str(wave)+"/"+str(len(level.waves)-1)
+	update_wave()
 	update_stat(10, 10, 10)
 
 	btc=10
@@ -69,10 +79,7 @@ func init_level(n_level:int) -> void:
 	$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "❌ - [0]"
 	$SideBar/PassiveDef/Stat/SocialEngeneering/level.text="0 - "+str(level.static_defence_level_cost["phishingRecognizer"][0])+" ₿"
 	
-
-
-	var gameArea = load(level.minimap)
-	$PlayZone/TextureRect.texture = gameArea
+	update_minimap()
 
 	for path in level.paths:
 		for node in path:				
@@ -102,11 +109,6 @@ func init_level(n_level:int) -> void:
 
 
 
-	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
-	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
-
-
-
 
 	var curve_to_router_0 = Curve2D.new()
 	curve_to_router_0.add_point(Vector2(249.0, 101.0))
@@ -125,8 +127,15 @@ func init_level(n_level:int) -> void:
 	curve_to_router.append(curve_to_router_2)
 
 	if wave == 0:
-		await get_tree().create_timer(level.waves[wave][1]).timeout
+		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Inizio ondata tra: "
+		timer = Timer.new()
+		timer.wait_time = level.waves[wave][1]
+		$".".add_child(timer)
+		timer.start()
+		await timer.timeout
+		
 		wave+=1
+		update_wave()
 		start_wave()
 	else:
 		start_wave()
@@ -134,6 +143,7 @@ func init_level(n_level:int) -> void:
 
 
 
+#* UPDATE FUNCTIONS
 
 func update_stat(new_conf, new_integ, new_disp) -> void:
 	$"SideBar/Status-container/Stat/Conf/conf-stat".text="["+"#".repeat(new_conf)+"-".repeat(10-new_conf)+"]" 
@@ -142,6 +152,17 @@ func update_stat(new_conf, new_integ, new_disp) -> void:
 	self.integ = new_integ
 	$"SideBar/Status-container/Stat/Disp/disp-stat".text="["+"#".repeat(new_disp)+"-".repeat(10-new_disp)+"]" 
 	self.disp = new_disp
+
+func update_wave() -> void:
+	$"SideBar/Status-container/Stat/Wave/wave-stat".text = str(wave)+"/"+str(len(level.waves)-1)
+
+func update_minimap() -> void:
+	var gameArea = load(level.minimap)
+	$PlayZone/TextureRect.texture = gameArea
+
+func update_btc() -> void:
+	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
+
 
 
 func game_level_up():
@@ -160,15 +181,12 @@ func get_defence_other_info(type: String, defence_level: int) -> Array:
 	var value = []
 	value.append(level.get_upgrade_level_cost(type, defence_level))
 	value.append(level.get_blocked_attack(type))
-	
 	return value
 
 
 
-func update_btc() -> void:
-	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
 
-	
+#! TEMP FUNCTION
 func _on_upgrade_button_pressed() -> void:
 	var button
 	for i in defence_buttons:
@@ -176,6 +194,8 @@ func _on_upgrade_button_pressed() -> void:
 			button = i
 			break
 	button.upgrade()
+
+
 
 
 func _on_button_pressed() -> void:
@@ -190,30 +210,43 @@ func _on_btc_gen_timeout() -> void:
 var attack_spawn_position := [Vector2(230.0, 35), Vector2(347.0, 35), Vector2(480.0, 35)]
 
 func start_wave() -> void:
+	$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Fine ondata tra: "
+	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
+	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
 	$WaveTimer.wait_time = level.waves[wave][0]
 	$WaveTimer.start()
 	$WaveTimer.next_wave_timer = level.waves[wave][1]
+	_on_attack_spawner_timeout()
 	$PlayZone/Attack/AttackSpawner.start()
 
 
 func _on_wave_timer_timeout() -> void:
 	if $WaveTimer.next_wave_timer!=0:
+		await $"SideBar/Status-container/Stat/BTC/BtcGen".timeout
+		$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
+		$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
 		$PlayZone/Attack/AttackSpawner.stop()
 		$WaveTimer.stop()
+		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Inizio ondata tra: "
 		$WaveTimer.wait_time=$WaveTimer.next_wave_timer
 		$WaveTimer.next_wave_timer=0
 		$WaveTimer.start()
 	else:
 		$WaveTimer.stop()
-		wave += 1
-		start_wave()
-
+		if wave+1 < (len(level.waves)-1):
+			wave += 1
+			update_wave()
+			start_wave()
+		else:
+			$WaveTimer.stop()
+			#! inserire il game level up qui
+			pass
 
 
 
 func _on_attack_spawner_timeout() -> void:
 	var spawn_position = randi_range(0, 2)
-	var attacks = DB_Level_definer.levels[n_level_playing-1].attacks
+	var attacks = level.attacks
 	var attack_type = attacks[randi_range(0, len(attacks)-1)]
 	var new_attack = attack.instantiate()
 	new_attack.set_attack(attack_type.attack_type, attack_type.succ_perc) 
@@ -225,11 +258,11 @@ func _on_attack_spawner_timeout() -> void:
 
 func _on_router_body_entered(body: Node2D) -> void:
 	if attack_spawned.find(body)!=-1:
-		var prefered_target = DB_Level_definer.get_prefered_target(n_level_playing, body.attack_type)
+		var prefered_target = level.get_prefered_target(body.attack_type)
 		var defined_paths = find_path(prefered_target)
 		
 		if len(defined_paths)!=0:
-			var effective_defence = DB_Level_definer.get_effective_defence(n_level_playing, body.attack_type)
+			var effective_defence = level.get_effective_defence(body.attack_type)
 			var excluded_paths = []
 
 			for defence in effective_defence:
@@ -265,7 +298,7 @@ func find_path(structure_names:Array) -> Array:
 	return return_path
 
 func update_damage(attack_type, structure_type) -> void:
-	var damage = DB_Level_definer.get_damage(n_level_playing, attack_type, structure_type)
+	var damage = level.get_damage(attack_type, structure_type)
 	if len(damage)!=0:
 		if conf-damage[0]>=0 && integ-damage[1]>=0 && disp-damage[2]>=0:
 			update_stat(conf-damage[0], integ-damage[1], disp-damage[2])

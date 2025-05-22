@@ -25,6 +25,8 @@ theme = ExtResource("1_t8nvg")
 [node name="AttackLifeRedunction" type="Label" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme = ExtResource("1_t8nvg")
+horizontal_alignment = 1
 
 [node name="Help" type="Button" parent="."]
 texture_filter = 1

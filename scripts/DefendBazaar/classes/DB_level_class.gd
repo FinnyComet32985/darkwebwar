@@ -90,3 +90,30 @@ func get_blocked_attack(defence_type: String) -> Array:
 			if defence == defence_type:
 				attacks_return.append(attack.attack_type)
 	return attacks_return
+
+func get_prefered_target(attack_type: String) -> Array:
+	for attack in attacks:
+		if attack_type == attack.attack_type:
+			return attack.damage.keys()
+	return []
+
+func get_effective_defence(attack_type: String) -> Dictionary:
+	for attack in attacks:
+		if attack_type == attack.attack_type:
+			return attack.attack_defence
+	return {}
+
+func get_damage(attack_type: String, structure_type: String) -> Array:
+	for attack in attacks:
+		if attack_type == attack.attack_type:
+			if structure_type in attack.damage:
+				return attack.damage[structure_type]
+	return []
+
+func get_perc_redunction(attack_type:String, defence_type:String, defence_level:int) -> int:
+	for attack in attacks:
+		if attack.attack_type == attack_type:
+			if defence_type in attack.attack_defence:
+				return attack.attack_defence[defence_type][defence_level]
+			
+	return 0

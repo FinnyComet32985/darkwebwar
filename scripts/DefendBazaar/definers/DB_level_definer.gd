@@ -79,26 +79,3 @@ var levels := [
 
 func get_level(levelNum: int) -> DB_Level_class:
 	return levels[levelNum-1]
-
-func get_prefered_target(level: int, attack_type: String) -> Array:
-	var attacks = levels[level-1].attacks
-
-	for attack in attacks:
-		if attack_type == attack.attack_type:
-			return attack.damage.keys()
-	return []
-
-func get_effective_defence(level:int, attack_type: String) -> Dictionary:
-	var attacks = levels[level-1].attacks
-	for attack in attacks:
-		if attack_type == attack.attack_type:
-			return attack.attack_defence
-	return {}
-
-func get_damage(level: int, attack_type: String, structure_type: String) -> Array:
-	var attacks = levels[level-1].attacks
-	for attack in attacks:
-		if attack_type == attack.attack_type:
-			if structure_type in attack.damage:
-				return attack.damage[structure_type]
-	return []

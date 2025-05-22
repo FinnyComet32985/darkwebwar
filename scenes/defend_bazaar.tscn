@@ -181,9 +181,9 @@ autowrap_mode = 0
 [node name="SideBar" type="VBoxContainer" parent="."]
 anchors_preset = -1
 anchor_left = 0.7
-anchor_top = 0.2
+anchor_top = 0.15
 anchor_right = 0.97
-anchor_bottom = 0.6
+anchor_bottom = 0.15
 offset_left = -36.4
 offset_top = 0.399994
 offset_right = 7.55994
@@ -208,6 +208,25 @@ theme = SubResource("Theme_i3icg")
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
+
+[node name="WaveTimerSect" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="wave-timer-label" type="Label" parent="SideBar/Status-container/Stat/WaveTimerSect"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+
+[node name="wave-timer-stat" type="Label" parent="SideBar/Status-container/Stat/WaveTimerSect"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+
+[node name="HSeparator4" type="HSeparator" parent="SideBar/Status-container/Stat"]
 layout_mode = 2
 theme_override_constants/separation = 7
 theme_override_styles/separator = SubResource("StyleBoxFlat_ee5cj")
@@ -519,6 +538,7 @@ layout_mode = 2
 texture_filter = 1
 custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
+theme = ExtResource("3_dsu3c")
 vertical_alignment = 2
 
 [node name="Help" type="Button" parent="PlayZone/DefenceMenu/Info/Tipo"]

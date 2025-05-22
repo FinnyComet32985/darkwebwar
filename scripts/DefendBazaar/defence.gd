@@ -39,6 +39,11 @@ func upgrade() -> void:
 	var other_info = $"../../../".get_defence_other_info(self.type, self.level)
 	$"../../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
 
+	for child in $"../../DefenceMenu/Efficenzy-container/VBoxContainer".get_children():
+		child.queue_free()
+	$"../../DefenceMenu".insert_attack(self.type, other_info[1], self.level)
+
+
 func update_path() -> void:
 	for path in $"../../../".paths:
 		for node in path:
@@ -48,7 +53,7 @@ func update_path() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var finded = false
-	var attack_countered = DB_Level_definer.get_effective_defence($"../../../".n_level_playing, body.attack_type)
+	var attack_countered = $"../../../".level.get_effective_defence(body.attack_type)
 
 	for defence_type in attack_countered.keys():
 		if defence_type == self.type:
