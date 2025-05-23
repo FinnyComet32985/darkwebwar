@@ -18,6 +18,8 @@ func _on_pressed() -> void:
 func set_type(new_type: String) -> void:
 	self.type = new_type
 	self.icon = DB_Icons.load_icon(self.type)
+	$Panel.visible = true
+	$Panel/Label.text = str(level)
 
 func open_menu() -> void:
 	if type!="":
@@ -42,6 +44,8 @@ func upgrade() -> void:
 	for child in $"../../DefenceMenu/Efficenzy-container/VBoxContainer".get_children():
 		child.queue_free()
 	$"../../DefenceMenu".insert_attack(self.type, other_info[1], self.level)
+
+	$Panel/Label.text = str(level)
 
 
 func update_path() -> void:

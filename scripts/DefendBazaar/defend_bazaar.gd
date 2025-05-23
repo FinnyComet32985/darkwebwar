@@ -29,7 +29,7 @@ var defence_buttons := []
 
 
 
-var attack_spawned := []
+var attacks_spawned := []
 var n_level_playing = 1
 
 var curve_to_router: Array
@@ -38,6 +38,28 @@ var level
 
 
 var timer
+
+var static_defence = [
+	{
+		"name": "Patch",
+		"level": 0,
+		"state": false,
+		"remaining_wave": 0
+	},
+	{
+		"name": "Phishing",
+		"level": 0,
+		"state": false,
+		"remaining_wave": 0
+	},
+	{
+		"name": "Antivirus",
+		"level": 0,
+		"state": false,
+		"remaining_wave": 0
+	}
+]
+
 signal critical_event_closed
 
 func _ready():
@@ -47,11 +69,15 @@ func _ready():
 	
 	init_level(n_level_playing)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if timer!=null && timer.is_stopped() == false:
 		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-stat".text = str(int(timer.time_left)) + " s"
 	if $WaveTimer!=null && $WaveTimer.is_stopped() == false:
 		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-stat".text = str(int($WaveTimer.time_left)) + " s"
+	if $CriticalEvent/Critic0Day!=null && $CriticalEvent/Critic0Day.is_stopped() == false:
+		$"CriticEffect-tim".text = str(int($CriticalEvent/Critic0Day.time_left)) + " s"
+	if $CriticalEvent/CriticSocialEngeeniering!=null && $CriticalEvent/CriticSocialEngeeniering.is_stopped() == false:
+		$"CriticEffect2-tim".text = str(int($CriticalEvent/CriticSocialEngeeniering.time_left)) + " s"
 
 
 
@@ -73,17 +99,10 @@ func init_level(n_level:int) -> void:
 	btc=10
 	update_btc()
 	
+	update_static_defence(0, false, 0)
+	update_static_defence(1, false, 0)
+	update_static_defence(2, false, 0)
 
-
-	#TODO refactor
-	$SideBar/PassiveDef/Stat/Patch/Status.text = "❌ - [0]"
-	$SideBar/PassiveDef/Stat/Patch/level.text = "0 - "+str(level.static_defence_level_cost["patch"][0])+" ₿"
-	
-	$SideBar/PassiveDef/Stat/Antivirus/Status.text = "❌ - [0]"
-	$SideBar/PassiveDef/Stat/Antivirus/level.text="0 - "+str(level.static_defence_level_cost["antivirus"][0])+" ₿"
-	
-	$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "❌ - [0]"
-	$SideBar/PassiveDef/Stat/SocialEngeneering/level.text="0 - "+str(level.static_defence_level_cost["phishingRecognizer"][0])+" ₿"
 	
 	update_minimap()
 
@@ -159,6 +178,27 @@ func update_stat(new_conf, new_integ, new_disp) -> void:
 	$"SideBar/Status-container/Stat/Disp/disp-stat".text="["+"#".repeat(new_disp)+"-".repeat(10-new_disp)+"]" 
 	self.disp = new_disp
 
+func update_static_defence(index:int, state:bool, static_defence_level:int) -> void:
+	if index == 0:
+		if state==false:
+			$SideBar/PassiveDef/Stat/Patch/Status.text = "❌ - [0]"
+		else:
+			$SideBar/PassiveDef/Stat/Patch/Status.text = "✅ - ["+str(static_defence[0]["remaining_wave"])+"]"
+		$SideBar/PassiveDef/Stat/Patch/level.text = str(static_defence_level)+" - "+str(level.static_defence[0].level_cost[static_defence_level])+" ₿"
+	if index == 1:
+		if state==false:
+			$SideBar/PassiveDef/Stat/Antivirus/Status.text = "❌ - [0]"
+		else:
+			$SideBar/PassiveDef/Stat/Antivirus/Status.text = "✅ - ["+str(static_defence[1]["remaining_wave"])+"]"
+		$SideBar/PassiveDef/Stat/Antivirus/level.text=str(static_defence_level)+" - "+str(level.static_defence[1].level_cost[static_defence_level])+" ₿"
+	if index == 2:
+		if state==false:
+			$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "❌ - [0]"
+		else:
+			$SideBar/PassiveDef/Stat/SocialEngeneering/Status.text = "✅ - ["+str(static_defence[2]["remaining_wave"])+"]"
+		$SideBar/PassiveDef/Stat/SocialEngeneering/level.text=str(static_defence_level)+" - "+str(level.static_defence[2].level_cost[static_defence_level])+" ₿"
+
+
 func update_wave() -> void:
 	$"SideBar/Status-container/Stat/Wave/wave-stat".text = str(wave)+"/"+str(len(level.waves)-1)
 
@@ -170,7 +210,7 @@ func update_btc() -> void:
 	$"SideBar/Status-container/Stat/BTC/Btc-stat".text=str(btc)
 
 
-
+#! TEMP FUNCTION
 func game_level_up():
 	$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
@@ -189,10 +229,6 @@ func get_defence_other_info(type: String, defence_level: int) -> Array:
 	value.append(level.get_blocked_attack(type))
 	return value
 
-
-
-
-#! TEMP FUNCTION
 func _on_upgrade_button_pressed() -> void:
 	var button
 	for i in defence_buttons:
@@ -235,6 +271,8 @@ func _on_wave_timer_timeout() -> void:
 		$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
 		$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
 		$CriticalEventTimer.stop()
+		$CriticalEvent/CriticSocialEngeeniering.paused = true
+		$CriticalEvent/Critic0Day.paused = true
 		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Inizio ondata tra: "
 		$WaveTimer.wait_time=$WaveTimer.next_wave_timer
 		$WaveTimer.next_wave_timer=0
@@ -245,6 +283,10 @@ func _on_wave_timer_timeout() -> void:
 			wave += 1
 			update_wave()
 			start_wave()
+			if $CriticalEvent/CriticSocialEngeeniering.paused == true:
+				$CriticalEvent/CriticSocialEngeeniering.paused = false
+			if $CriticalEvent/Critic0Day.paused == true:
+				$CriticalEvent/Critic0Day.paused = false
 		else:
 			$WaveTimer.stop()
 			#! inserire il game level up qui
@@ -257,15 +299,14 @@ func _on_attack_spawner_timeout() -> void:
 	var attacks = level.attacks
 	var attack_type = attacks[randi_range(0, len(attacks)-1)]
 	var new_attack = attack.instantiate()
-	new_attack.set_attack(attack_type.attack_type, attack_type.succ_perc) 
+	new_attack.set_attack(attack_type.attack_type, attack_type.succ_perc if bonus_perc==0 else attack_type.succ_perc+bonus_perc) 
 	new_attack.position = attack_spawn_position[spawn_position]
 	$PlayZone/Attack.add_child(new_attack)
 	new_attack.start_following_curve(curve_to_router[spawn_position])
-	attack_spawned.append(new_attack)
-
+	attacks_spawned.append(new_attack)
 
 func _on_router_body_entered(body: Node2D) -> void:
-	if attack_spawned.find(body)!=-1:
+	if attacks_spawned.find(body)!=-1:
 		var prefered_target = level.get_prefered_target(body.attack_type)
 		var defined_paths = find_path(prefered_target)
 		
@@ -328,6 +369,12 @@ func update_damage(attack_type, structure_type) -> void:
 		else:
 			print("GAME OVER")
 
+func remove_attack(body: Node) -> void:
+	for i in range(len(attacks_spawned) - 1, -1, -1): # Start from last index, go down to 0
+		if attacks_spawned[i] == body:
+			attacks_spawned.remove_at(i)
+			# If you expect only one match, you can 'break' here
+			break
 
 func _on_defence_menu_visibility_changed() -> void:
 	if $PlayZone/DefenceMenu.visible==false:
@@ -338,34 +385,41 @@ func _on_defence_menu_visibility_changed() -> void:
 func _on_critical_event_timeout() -> void:
 	var perc = randi_range(1, 100)
 	if perc <=critical_event_percentage:
-		get_tree().paused = true
 		var random_number = randi_range(0, 1)
+		if random_number == 0 && $CriticalEvent/Critic0Day.is_stopped() == false:
+			return
+		elif random_number == 1 && $CriticalEvent/CriticSocialEngeeniering.is_stopped() == false:
+			return
+		get_tree().paused = true
 		var critical_event
 		if random_number==0:
-			random_number = randi_range(0, len(level.critical_events["0 day"])-1)
-			critical_event = level.critical_events["0 day"][random_number]
+			var random_number_attack = randi_range(0, len(level.critical_events["0 day"])-1)
+			critical_event = level.critical_events["0 day"][random_number_attack]
 			$CriticalEvent/CriticalMenu/attack_type.text = critical_event.attack_name
 			$CriticalEvent/CriticalMenu/Description.text = critical_event.description
 			$CriticalEvent/CriticalMenu/conf_damage.text = "Confidenzialità: -"+str(critical_event.damage[0])
 			$CriticalEvent/CriticalMenu/integ_damage.text = "Integrità: -"+str(critical_event.damage[1])
-			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Avaiabilità: -"+str(critical_event.damage[2])
+			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Disponibilità: -"+str(critical_event.damage[2])
 			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[0])+" di danno per i prossimi 10 secondi"
 			bonus_damage = critical_event.side_effect[0]
-			$CriticalEvent/Critic0Day.start()
-			update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
 		else:
-			random_number = randi_range(0, len(level.critical_events["Social Engineering"])-1)
-			critical_event = level.critical_events["Social Engineering"][random_number]
+			var random_number_attack = randi_range(0, len(level.critical_events["Social Engineering"])-1)
+			critical_event = level.critical_events["Social Engineering"][random_number_attack]
 			$CriticalEvent/CriticalMenu/attack_type.text = critical_event.attack_name
 			$CriticalEvent/CriticalMenu/Description.text = critical_event.description
 			$CriticalEvent/CriticalMenu/conf_damage.text = "Confidenzialità: -"+str(critical_event.damage[0])
 			$CriticalEvent/CriticalMenu/integ_damage.text = "Integrità: -"+str(critical_event.damage[1])
-			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Avaiabilità: -"+str(critical_event.damage[2])
-			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[0])+" di vita per i prossimi 10 secondi"
+			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Disponibilità: -"+str(critical_event.damage[2])
+			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[1])+" di vita per i prossimi 10 secondi"
 			bonus_perc = critical_event.side_effect[1]
-			$CriticalEvent/CriticSocialEngeeniering.start()
 		$CriticalEvent/AnimationPlayer.play("critical appear")
 		await critical_event_closed
+		update_malus(random_number)
+		if random_number==0:
+			$CriticalEvent/Critic0Day.start()
+		else:
+			$CriticalEvent/CriticSocialEngeeniering.start()
+			add_bonus_life()
 		if conf-critical_event.damage[0]>=0 && integ-critical_event.damage[1]>=0 && disp-critical_event.damage[2]>=0:
 			update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
 		else:
@@ -379,7 +433,69 @@ func _on_close_button_pressed() -> void:
 
 func _on_critic_0_day_timeout() -> void:
 	bonus_damage = 0
+	update_malus(3)
 
 
 func _on_critic_social_engeeniering_timeout() -> void:
+	remove_bonus_life()
 	bonus_perc = 0
+	update_malus(4)
+
+func update_malus(type: int) -> void:
+	if type==0: 
+		$CriticEffect.text = "Danno: +"+str(bonus_damage)+" - tempo rimanente: "
+	elif type==1:
+		$CriticEffect2.text = "Vita: +"+str(bonus_perc)+" - tempo rimanente: "
+	elif type ==3:
+		$CriticEffect.text = ""
+		$"CriticEffect-tim".text=""
+	else:
+		$CriticEffect2.text = ""
+		$"CriticEffect2-tim".text = ""
+
+
+func add_bonus_life() -> void:
+	for current_attack in attacks_spawned:
+		current_attack.life = current_attack.life+bonus_perc
+		current_attack.reload_life()
+
+func remove_bonus_life() -> void:
+	for current_attack in attacks_spawned:
+		if current_attack.life - bonus_perc >= 0:
+			current_attack.life = current_attack.life-bonus_perc
+			current_attack.reload_life()
+		else:
+			current_attack.queue_free()
+
+
+
+
+
+#* STATIC DEFENCE MENU
+
+func _on_info_button_patch_pressed() -> void:
+	if $PlayZone/StaticDefenceMenu.visible == false || $PlayZone/StaticDefenceMenu.type!="Patch":
+		$PlayZone/StaticDefenceMenu.init_static_defence("Patch", "🩹", "Patch di sistema", static_defence[0]["state"], static_defence[0]["remaining_wave"], level.static_defence[0].activation_cost, level.static_defence[0].manteing_cost, static_defence[0]["level"], level.static_defence[0].level_cost[static_defence[0]["level"]], "La probabilità che si verifichi un evento 0 day è ridotta del ", level.static_defence[0].effect[static_defence[0]["level"]])
+		$PlayZone/StaticDefenceMenu.open_menu()
+	else:
+		$PlayZone/StaticDefenceMenu.visible=false
+
+
+
+func _on_info_button_social_eng_pressed() -> void:
+	if $PlayZone/StaticDefenceMenu.visible == false || $PlayZone/StaticDefenceMenu.type!="Phishing":
+		$PlayZone/StaticDefenceMenu.init_static_defence("Phishing", "🪝", "Corsi di formazione", static_defence[1]["state"], static_defence[1]["remaining_wave"], level.static_defence[1].activation_cost, level.static_defence[1].manteing_cost, static_defence[1]["level"], level.static_defence[1].level_cost[static_defence[1]["level"]], "La probabilità che si verifichi un evento Social Engineering è ridotta del ", level.static_defence[1].effect[static_defence[1]["level"]])
+		$PlayZone/StaticDefenceMenu.open_menu()
+	else:
+		$PlayZone/StaticDefenceMenu.visible=false
+
+func _on_info_button_antivirus_pressed() -> void:
+	if $PlayZone/StaticDefenceMenu.visible == false || $PlayZone/StaticDefenceMenu.type!="Antivirus":
+		$PlayZone/StaticDefenceMenu.init_static_defence("Antivirus", "🛡️", "Antivirus distribuiti", static_defence[2]["state"], static_defence[2]["remaining_wave"], level.static_defence[2].activation_cost, level.static_defence[2].manteing_cost, static_defence[2]["level"], level.static_defence[2].level_cost[static_defence[2]["level"]], "", 0)
+		$PlayZone/StaticDefenceMenu.open_menu()
+	else:
+		$PlayZone/StaticDefenceMenu.visible=false
+
+
+func _on_back_button_pressed() -> void:
+	$PlayZone/StaticDefenceMenu.visible = false

@@ -61,3 +61,6 @@ func continue_new_curve() -> void:
 func make_damage(structure_type) -> void:
 	# avvio animazione danno alla struttura
 	$"../../../".update_damage(self.attack_type, structure_type)
+
+func reload_life() -> void:
+	$Life.text = str(life)

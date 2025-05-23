@@ -2,20 +2,13 @@ extends Node
 
 class_name DB_Level_class
 var level_num: int
-var static_defence_level_cost: Dictionary
+var placable_defence_level_cost: Dictionary
 # {
 #     "patch": [0, 10, ...], index = level, value = cost
 #     "antivirus": [0, 7],
 #     "phishingRecognizer": [0, 10]
 # }
-var placable_defence_level_cost: Dictionary
-# {
-#     "firewall": [3, 6],
-#     "honeypot": [1, 3],
-#     "ids": [3, 6],
-#     "rateLimiter": [2, 7]
-#     # altro
-# }
+
 var minimap: String # path to minimap
 
 var paths: Array
@@ -67,9 +60,20 @@ var critical_events: Dictionary
 # 	]
 # }
 
-func _init(new_level_num: int, new_static_defence_level_cost, new_placable_defence_level_cost, new_minimap, new_paths:Array, new_attacks: Array, new_waves: Dictionary, new_critical_events) -> void:
+var static_defence: Array
+# [
+# 	defence (
+# 		String // type
+# 		int // activation_cost
+# 		int // manteing_cost
+# 		Array // level_cost
+# 		int // effect
+# 	)
+# ]
+
+func _init(new_level_num: int, new_static_defence: Array, new_placable_defence_level_cost: Dictionary, new_minimap, new_paths:Array, new_attacks: Array, new_waves: Dictionary, new_critical_events) -> void:
 	self.level_num = new_level_num
-	self.static_defence_level_cost = new_static_defence_level_cost
+	self.static_defence = new_static_defence
 	self.placable_defence_level_cost = new_placable_defence_level_cost
 	self.minimap = new_minimap
 	self.paths = new_paths
@@ -79,14 +83,8 @@ func _init(new_level_num: int, new_static_defence_level_cost, new_placable_defen
 
 
 func get_upgrade_level_cost(upgrade_type: String, level: int) -> int:
-	if upgrade_type == "Firewall":
-		return self.placable_defence_level_cost["Firewall"][level]
-	elif upgrade_type == "Web Application Firewall":
-		return self.placable_defence_level_cost["Web Application Firewall"][level]
-	elif upgrade_type == "Intrusion Detection System":
-		return self.placable_defence_level_cost["Intrusion Detection System"][level]
-	elif upgrade_type == "Rate Limiter":
-		return self.placable_defence_level_cost["Rate Limiter"][level]
+	if self.placable_defence_level_cost.has(upgrade_type):
+		return self.placable_defence_level_cost[upgrade_type][level]
 	else:
 		return 0
 

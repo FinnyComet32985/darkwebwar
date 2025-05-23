@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=35 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -8,8 +8,11 @@
 [ext_resource type="Script" uid="uid://buj2btobv46jw" path="res://scripts/DefendBazaar/defence_menu.gd" id="5_7n4du"]
 [ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="5_frwa5"]
 [ext_resource type="Script" uid="uid://chf1sry8duw5j" path="res://scenes/wave_timer.gd" id="5_jyyir"]
+[ext_resource type="Texture2D" uid="uid://bp7nkwpvpxrmc" path="res://assets/DefendBazaar/GUI/DarkWebWar-infoIco.svg" id="5_n7olq"]
 [ext_resource type="Texture2D" uid="uid://bhhg6puqjr00p" path="res://assets/DefendBazaar/GUI/DarkWebWar-UpgradeIco.svg" id="6_frwa5"]
 [ext_resource type="Script" uid="uid://bx32l42r4h5re" path="res://scripts/DefendBazaar/defence_builder.gd" id="7_7n4du"]
+[ext_resource type="Script" uid="uid://b7fdmadvjre3" path="res://scripts/DefendBazaar/static_defence_menu.gd" id="10_toq7d"]
+[ext_resource type="Texture2D" uid="uid://bjheenom4sshi" path="res://assets/DefendBazaar/GUI/DarkWebWar-activateIcon.svg" id="11_wq2sp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -452,6 +455,7 @@ text = " PU"
 
 [node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Info-label"]
 texture_filter = 1
+custom_minimum_size = Vector2(93, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "  Stato "
@@ -464,7 +468,7 @@ text = " Livello "
 
 [node name="Patch" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
 layout_mode = 2
-theme_override_constants/separation = 22
+theme_override_constants/separation = 25
 
 [node name="Label" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
 texture_filter = 1
@@ -474,37 +478,28 @@ text = "🩹"
 
 [node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
 texture_filter = 1
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "✅ - [0]"
 
 [node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Patch"]
 texture_filter = 1
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "0 - 0 ₿"
+horizontal_alignment = 1
 
-[node name="Antivirus" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
-layout_mode = 2
-theme_override_constants/separation = 25
-
-[node name="Label" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+[node name="info_button_patch" type="Button" parent="SideBar/PassiveDef/Stat/Patch"]
 texture_filter = 1
+custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "🛡️"
-
-[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "❌ - [0]"
-
-[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
-texture_filter = 1
-layout_mode = 2
-theme = ExtResource("3_dsu3c")
-text = "0 - 0 ₿"
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("5_n7olq")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="SocialEngeneering" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
 layout_mode = 2
@@ -518,35 +513,114 @@ text = "🪝"
 
 [node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/SocialEngeneering"]
 texture_filter = 1
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "❌ - [0]"
 
 [node name="level" type="Label" parent="SideBar/PassiveDef/Stat/SocialEngeneering"]
 texture_filter = 1
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "0 - 0 ₿"
+horizontal_alignment = 1
+
+[node name="info_button_social_eng" type="Button" parent="SideBar/PassiveDef/Stat/SocialEngeneering"]
+texture_filter = 1
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("5_n7olq")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="Antivirus" type="HBoxContainer" parent="SideBar/PassiveDef/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="Label" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🛡️"
+
+[node name="Status" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "❌ - [0]"
+
+[node name="level" type="Label" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "0 - 0 ₿"
+horizontal_alignment = 1
+
+[node name="info_button_antivirus" type="Button" parent="SideBar/PassiveDef/Stat/Antivirus"]
+texture_filter = 1
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("5_n7olq")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true
 
 [node name="WaveTimer" type="Timer" parent="."]
 script = ExtResource("5_jyyir")
 
 [node name="CriticalEventTimer" type="Timer" parent="."]
 
+[node name="CriticEffect" type="Label" parent="."]
+texture_filter = 1
+offset_left = 45.0
+offset_top = 63.0
+offset_right = 222.0
+offset_bottom = 79.0
+theme = ExtResource("3_dsu3c")
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 15
+
+[node name="CriticEffect-tim" type="Label" parent="."]
+texture_filter = 1
+offset_left = 294.0
+offset_top = 62.0
+offset_right = 328.0
+offset_bottom = 78.0
+theme = ExtResource("3_dsu3c")
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 15
+
+[node name="CriticEffect2" type="Label" parent="."]
+texture_filter = 1
+offset_left = 384.0
+offset_top = 63.0
+offset_right = 629.0
+offset_bottom = 79.0
+theme = ExtResource("3_dsu3c")
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 15
+
+[node name="CriticEffect2-tim" type="Label" parent="."]
+texture_filter = 1
+offset_left = 623.0
+offset_top = 63.0
+offset_right = 651.0
+offset_bottom = 79.0
+theme = ExtResource("3_dsu3c")
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+theme_override_font_sizes/font_size = 15
+
 [node name="PlayZone" type="Panel" parent="."]
 offset_left = 31.0
 offset_top = 87.0
 offset_right = 723.0
 offset_bottom = 629.0
-
-[node name="CriticEffect" type="Label" parent="PlayZone"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 14.0
-offset_top = 26.0
-offset_right = 191.0
-offset_bottom = 116.0
-theme = ExtResource("3_dsu3c")
 
 [node name="TextureRect" type="TextureRect" parent="PlayZone"]
 texture_filter = 1
@@ -715,6 +789,204 @@ offset_bottom = 437.0
 layout_mode = 2
 
 [node name="Button" type="Button" parent="PlayZone/DefenceMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.5
+offset_top = -24.0
+offset_right = 42.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_dsu3c")
+text = "< Indietro"
+
+[node name="StaticDefenceMenu" type="Panel" parent="PlayZone"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = 115.0
+offset_top = 32.0
+offset_right = 578.0
+offset_bottom = 509.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jyyir")
+script = ExtResource("10_toq7d")
+
+[node name="Label" type="Label" parent="PlayZone/StaticDefenceMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 8.0
+offset_right = 163.0
+offset_bottom = 31.0
+theme = ExtResource("3_dsu3c")
+text = "Informazioni difesa"
+
+[node name="Info" type="VBoxContainer" parent="PlayZone/StaticDefenceMenu"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 36.0
+offset_right = 447.0
+offset_bottom = 183.0
+theme_override_constants/separation = 30
+
+[node name="Tipo" type="HBoxContainer" parent="PlayZone/StaticDefenceMenu/Info"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="tipo" type="Label" parent="PlayZone/StaticDefenceMenu/Info/Tipo"]
+texture_filter = 1
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="tipo-stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/Tipo"]
+texture_filter = 1
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+vertical_alignment = 2
+
+[node name="Help" type="Button" parent="PlayZone/StaticDefenceMenu/Info/Tipo"]
+texture_filter = 1
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("5_frwa5")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="State" type="VBoxContainer" parent="PlayZone/StaticDefenceMenu/Info"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="PlayZone/StaticDefenceMenu/Info/State"]
+layout_mode = 2
+
+[node name="state_label" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Stato:"
+
+[node name="state_stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+
+[node name="Activate" type="Button" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("11_wq2sp")
+flat = true
+vertical_icon_alignment = 2
+expand_icon = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PlayZone/StaticDefenceMenu/Info/State"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Cost" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer2/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Costo attivazione:"
+
+[node name="cost_stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer2/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Cost" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer2/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Costo mantenimento:"
+
+[node name="cost_stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer2/HBoxContainer2"]
+texture_filter = 1
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+horizontal_alignment = 2
+
+[node name="Level" type="HBoxContainer" parent="PlayZone/StaticDefenceMenu/Info"]
+layout_mode = 2
+
+[node name="Level_label" type="Label" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Livello:"
+
+[node name="level_stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+
+[node name="VSeparator" type="VSeparator" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jyyir")
+
+[node name="Cost" type="Label" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Costo upgrade:"
+
+[node name="cost_stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+texture_filter = 1
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+horizontal_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jyyir")
+
+[node name="StaticUpgradeButton" type="Button" parent="PlayZone/StaticDefenceMenu/Info/Level"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("6_frwa5")
+flat = true
+expand_icon = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayZone/StaticDefenceMenu/Info"]
+layout_mode = 2
+
+[node name="Effect_label" type="Label" parent="PlayZone/StaticDefenceMenu/Info/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+text = "Effetto:"
+
+[node name="Effect-stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = ExtResource("3_dsu3c")
+autowrap_mode = 3
+
+[node name="Back_button" type="Button" parent="PlayZone/StaticDefenceMenu"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 7
@@ -970,6 +1242,7 @@ one_shot = true
 
 [node name="CriticSocialEngeeniering" type="Timer" parent="CriticalEvent"]
 wait_time = 10.0
+one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -979,12 +1252,16 @@ material = SubResource("ShaderMaterial_dsu3c")
 mesh = SubResource("QuadMesh_ee5cj")
 
 [connection signal="timeout" from="SideBar/Status-container/Stat/BTC/BtcGen" to="." method="_on_btc_gen_timeout"]
+[connection signal="pressed" from="SideBar/PassiveDef/Stat/Patch/info_button_patch" to="." method="_on_info_button_patch_pressed"]
+[connection signal="pressed" from="SideBar/PassiveDef/Stat/SocialEngeneering/info_button_social_eng" to="." method="_on_info_button_social_eng_pressed"]
+[connection signal="pressed" from="SideBar/PassiveDef/Stat/Antivirus/info_button_antivirus" to="." method="_on_info_button_antivirus_pressed"]
 [connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]
 [connection signal="timeout" from="CriticalEventTimer" to="." method="_on_critical_event_timeout"]
 [connection signal="timeout" from="PlayZone/Attack/AttackSpawner" to="." method="_on_attack_spawner_timeout"]
 [connection signal="visibility_changed" from="PlayZone/DefenceMenu" to="." method="_on_defence_menu_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PlayZone/StaticDefenceMenu/Back_button" to="." method="_on_back_button_pressed"]
 [connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]

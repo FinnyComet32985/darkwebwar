@@ -4,11 +4,16 @@ var levels := [
 	# Level 1
 	DB_Level_class.new(
 		1, # numero di livello
-		{ # costi per le difese statiche 
-		"patch": [0],
-		"antivirus": [0],
-		"phishingRecognizer": [0]
-		},
+		[
+			DB_static_defence_class.new("Patch", 20, 10, [10, 20, 30], [0, 5, 6, 7 ]),
+			DB_static_defence_class.new("Phishing", 20, 10, [10, 20, 30], [0, 5, 6, 7]),
+			DB_static_defence_class.new("Antivirus", 20, 10, [10, 20, 30], [[0, 1], [2, 3]])
+		],
+		# { # costi per le difese statiche 
+		# "patch": [0],
+		# "antivirus": [0],
+		# "phishingRecognizer": [0]
+		# },
 		{ # costi per upgrade edifici piazzabili 
 			"Firewall": [1, 3, 6],
 			"WAF": [2, 1, 3],
@@ -61,11 +66,12 @@ var levels := [
 	# Level 2
 	DB_Level_class.new(
 		2, # numero di livello
-		{ # costi per le difese statiche 
-		"patch": [0],
-		"antivirus": [0],
-		"phishingRecognizer": [0]
-		},
+		[],
+		# { # costi per le difese statiche 
+		# "patch": [0],
+		# "antivirus": [0],
+		# "phishingRecognizer": [0]
+		# },
 		{ # costi per upgrade edifici piazzabili 
 			"firewall": [3, 6],
 			"honeypot": [1, 3],
