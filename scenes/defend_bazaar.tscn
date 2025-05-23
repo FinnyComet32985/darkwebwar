@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=32 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -86,10 +86,13 @@ bg_color = Color(0.0768358, 0.0768358, 0.0768358, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jyyir"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7n4du"]
-bg_color = Color(1, 0, 0, 1)
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wq2sp"]
 size = Vector2(83, 22.3828)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5nxig"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_5nxig"]
 tracks/0/type = "value"
@@ -536,6 +539,15 @@ offset_top = 87.0
 offset_right = 723.0
 offset_bottom = 629.0
 
+[node name="CriticEffect" type="Label" parent="PlayZone"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 14.0
+offset_top = 26.0
+offset_right = 191.0
+offset_bottom = 116.0
+theme = ExtResource("3_dsu3c")
+
 [node name="TextureRect" type="TextureRect" parent="PlayZone"]
 texture_filter = 1
 layout_mode = 1
@@ -802,7 +814,7 @@ offset_left = 108.0
 offset_top = 120.0
 offset_right = 650.0
 offset_bottom = 599.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7n4du")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5nxig")
 
 [node name="Label" type="Label" parent="CriticalEvent/CriticalMenu"]
 texture_filter = 1
@@ -861,7 +873,7 @@ layout_mode = 0
 offset_left = 13.0
 offset_top = 126.0
 offset_right = 525.0
-offset_bottom = 277.0
+offset_bottom = 222.0
 theme = ExtResource("3_dsu3c")
 theme_override_font_sizes/font_size = 15
 autowrap_mode = 3
@@ -870,9 +882,9 @@ autowrap_mode = 3
 texture_filter = 1
 layout_mode = 0
 offset_left = 11.0
-offset_top = 297.0
+offset_top = 245.0
 offset_right = 191.0
-offset_bottom = 320.0
+offset_bottom = 268.0
 theme = ExtResource("3_dsu3c")
 text = "Danno riportato:"
 
@@ -880,9 +892,9 @@ text = "Danno riportato:"
 texture_filter = 1
 layout_mode = 0
 offset_left = 13.0
-offset_top = 329.0
+offset_top = 275.0
 offset_right = 193.0
-offset_bottom = 345.0
+offset_bottom = 291.0
 theme = ExtResource("3_dsu3c")
 theme_override_font_sizes/font_size = 15
 text = "Confidenzialità:"
@@ -891,9 +903,9 @@ text = "Confidenzialità:"
 texture_filter = 1
 layout_mode = 0
 offset_left = 11.0
-offset_top = 352.0
+offset_top = 305.0
 offset_right = 191.0
-offset_bottom = 368.0
+offset_bottom = 321.0
 theme = ExtResource("3_dsu3c")
 theme_override_font_sizes/font_size = 15
 text = "Integrità:"
@@ -902,12 +914,32 @@ text = "Integrità:"
 texture_filter = 1
 layout_mode = 0
 offset_left = 13.0
-offset_top = 377.0
+offset_top = 335.0
 offset_right = 193.0
-offset_bottom = 393.0
+offset_bottom = 351.0
 theme = ExtResource("3_dsu3c")
 theme_override_font_sizes/font_size = 15
 text = "Disponibilità: "
+
+[node name="SideEffect_crit" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.0
+offset_top = 378.0
+offset_right = 191.0
+offset_bottom = 401.0
+theme = ExtResource("3_dsu3c")
+text = "Effetto evento critico:"
+
+[node name="SideEffect_crit_stat" type="Label" parent="CriticalEvent/CriticalMenu"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.0
+offset_top = 408.0
+offset_right = 528.0
+offset_bottom = 431.0
+theme = ExtResource("3_dsu3c")
+theme_override_font_sizes/font_size = 15
 
 [node name="CloseButton" type="Button" parent="CriticalEvent/CriticalMenu"]
 texture_filter = 1
@@ -932,6 +964,13 @@ libraries = {
 &"": SubResource("AnimationLibrary_toq7d")
 }
 
+[node name="Critic0Day" type="Timer" parent="CriticalEvent"]
+wait_time = 10.0
+one_shot = true
+
+[node name="CriticSocialEngeeniering" type="Timer" parent="CriticalEvent"]
+wait_time = 10.0
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
@@ -950,3 +989,5 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]
 [connection signal="pressed" from="CriticalEvent/CriticalMenu/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="timeout" from="CriticalEvent/Critic0Day" to="." method="_on_critic_0_day_timeout"]
+[connection signal="timeout" from="CriticalEvent/CriticSocialEngeeniering" to="." method="_on_critic_social_engeeniering_timeout"]

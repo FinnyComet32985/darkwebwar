@@ -14,7 +14,10 @@ var disp := 0
 
 var btc := 0
 
-var critical_event_percentage = 10
+var critical_event_percentage = 5
+
+var bonus_perc:=0
+var bonus_damage:=0
 
 var paths := []
 
@@ -216,6 +219,7 @@ func start_wave() -> void:
 	$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Fine ondata tra: "
 	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
+	$PlayZone/Attack/AttackSpawner.start()
 	$WaveTimer.wait_time = level.waves[wave][0]
 	$WaveTimer.start()
 	$WaveTimer.next_wave_timer = level.waves[wave][1]
@@ -225,19 +229,19 @@ func start_wave() -> void:
 
 func _on_wave_timer_timeout() -> void:
 	if $WaveTimer.next_wave_timer!=0:
+		$PlayZone/Attack/AttackSpawner.stop()
+		$WaveTimer.stop()
 		await $"SideBar/Status-container/Stat/BTC/BtcGen".timeout
 		$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
 		$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
-		$PlayZone/Attack/AttackSpawner.stop()
 		$CriticalEventTimer.stop()
-		$WaveTimer.stop()
 		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Inizio ondata tra: "
 		$WaveTimer.wait_time=$WaveTimer.next_wave_timer
 		$WaveTimer.next_wave_timer=0
 		$WaveTimer.start()
 	else:
 		$WaveTimer.stop()
-		if wave+1 < (len(level.waves)-1):
+		if wave+1 <= (len(level.waves)-1):
 			wave += 1
 			update_wave()
 			start_wave()
@@ -303,9 +307,24 @@ func find_path(structure_names:Array) -> Array:
 
 func update_damage(attack_type, structure_type) -> void:
 	var damage = level.get_damage(attack_type, structure_type)
+
 	if len(damage)!=0:
-		if conf-damage[0]>=0 && integ-damage[1]>=0 && disp-damage[2]>=0:
-			update_stat(conf-damage[0], integ-damage[1], disp-damage[2])
+		var new_damage := []
+		if damage[0]!=0:
+			new_damage.append(damage[0]+bonus_damage)
+		else:
+			new_damage.append(damage[0])
+		if damage[1]!=0:
+			new_damage.append(damage[1]+bonus_damage)
+		else:
+			new_damage.append(damage[1])
+		if damage[2]!=0:
+			new_damage.append(damage[2]+bonus_damage)
+		else:
+			new_damage.append(damage[2])
+
+		if conf-new_damage[0]>=0 && integ-new_damage[1]>=0 && disp-new_damage[2]>=0:
+			update_stat(conf-new_damage[0], integ-new_damage[1], disp-new_damage[2])
 		else:
 			print("GAME OVER")
 
@@ -330,6 +349,9 @@ func _on_critical_event_timeout() -> void:
 			$CriticalEvent/CriticalMenu/conf_damage.text = "Confidenzialità: -"+str(critical_event.damage[0])
 			$CriticalEvent/CriticalMenu/integ_damage.text = "Integrità: -"+str(critical_event.damage[1])
 			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Avaiabilità: -"+str(critical_event.damage[2])
+			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[0])+" di danno per i prossimi 10 secondi"
+			bonus_damage = critical_event.side_effect[0]
+			$CriticalEvent/Critic0Day.start()
 			update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
 		else:
 			random_number = randi_range(0, len(level.critical_events["Social Engineering"])-1)
@@ -339,12 +361,25 @@ func _on_critical_event_timeout() -> void:
 			$CriticalEvent/CriticalMenu/conf_damage.text = "Confidenzialità: -"+str(critical_event.damage[0])
 			$CriticalEvent/CriticalMenu/integ_damage.text = "Integrità: -"+str(critical_event.damage[1])
 			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Avaiabilità: -"+str(critical_event.damage[2])
+			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[0])+" di vita per i prossimi 10 secondi"
+			bonus_perc = critical_event.side_effect[1]
+			$CriticalEvent/CriticSocialEngeeniering.start()
 		$CriticalEvent/AnimationPlayer.play("critical appear")
 		await critical_event_closed
-		update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
-
+		if conf-critical_event.damage[0]>=0 && integ-critical_event.damage[1]>=0 && disp-critical_event.damage[2]>=0:
+			update_stat(conf-critical_event.damage[0], integ-critical_event.damage[1], disp-critical_event.damage[2])
+		else:
+			print("GAME OVER")
 
 func _on_close_button_pressed() -> void:
 	critical_event_closed.emit()
 	get_tree().paused = false
 	$CriticalEvent/AnimationPlayer.play("RESET")
+
+
+func _on_critic_0_day_timeout() -> void:
+	bonus_damage = 0
+
+
+func _on_critic_social_engeeniering_timeout() -> void:
+	bonus_perc = 0

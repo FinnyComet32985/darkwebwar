@@ -42,18 +42,19 @@ var levels := [
 		{ # ondate
 			0: [0, 10],
 			1: [30, 15], # n_ondata: [ durata ondata, timer alla prossima ondata ]
-			2: [40, 20]
+			2: [40, 20],
+			3: [50, 20]
 		},
 		{
 			"0 day": [
-				DB_critical_attack_class.new("Ramsomware", "Un ransomware sofisticato sfrutta la vulnerabilità 0-day per criptare immediatamente i dati critici sui file server principali, bypassando tutte le difese perimetrali convenzionali.", [0, 1, 3]),
-				DB_critical_attack_class.new("Worm Autopropagante", "Un malware che sfrutta la vulnerabilità 0-day per diffondersi automaticamente attraverso la rete, infettando progressivamente tutti i sistemi collegati.", [1, 2, 3]),
-				DB_critical_attack_class.new("Memory Corruption Attack", "La vulnerabilità 0-day causa corruzione della memoria sui server di elaborazione, portando a crash di sistema e perdita di dati in elaborazione.", [1, 3, 3])
+				DB_critical_attack_class.new("Ramsomware", "Un ransomware sofisticato sfrutta la vulnerabilità 0-day per criptare immediatamente i dati critici sui file server principali, bypassando tutte le difese perimetrali convenzionali.", [0, 1, 3], [1, 10]),
+				DB_critical_attack_class.new("Worm Autopropagante", "Un malware che sfrutta la vulnerabilità 0-day per diffondersi automaticamente attraverso la rete, infettando progressivamente tutti i sistemi collegati.", [1, 2, 3], [1, 10]),
+				DB_critical_attack_class.new("Memory Corruption Attack", "La vulnerabilità 0-day causa corruzione della memoria sui server di elaborazione, portando a crash di sistema e perdita di dati in elaborazione.", [1, 3, 3], [1, 10])
 			],
 			"Social Engineering": [
-				DB_critical_attack_class.new("Insider Data Breach", "Un dipendente compromesso dal social engineering ha fornito accesso diretto ai database contenenti informazioni sensibili. I dati vengono esfiltrati senza lasciare tracce evidenti.", [4, 0, 0]),
-				DB_critical_attack_class.new("Credential Harvesting", "Gli attaccanti hanno ottenuto le credenziali di accesso di diversi utenti chiave attraverso phishing mirato. Utilizzano questi accessi per compromettere i sistemi di autenticazione.", [3, 3, 1]),
-				DB_critical_attack_class.new("Business Email Compromise", "Gli attaccanti hanno compromesso la casella email di un dirigente e stanno utilizzando questo accesso per autorizzare transazioni fraudolente e diffondere malware all'interno dell'organizzazione.", [3, 2, 2])
+				DB_critical_attack_class.new("Insider Data Breach", "Un dipendente compromesso dal social engineering ha fornito accesso diretto ai database contenenti informazioni sensibili. I dati vengono esfiltrati senza lasciare tracce evidenti.", [4, 0, 0], [1, 10]),
+				DB_critical_attack_class.new("Credential Harvesting", "Gli attaccanti hanno ottenuto le credenziali di accesso di diversi utenti chiave attraverso phishing mirato. Utilizzano questi accessi per compromettere i sistemi di autenticazione.", [3, 3, 1], [1, 10]),
+				DB_critical_attack_class.new("Business Email Compromise", "Gli attaccanti hanno compromesso la casella email di un dirigente e stanno utilizzando questo accesso per autorizzare transazioni fraudolente e diffondere malware all'interno dell'organizzazione.", [3, 2, 2], [1, 10])
 			]
 		}
 	),
@@ -87,14 +88,14 @@ var levels := [
 		},
 		{
 			"0 day": [
-				DB_critical_attack_class.new("Ramsomware", "Un ransomware sofisticato sfrutta la vulnerabilità 0-day per criptare immediatamente i dati critici sui file server principali, bypassando tutte le difese perimetrali convenzionali.", [0, 1, 3]),
-				DB_critical_attack_class.new("Worm Autopropagante", "Un malware che sfrutta la vulnerabilità 0-day per diffondersi automaticamente attraverso la rete, infettando progressivamente tutti i sistemi collegati.", [1, 2, 3]),
-				DB_critical_attack_class.new("Memory Corruption Attack", "La vulnerabilità 0-day causa corruzione della memoria sui server di elaborazione, portando a crash di sistema e perdita di dati in elaborazione.", [1, 3, 3])
+				DB_critical_attack_class.new("Ramsomware", "Un ransomware sofisticato sfrutta la vulnerabilità 0-day per criptare immediatamente i dati critici sui file server principali, bypassando tutte le difese perimetrali convenzionali.", [0, 1, 3], [1, 10]),
+				DB_critical_attack_class.new("Worm Autopropagante", "Un malware che sfrutta la vulnerabilità 0-day per diffondersi automaticamente attraverso la rete, infettando progressivamente tutti i sistemi collegati.", [1, 2, 3], [1, 10]),
+				DB_critical_attack_class.new("Memory Corruption Attack", "La vulnerabilità 0-day causa corruzione della memoria sui server di elaborazione, portando a crash di sistema e perdita di dati in elaborazione.", [1, 3, 3], [1, 10])
 			],
 			"Social Engineering": [
-				DB_critical_attack_class.new("Insider Data Breach", "Un dipendente compromesso dal social engineering ha fornito accesso diretto ai database contenenti informazioni sensibili. I dati vengono esfiltrati senza lasciare tracce evidenti.", [4, 0, 0]),
-				DB_critical_attack_class.new("Credential Harvesting", "Gli attaccanti hanno ottenuto le credenziali di accesso di diversi utenti chiave attraverso phishing mirato. Utilizzano questi accessi per compromettere i sistemi di autenticazione.", [3, 3, 1]),
-				DB_critical_attack_class.new("Business Email Compromise", "Gli attaccanti hanno compromesso la casella email di un dirigente e stanno utilizzando questo accesso per autorizzare transazioni fraudolente e diffondere malware all'interno dell'organizzazione.", [3, 2, 2])
+				DB_critical_attack_class.new("Insider Data Breach", "Un dipendente compromesso dal social engineering ha fornito accesso diretto ai database contenenti informazioni sensibili. I dati vengono esfiltrati senza lasciare tracce evidenti.", [4, 0, 0], [1, 10]),
+				DB_critical_attack_class.new("Credential Harvesting", "Gli attaccanti hanno ottenuto le credenziali di accesso di diversi utenti chiave attraverso phishing mirato. Utilizzano questi accessi per compromettere i sistemi di autenticazione.", [3, 3, 1], [1, 10]),
+				DB_critical_attack_class.new("Business Email Compromise", "Gli attaccanti hanno compromesso la casella email di un dirigente e stanno utilizzando questo accesso per autorizzare transazioni fraudolente e diffondere malware all'interno dell'organizzazione.", [3, 2, 2], [1, 10])
 			]
 		}
 	)
