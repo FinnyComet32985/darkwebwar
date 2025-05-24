@@ -308,6 +308,7 @@ theme_override_constants/separation = 25
 
 [node name="wave-timer-label" type="Label" parent="SideBar/Status-container/Stat/WaveTimerSect"]
 texture_filter = 1
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 
@@ -329,7 +330,7 @@ theme_override_constants/separation = 25
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-text = "WAVE"
+text = "ONDATA:"
 
 [node name="wave-stat" type="Label" parent="SideBar/Status-container/Stat/Wave"]
 texture_filter = 1
@@ -575,6 +576,7 @@ expand_icon = true
 script = ExtResource("5_jyyir")
 
 [node name="CriticalEventTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="CriticEffect" type="Label" parent="."]
 texture_filter = 1
@@ -871,15 +873,18 @@ layout_mode = 2
 
 [node name="state_label" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer"]
 texture_filter = 1
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
 text = "Stato:"
+vertical_alignment = 1
 
 [node name="state_stat" type="Label" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(270, 0)
+custom_minimum_size = Vector2(270, 45)
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
+vertical_alignment = 1
 
 [node name="Activate" type="Button" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer"]
 texture_filter = 1
@@ -1261,8 +1266,9 @@ mesh = SubResource("QuadMesh_ee5cj")
 [connection signal="visibility_changed" from="PlayZone/DefenceMenu" to="." method="_on_defence_menu_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Info/Level/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="PlayZone/DefenceMenu/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate" to="." method="_on_activate_pressed"]
+[connection signal="pressed" from="PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton" to="." method="_on_static_upgrade_button_pressed"]
 [connection signal="pressed" from="PlayZone/StaticDefenceMenu/Back_button" to="." method="_on_back_button_pressed"]
-[connection signal="visibility_changed" from="PlayZone/DefenceBuilder" to="PlayZone/DefenceBuilder" method="_on_visibility_changed"]
 [connection signal="pressed" from="PlayZone/DefenceBuilder/BackButton" to="PlayZone/DefenceBuilder" method="_on_back_button_pressed"]
 [connection signal="body_entered" from="PlayZone/Router" to="." method="_on_router_body_entered"]
 [connection signal="pressed" from="CriticalEvent/CriticalMenu/CloseButton" to="." method="_on_close_button_pressed"]

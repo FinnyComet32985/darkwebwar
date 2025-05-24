@@ -5,8 +5,8 @@ var levels := [
 	DB_Level_class.new(
 		1, # numero di livello
 		[
-			DB_static_defence_class.new("Patch", 20, 10, [10, 20, 30], [0, 5, 6, 7 ]),
-			DB_static_defence_class.new("Phishing", 20, 10, [10, 20, 30], [0, 5, 6, 7]),
+			DB_static_defence_class.new("Patch", 20, 10, [10, 20, 30], [0, 2, 3, 4 ]),
+			DB_static_defence_class.new("Phishing", 20, 10, [10, 20, 30], [0, 2, 3, 4]),
 			DB_static_defence_class.new("Antivirus", 20, 10, [10, 20, 30], [[0, 1], [2, 3]])
 		],
 		# { # costi per le difese statiche 
@@ -48,7 +48,8 @@ var levels := [
 			0: [0, 10],
 			1: [30, 15], # n_ondata: [ durata ondata, timer alla prossima ondata ]
 			2: [40, 20],
-			3: [50, 20]
+			3: [50, 20],
+			4: [60, 20]
 		},
 		{
 			"0 day": [

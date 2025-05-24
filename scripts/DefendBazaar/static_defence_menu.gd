@@ -25,7 +25,7 @@ func init_static_defence(p_type:String, p_static_defence_type: String, p_name: S
     effect = p_effect
 
 
-func open_menu() -> void:
+func open_menu(btc: int) -> void:
     $"./Info/Tipo/tipo".text = static_defence_type
     $"./Info/Tipo/tipo-stat".text = static_defence_name
     $"./Info/State/VBoxContainer/state_stat".text = "❌ - [0]" if state == false else "✅ - ["+str(remaining_wave)+"]"
@@ -34,4 +34,35 @@ func open_menu() -> void:
     $Info/Level/level_stat.text = str(level)
     $Info/Level/cost_stat.text = str(upgrade_cost)
     $"Info/VBoxContainer/Effect-stat".text = effect_description+str(effect)+"%" 
+    if state == true || level==0:
+        $Info/State/VBoxContainer/Activate.visible = false
+    else:
+        $Info/State/VBoxContainer/Activate.visible = true
     $".".visible = true
+
+func upgrade(p_level, p_upgrade_cost, p_effect) -> void:
+    level = p_level
+    upgrade_cost = p_upgrade_cost
+    effect = p_effect
+    $Info/Level/level_stat.text = str(level)
+    $Info/Level/cost_stat.text = str(upgrade_cost)    
+    $"Info/VBoxContainer/Effect-stat".text = effect_description+str(effect)+"%" 
+    if level-1==0:
+        $Info/State/VBoxContainer/Activate.visible = true
+    
+func activate(p_remaining_wave) -> void:
+    remaining_wave=p_remaining_wave
+    $Info/State/VBoxContainer/state_stat.text = "✅ - ["+str(remaining_wave)+"]"
+    state = true
+    remaining_wave = remaining_wave
+    $Info/State/VBoxContainer/Activate.visible=false
+
+func deactivate() -> void:
+    $Info/State/VBoxContainer/state_stat.text = "❌ - [0]"
+    state = false
+    remaining_wave = 0
+    $Info/State/VBoxContainer/Activate.visible=true
+
+func update_remaining_wave(p_remaining_wave) -> void:
+    remaining_wave = p_remaining_wave
+    $Info/State/VBoxContainer/state_stat.text = "✅ - ["+str(remaining_wave)+"]"

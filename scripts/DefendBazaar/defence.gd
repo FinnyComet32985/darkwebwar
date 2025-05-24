@@ -10,7 +10,6 @@ var cost := 0
 
 func _ready() -> void:
 	connect("pressed", Callable(self, "_on_pressed"))
-	
 
 func _on_pressed() -> void:
 	open_menu()
@@ -25,7 +24,6 @@ func open_menu() -> void:
 	if type!="":
 		var other_info = $"../../../".get_defence_other_info(self.type, self.level)
 		cost = other_info[0]
-		
 		$"../../DefenceMenu".open_menu(self.node_id, self.type, DB_Icons.load_icon(self.type), self.level, other_info[0], other_info[1])
 		
 	else:

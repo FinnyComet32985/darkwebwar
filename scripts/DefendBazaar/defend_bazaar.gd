@@ -14,7 +14,9 @@ var disp := 0
 
 var btc := 0
 
-var critical_event_percentage = 5
+
+var base_critical_event_0day_percentage = 7 
+var base_critical_event_social_percentage = 7 
 
 var bonus_perc:=0
 var bonus_damage:=0
@@ -78,6 +80,40 @@ func _physics_process(_delta: float) -> void:
 		$"CriticEffect-tim".text = str(int($CriticalEvent/Critic0Day.time_left)) + " s"
 	if $CriticalEvent/CriticSocialEngeeniering!=null && $CriticalEvent/CriticSocialEngeeniering.is_stopped() == false:
 		$"CriticEffect2-tim".text = str(int($CriticalEvent/CriticSocialEngeeniering.time_left)) + " s"
+
+	if $PlayZone/StaticDefenceMenu!=null && $PlayZone/StaticDefenceMenu.visible == true:
+		if $PlayZone/StaticDefenceMenu.type=="Patch":
+			if btc>=level.static_defence[0].level_cost[static_defence[0]["level"]]:
+				$PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton.disabled=false
+			else:
+				$PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton.disabled=true
+			
+			if btc>=level.static_defence[0].activation_cost:
+				$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate.disabled=false
+			else:
+				$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate.disabled=true
+
+		if $PlayZone/StaticDefenceMenu.type=="Phishing":
+			if btc>=level.static_defence[1].level_cost[static_defence[1]["level"]]:
+				$PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton.disabled=false
+			else:
+				$PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton.disabled=true
+			
+			if btc>=level.static_defence[1].activation_cost:
+				$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate.disabled=false
+			else:
+				$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate.disabled=true
+			
+		if $PlayZone/StaticDefenceMenu.type=="Antivirus":
+			if btc>=level.static_defence[2].level_cost[static_defence[2]["level"]]:
+				$PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton.disabled=false
+			else:
+				$PlayZone/StaticDefenceMenu/Info/Level/StaticUpgradeButton.disabled=true
+
+			if btc>=level.static_defence[2].activation_cost:
+				$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate.disabled=false
+			else:
+				$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate.disabled=true
 
 
 
@@ -253,7 +289,10 @@ var attack_spawn_position := [Vector2(230.0, 35), Vector2(347.0, 35), Vector2(48
 
 func start_wave() -> void:
 	$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-label".text = "Fine ondata tra: "
-	$"SideBar/Status-container/Stat/BTC/BtcGen".start()
+	if $"SideBar/Status-container/Stat/BTC/BtcGen".paused==true:
+		$"SideBar/Status-container/Stat/BTC/BtcGen".paused=false
+	else:
+		$"SideBar/Status-container/Stat/BTC/BtcGen".start()
 	$PlayZone/BtcGen_stat/AnimationPlayer.play("btc_gen")
 	$PlayZone/Attack/AttackSpawner.start()
 	$WaveTimer.wait_time = level.waves[wave][0]
@@ -264,12 +303,11 @@ func start_wave() -> void:
 	
 
 func _on_wave_timer_timeout() -> void:
+	$WaveTimer.stop()
 	if $WaveTimer.next_wave_timer!=0:
 		$PlayZone/Attack/AttackSpawner.stop()
-		$WaveTimer.stop()
-		await $"SideBar/Status-container/Stat/BTC/BtcGen".timeout
-		$"SideBar/Status-container/Stat/BTC/BtcGen".stop()
-		$PlayZone/BtcGen_stat/AnimationPlayer.play("RESET")
+		$"SideBar/Status-container/Stat/BTC/BtcGen".paused=true
+		$PlayZone/BtcGen_stat/AnimationPlayer.pause()
 		$CriticalEventTimer.stop()
 		$CriticalEvent/CriticSocialEngeeniering.paused = true
 		$CriticalEvent/Critic0Day.paused = true
@@ -278,7 +316,6 @@ func _on_wave_timer_timeout() -> void:
 		$WaveTimer.next_wave_timer=0
 		$WaveTimer.start()
 	else:
-		$WaveTimer.stop()
 		if wave+1 <= (len(level.waves)-1):
 			wave += 1
 			update_wave()
@@ -287,6 +324,55 @@ func _on_wave_timer_timeout() -> void:
 				$CriticalEvent/CriticSocialEngeeniering.paused = false
 			if $CriticalEvent/Critic0Day.paused == true:
 				$CriticalEvent/Critic0Day.paused = false
+			
+
+			if static_defence[0]["remaining_wave"]>1:
+				if btc>=level.static_defence[0].manteing_cost:
+					btc-=level.static_defence[0].manteing_cost
+					update_btc()
+					static_defence[0]["remaining_wave"]-=1
+					if $PlayZone/StaticDefenceMenu.type == "Patch":
+						$PlayZone/StaticDefenceMenu.update_remaining_wave(static_defence[0]["remaining_wave"])
+					update_static_defence(0, static_defence[0]["state"], static_defence[0]["level"])
+				else:
+					pass #! IMPLEMENTAZIONE DEI MALUS
+			elif static_defence[0]["remaining_wave"]==1 && $PlayZone/StaticDefenceMenu.type == "Patch":
+				static_defence[0]["remaining_wave"]-=1
+				static_defence[0]["state"]=false
+				update_static_defence(0, static_defence[0]["state"], static_defence[0]["level"])
+				$PlayZone/StaticDefenceMenu.deactivate()
+			
+			if static_defence[1]["remaining_wave"]>1:
+				if btc>=level.static_defence[1].manteing_cost:
+					btc-=level.static_defence[1].manteing_cost
+					update_btc()
+					static_defence[1]["remaining_wave"]-=1
+					if $PlayZone/StaticDefenceMenu.type == "Phishing":
+						$PlayZone/StaticDefenceMenu.update_remaining_wave(static_defence[1]["remaining_wave"])
+					update_static_defence(1, static_defence[1]["state"], static_defence[1]["level"])
+				else:
+					pass #! IMPLEMENTAZIONE DEI MALUS
+			elif static_defence[1]["remaining_wave"]==1 && $PlayZone/StaticDefenceMenu.type == "Phishing":
+				static_defence[1]["remaining_wave"]-=1
+				static_defence[1]["state"]=false
+				update_static_defence(1, static_defence[1]["state"], static_defence[1]["level"])
+				$PlayZone/StaticDefenceMenu.deactivate()
+
+			if static_defence[2]["remaining_wave"]>1:
+				if btc>=level.static_defence[2].manteing_cost:
+					btc-=level.static_defence[2].manteing_cost
+					update_btc()
+					static_defence[2]["remaining_wave"]-=1
+					if $PlayZone/StaticDefenceMenu.type == "Antivirus":
+						$PlayZone/StaticDefenceMenu.update_remaining_wave(static_defence[2]["remaining_wave"])
+					update_static_defence(2, static_defence[2]["state"], static_defence[2]["level"])
+				else:
+					pass #! IMPLEMENTAZIONE DEI MALUS
+			elif static_defence[2]["remaining_wave"]==1 && $PlayZone/StaticDefenceMenu.type == "Antivirus":
+				static_defence[2]["remaining_wave"]-=1
+				static_defence[2]["state"]=false
+				update_static_defence(2, static_defence[2]["state"], static_defence[2]["level"])
+				$PlayZone/StaticDefenceMenu.deactivate()
 		else:
 			$WaveTimer.stop()
 			#! inserire il game level up qui
@@ -384,15 +470,18 @@ func _on_defence_menu_visibility_changed() -> void:
 
 func _on_critical_event_timeout() -> void:
 	var perc = randi_range(1, 100)
-	if perc <=critical_event_percentage:
-		var random_number = randi_range(0, 1)
-		if random_number == 0 && $CriticalEvent/Critic0Day.is_stopped() == false:
+
+	var zday_perc = base_critical_event_0day_percentage if static_defence[0].state == false else base_critical_event_0day_percentage-level.static_defence[0].effect[static_defence[0]["level"]]
+	var soceng_perc = base_critical_event_social_percentage if static_defence[1].state == false else base_critical_event_social_percentage-level.static_defence[1].effect[static_defence[1]["level"]]
+	var event
+	var critical_event
+
+	if perc <= zday_perc:
+		if $CriticalEvent/Critic0Day.is_stopped() == false:
 			return
-		elif random_number == 1 && $CriticalEvent/CriticSocialEngeeniering.is_stopped() == false:
-			return
-		get_tree().paused = true
-		var critical_event
-		if random_number==0:
+		else:
+			event = 0
+			get_tree().paused = true
 			var random_number_attack = randi_range(0, len(level.critical_events["0 day"])-1)
 			critical_event = level.critical_events["0 day"][random_number_attack]
 			$CriticalEvent/CriticalMenu/attack_type.text = critical_event.attack_name
@@ -402,7 +491,12 @@ func _on_critical_event_timeout() -> void:
 			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Disponibilità: -"+str(critical_event.damage[2])
 			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[0])+" di danno per i prossimi 10 secondi"
 			bonus_damage = critical_event.side_effect[0]
+	elif perc > zday_perc and perc <= soceng_perc+zday_perc:
+		if $CriticalEvent/CriticSocialEngeeniering.is_stopped() == false:
+			return
 		else:
+			event = 1
+			get_tree().paused = true
 			var random_number_attack = randi_range(0, len(level.critical_events["Social Engineering"])-1)
 			critical_event = level.critical_events["Social Engineering"][random_number_attack]
 			$CriticalEvent/CriticalMenu/attack_type.text = critical_event.attack_name
@@ -412,10 +506,11 @@ func _on_critical_event_timeout() -> void:
 			$CriticalEvent/CriticalMenu/avaiab_damage.text = "Disponibilità: -"+str(critical_event.damage[2])
 			$CriticalEvent/CriticalMenu/SideEffect_crit_stat.text = "gli attacchi avranno +"+str(critical_event.side_effect[1])+" di vita per i prossimi 10 secondi"
 			bonus_perc = critical_event.side_effect[1]
+	if event==0 || event==1:
 		$CriticalEvent/AnimationPlayer.play("critical appear")
 		await critical_event_closed
-		update_malus(random_number)
-		if random_number==0:
+		update_malus(event)
+		if event==0:
 			$CriticalEvent/Critic0Day.start()
 		else:
 			$CriticalEvent/CriticSocialEngeeniering.start()
@@ -476,7 +571,7 @@ func remove_bonus_life() -> void:
 func _on_info_button_patch_pressed() -> void:
 	if $PlayZone/StaticDefenceMenu.visible == false || $PlayZone/StaticDefenceMenu.type!="Patch":
 		$PlayZone/StaticDefenceMenu.init_static_defence("Patch", "🩹", "Patch di sistema", static_defence[0]["state"], static_defence[0]["remaining_wave"], level.static_defence[0].activation_cost, level.static_defence[0].manteing_cost, static_defence[0]["level"], level.static_defence[0].level_cost[static_defence[0]["level"]], "La probabilità che si verifichi un evento 0 day è ridotta del ", level.static_defence[0].effect[static_defence[0]["level"]])
-		$PlayZone/StaticDefenceMenu.open_menu()
+		$PlayZone/StaticDefenceMenu.open_menu(btc)
 	else:
 		$PlayZone/StaticDefenceMenu.visible=false
 
@@ -485,17 +580,69 @@ func _on_info_button_patch_pressed() -> void:
 func _on_info_button_social_eng_pressed() -> void:
 	if $PlayZone/StaticDefenceMenu.visible == false || $PlayZone/StaticDefenceMenu.type!="Phishing":
 		$PlayZone/StaticDefenceMenu.init_static_defence("Phishing", "🪝", "Corsi di formazione", static_defence[1]["state"], static_defence[1]["remaining_wave"], level.static_defence[1].activation_cost, level.static_defence[1].manteing_cost, static_defence[1]["level"], level.static_defence[1].level_cost[static_defence[1]["level"]], "La probabilità che si verifichi un evento Social Engineering è ridotta del ", level.static_defence[1].effect[static_defence[1]["level"]])
-		$PlayZone/StaticDefenceMenu.open_menu()
+		$PlayZone/StaticDefenceMenu.open_menu(btc)
 	else:
 		$PlayZone/StaticDefenceMenu.visible=false
 
 func _on_info_button_antivirus_pressed() -> void:
 	if $PlayZone/StaticDefenceMenu.visible == false || $PlayZone/StaticDefenceMenu.type!="Antivirus":
 		$PlayZone/StaticDefenceMenu.init_static_defence("Antivirus", "🛡️", "Antivirus distribuiti", static_defence[2]["state"], static_defence[2]["remaining_wave"], level.static_defence[2].activation_cost, level.static_defence[2].manteing_cost, static_defence[2]["level"], level.static_defence[2].level_cost[static_defence[2]["level"]], "", 0)
-		$PlayZone/StaticDefenceMenu.open_menu()
+		$PlayZone/StaticDefenceMenu.open_menu(btc)
 	else:
 		$PlayZone/StaticDefenceMenu.visible=false
 
 
 func _on_back_button_pressed() -> void:
 	$PlayZone/StaticDefenceMenu.visible = false
+
+
+
+func _on_static_upgrade_button_pressed() -> void:
+	if $PlayZone/StaticDefenceMenu.type=="Patch":
+		btc-=level.static_defence[0].level_cost[static_defence[0]["level"]]
+		update_btc()
+		static_defence[0]["level"] += 1
+		$PlayZone/StaticDefenceMenu.upgrade(static_defence[0]["level"], level.static_defence[0].level_cost[static_defence[0]["level"]], level.static_defence[0].effect[static_defence[0]["level"]])
+		update_static_defence(0, static_defence[0]["state"], static_defence[0]["level"])
+	elif $PlayZone/StaticDefenceMenu.type=="Phishing":
+		btc-=level.static_defence[0].level_cost[static_defence[0]["level"]]
+		update_btc()
+		static_defence[1]["level"] += 1
+		$PlayZone/StaticDefenceMenu.upgrade(static_defence[1]["level"], level.static_defence[1].level_cost[static_defence[1]["level"]], level.static_defence[1].effect[static_defence[1]["level"]])
+		update_static_defence(1, static_defence[1]["state"], static_defence[1]["level"])
+	else:
+		btc-=level.static_defence[0].level_cost[static_defence[0]["level"]]
+		update_btc()
+		static_defence[2]["level"] += 1
+		$PlayZone/StaticDefenceMenu.upgrade(static_defence[2]["level"], level.static_defence[2].level_cost[static_defence[2]["level"]], 0)
+		update_static_defence(2, static_defence[2]["state"], static_defence[2]["level"])
+
+
+func _on_activate_pressed() -> void:
+	if $PlayZone/StaticDefenceMenu.type=="Patch":
+		if level.static_defence[0].activation_cost>btc:
+			return
+		btc-=level.static_defence[0].activation_cost
+		update_btc()
+		static_defence[0]["state"] = true
+		static_defence[0]["remaining_wave"] = 3
+		$PlayZone/StaticDefenceMenu.activate(3)
+		update_static_defence(0, static_defence[0]["state"], static_defence[0]["level"])
+	if $PlayZone/StaticDefenceMenu.type=="Phishing":
+		if level.static_defence[1].activation_cost>btc:
+			return
+		btc-=level.static_defence[1].activation_cost
+		update_btc()
+		static_defence[1]["state"] = true
+		static_defence[1]["remaining_wave"] = 3
+		$PlayZone/StaticDefenceMenu.activate(3)
+		update_static_defence(1, static_defence[1]["state"], static_defence[1]["level"])
+	if $PlayZone/StaticDefenceMenu.type=="Antivirus":
+		if level.static_defence[2].activation_cost>btc:
+			return
+		btc-=level.static_defence[2].activation_cost
+		update_btc()
+		static_defence[2]["state"] = true
+		static_defence[2]["remaining_wave"] = 3
+		$PlayZone/StaticDefenceMenu.activate(3)
+		update_static_defence(2, static_defence[2]["state"], static_defence[2]["level"])

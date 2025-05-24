@@ -4,16 +4,26 @@ var attack_redunction = preload("res://scenes/DefendBazaar/defence_attack_redunc
 
 
 var defence_id
+var cost
 
-func open_menu(new_defence_id:int, new_type:String, icon:Resource, new_level:int, cost:int, attacks: Array):
+func _physics_process(_delta: float) -> void:
+	if $".".visible:
+		if cost > $"../..".btc:
+			$Info/Level/UpgradeButton.disabled = true
+		else:
+			$Info/Level/UpgradeButton.disabled = false
+
+
+
+
+func open_menu(new_defence_id:int, new_type:String, icon:Resource, new_level:int, p_cost:int, attacks: Array):
 	$".".visible=true
 	defence_id=new_defence_id
 	$"Info/Tipo/tipo-stat".text = new_type
 	$Info/Tipo/tipo.texture = icon
 	$Info/Level/level_stat.text = str(new_level)
+	cost = p_cost
 	$Info/Level/cost_stat.text = str(cost)+" ₿"
-	if cost > $"../..".btc:
-		$Info/Level/UpgradeButton.visible = false
 	
 	insert_attack(new_type, attacks, new_level)
 	
