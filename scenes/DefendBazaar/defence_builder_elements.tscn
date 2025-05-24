@@ -60,4 +60,5 @@ flat = true
 expand_icon = true
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="Help" to="." method="_on_help_pressed"]
 [connection signal="pressed" from="Build" to="." method="_on_build_pressed"]

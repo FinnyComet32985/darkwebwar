@@ -4,6 +4,7 @@ var attack_redunction = preload("res://scenes/DefendBazaar/defence_attack_redunc
 
 
 var defence_id
+var max_level
 var cost
 
 func _physics_process(_delta: float) -> void:
@@ -21,9 +22,18 @@ func open_menu(new_defence_id:int, new_type:String, icon:Resource, new_level:int
 	defence_id=new_defence_id
 	$"Info/Tipo/tipo-stat".text = new_type
 	$Info/Tipo/tipo.texture = icon
-	$Info/Level/level_stat.text = str(new_level)
+	$Info/Level/level_stat.text = str(new_level) if new_level<max_level else "MAX"
 	cost = p_cost
 	$Info/Level/cost_stat.text = str(cost)+" ₿"
+	if new_level==max_level:
+		$Info/Level/UpgradeButton.visible = false
+		$Info/Level/Cost.visible=false
+		$Info/Level/cost_stat.visible=false
+	else:
+		$Info/Level/UpgradeButton.visible = true
+		$Info/Level/Cost.visible=true
+		$Info/Level/cost_stat.visible=true
+	
 	
 	insert_attack(new_type, attacks, new_level)
 	

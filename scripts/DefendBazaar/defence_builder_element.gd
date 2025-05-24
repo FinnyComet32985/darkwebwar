@@ -25,3 +25,8 @@ func _on_build_pressed() -> void:
 	$"../../../".defence_button.set_type(defence_type)
 	$"../../../".defence_button.update_path()
 	$"../../../".visible=0
+
+
+func _on_help_pressed() -> void:
+	$"../../../".visible = false
+	get_tree().current_scene.open_def_builder_info(defence_type)

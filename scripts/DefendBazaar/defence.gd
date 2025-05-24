@@ -5,7 +5,7 @@ extends Button
 @export var level: int = 1
 
 var cost := 0
-
+var max_level 
 
 
 func _ready() -> void:
@@ -24,6 +24,8 @@ func open_menu() -> void:
 	if type!="":
 		var other_info = $"../../../".get_defence_other_info(self.type, self.level)
 		cost = other_info[0]
+		max_level = other_info[2]
+		$"../../DefenceMenu".max_level = other_info[2]
 		$"../../DefenceMenu".open_menu(self.node_id, self.type, DB_Icons.load_icon(self.type), self.level, other_info[0], other_info[1])
 		
 	else:
@@ -32,18 +34,25 @@ func open_menu() -> void:
 
 
 func upgrade() -> void:
-	$"../../../".btc=$"../../../".btc-cost
-	$"../../../".update_btc()
-	self.level+=1
-	$"../../DefenceMenu/Info/Level/level_stat".text = str(self.level)
-	var other_info = $"../../../".get_defence_other_info(self.type, self.level)
-	$"../../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
+	if max_level>level:
+		$"../../../".btc=$"../../../".btc-cost
+		$"../../../".update_btc()
+		self.level+=1
+		if level==max_level:
+			$"../../DefenceMenu/Info/Level/level_stat".text = "MAX"
+			$"../../DefenceMenu/Info/Level/UpgradeButton".visible=0
+			$"../../DefenceMenu/Info/Level/Cost".visible=0
+			$"../../DefenceMenu/Info/Level/cost_stat".visible=0
+		else:
+			$"../../DefenceMenu/Info/Level/level_stat".text = str(self.level)
+		var other_info = $"../../../".get_defence_other_info(self.type, self.level)
+		$"../../DefenceMenu/Info/Level/cost_stat".text = str(other_info[0])+" ₿"
 
-	for child in $"../../DefenceMenu/Efficenzy-container/VBoxContainer".get_children():
-		child.queue_free()
-	$"../../DefenceMenu".insert_attack(self.type, other_info[1], self.level)
-
-	$Panel/Label.text = str(level)
+		for child in $"../../DefenceMenu/Efficenzy-container/VBoxContainer".get_children():
+			child.queue_free()
+		$"../../DefenceMenu".insert_attack(self.type, other_info[1], self.level)
+		
+		$Panel/Label.text = str(level)
 
 
 func update_path() -> void:
