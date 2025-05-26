@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4j3uyo4ythpo"]
+
+[ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="1_v0mnm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_01swy"]
+size = Vector2(30, 20)
+
+[node name="Word" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_01swy")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="RigidBody2D"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_v0mnm")
+bbcode_enabled = true
+text = "admin"
+fit_content = true
+autowrap_mode = 0
