@@ -7,7 +7,7 @@ var defence_id
 var max_level
 var cost
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if $".".visible:
 		if cost > $"../..".btc:
 			$Info/Level/UpgradeButton.disabled = true

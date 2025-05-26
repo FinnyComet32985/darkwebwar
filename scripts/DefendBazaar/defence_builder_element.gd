@@ -3,7 +3,7 @@ extends HBoxContainer
 var defence_type: String
 var build_cost: int
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if $".".visible==true:
 		if get_tree().current_scene.btc>=build_cost:
 			$Build.disabled=false

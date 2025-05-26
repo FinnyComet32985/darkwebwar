@@ -71,7 +71,7 @@ func _ready():
 	
 	init_level(n_level_playing)
 
-func _physics_process(_delta: float) -> void:
+func _process(_delta: float) -> void:
 	if timer!=null && timer.is_stopped() == false:
 		$"SideBar/Status-container/Stat/WaveTimerSect/wave-timer-stat".text = str(int(timer.time_left)) + " s"
 	if $WaveTimer!=null && $WaveTimer.is_stopped() == false:

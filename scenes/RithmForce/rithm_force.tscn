@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ba0b4ebvdyvu3"]
+[gd_scene load_steps=15 format=3 uid="uid://ba0b4ebvdyvu3"]
 
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_dv6lh"]
+[ext_resource type="Script" uid="uid://jl4tjy7bvk1n" path="res://scripts/RithmForce/rithm_force.gd" id="1_oxl41"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="2_13lqv"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_oxl41"]
 
@@ -20,7 +21,68 @@ Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oxl41"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_htuoc"]
-b = Vector2(1091, 1)
+b = Vector2(970, 1)
+
+[sub_resource type="Animation" id="Animation_oxl41"]
+resource_name = "error"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.5, 0.733333, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(457, 486), Vector2(470, 486), Vector2(457, 486), Vector2(440, 486), Vector2(457, 486)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4cied"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(457, 486)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgjbp"]
+_data = {
+&"RESET": SubResource("Animation_4cied"),
+&"error": SubResource("Animation_oxl41")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_htuoc"]
 shader = ExtResource("2_13lqv")
@@ -36,6 +98,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_13lqv")
+script = ExtResource("1_oxl41")
 
 [node name="StatusBar" type="Control" parent="."]
 z_index = 1
@@ -120,20 +183,52 @@ layout_mode = 2
 theme = ExtResource("3_oxl41")
 text = "0% [----------]"
 
+[node name="GameTimer" type="Timer" parent="."]
+
 [node name="SpawnerTimer" type="Timer" parent="."]
 
 [node name="GameArea" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 31.0
-offset_top = 111.0
-offset_right = 1122.0
-offset_bottom = 454.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.441
+anchor_right = 0.5
+anchor_bottom = 0.441
+offset_left = -487.0
+offset_top = -171.768
+offset_right = 483.0
+offset_bottom = 171.232
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Words" type="Node2D" parent="GameArea"]
 
 [node name="EndGameArea" type="Area2D" parent="GameArea"]
 position = Vector2(0, 341)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/EndGameArea"]
 shape = SubResource("SegmentShape2D_htuoc")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.771
+anchor_right = 0.5
+anchor_bottom = 0.771
+offset_left = -119.0
+offset_top = -13.608
+offset_right = 117.0
+offset_bottom = 17.392
+grow_horizontal = 2
+grow_vertical = 2
+keep_editing_on_text_submit = true
+caret_blink = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LineEdit"]
+libraries = {
+&"": SubResource("AnimationLibrary_vgjbp")
+}
 
 [node name="PU" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -154,9 +249,14 @@ alignment = 1
 layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
 z_index = 3
 material = SubResource("ShaderMaterial_htuoc")
 mesh = SubResource("QuadMesh_oxl41")
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="SpawnerTimer" to="." method="_on_spawner_timer_timeout"]
+[connection signal="body_entered" from="GameArea/EndGameArea" to="." method="_on_end_game_area_body_entered"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
