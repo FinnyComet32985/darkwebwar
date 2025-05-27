@@ -204,9 +204,19 @@ theme = ExtResource("3_oxl41")
 text = "Percentuale complemtamento: "
 
 [node name="PercComp-stat" type="Label" parent="Stats"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_oxl41")
 text = "0% [----------]"
+
+[node name="Streak" type="Label" parent="Stats"]
+layout_mode = 2
+theme = ExtResource("3_oxl41")
+text = "Streak:"
+
+[node name="Streak-stat" type="Label" parent="Stats"]
+layout_mode = 2
+theme = ExtResource("3_oxl41")
 
 [node name="GameTimer" type="Timer" parent="."]
 
@@ -227,9 +237,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Words" type="Node2D" parent="GameArea"]
+position = Vector2(0, 19)
 
 [node name="EndGameArea" type="Area2D" parent="GameArea"]
-position = Vector2(0, 341)
+position = Vector2(0, 332)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/EndGameArea"]
 shape = SubResource("SegmentShape2D_htuoc")
@@ -296,7 +307,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme = SubResource("Theme_jc4vc")
 
-[node name="OveeclockLabel" type="Label" parent="PU/OverclockPU/Panel"]
+[node name="OverclockLabel" type="Label" parent="PU/OverclockPU/Panel"]
 texture_filter = 1
 layout_mode = 0
 offset_right = 25.0
@@ -305,6 +316,13 @@ theme_override_fonts/font = ExtResource("5_vgjbp")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="OverclockTimer" type="Timer" parent="PU/OverclockPU"]
+wait_time = 15.0
+one_shot = true
+
+[node name="OverclockCooldown" type="Timer" parent="PU/OverclockPU"]
+one_shot = true
 
 [node name="ShieldPU" type="Panel" parent="PU"]
 custom_minimum_size = Vector2(100, 0)
@@ -341,6 +359,8 @@ theme_override_fonts/font = ExtResource("5_vgjbp")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ShieldCooldown" type="Timer" parent="PU/ShieldPU"]
 
 [node name="BypassPU" type="Panel" parent="PU"]
 custom_minimum_size = Vector2(100, 0)
@@ -391,3 +411,8 @@ mesh = SubResource("QuadMesh_oxl41")
 [connection signal="body_entered" from="GameArea/EndGameArea" to="." method="_on_end_game_area_body_entered"]
 [connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="PU/OverclockPU/Overclock" to="." method="_on_overclock_pressed"]
+[connection signal="timeout" from="PU/OverclockPU/OverclockTimer" to="." method="_on_overclock_timer_timeout"]
+[connection signal="timeout" from="PU/OverclockPU/OverclockCooldown" to="." method="_on_overclock_cooldown_timeout"]
+[connection signal="pressed" from="PU/ShieldPU/Shield" to="." method="_on_shield_pressed"]
+[connection signal="timeout" from="PU/ShieldPU/ShieldCooldown" to="." method="_on_shield_cooldown_timeout"]

@@ -2,7 +2,7 @@ extends Node
 
 var levels = [
 	RF_level_class.new(
-		50,
+		60,
 		2.5,
 		30,
 		{

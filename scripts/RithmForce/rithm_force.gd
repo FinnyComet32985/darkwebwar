@@ -19,7 +19,10 @@ var spawn_position: Array = [
 ]
 
 var perc_comp:= 0
-
+var streak:= 0
+var powerUP:= [ 0, 0, 0]
+var speed_dec:=0
+var shield:= false
 
 
 func _process(_delta: float) -> void:
@@ -45,7 +48,9 @@ func init_level() -> void:
 
 
 func _on_game_timer_timeout() -> void:
-	pass
+	$GameTimer.stop()
+	$SpawnerTimer.stop()
+	print("GAME OVER")
 
 func _on_spawner_timer_timeout() -> void:
 	if possible_word.is_empty():
@@ -68,7 +73,7 @@ func _on_spawner_timer_timeout() -> void:
 	word_instantiated.position.x = chosen_slot_reference[0] 
 	chosen_slot_reference[1] = true
 
-	word_instantiated.fall_speed = level.fall_speed
+	word_instantiated.fall_speed = level.fall_speed-speed_dec
 	var word_text = possible_word[randi_range(0, possible_word.size()-1)] 
 	word_instantiated.word_text = word_text
 	word_instantiated.difficulty = level.dictionary[word_text]
@@ -84,10 +89,17 @@ func _on_end_game_area_body_entered(body: Node2D) -> void:
 			pos[1] = false
 
 	if body is CharacterBody2D and words_instantiated.has(body):
-		match body.difficulty:
-			1:
-				perc_comp-=5
-				$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+		if shield==true:
+			shield=false
+			$PU/ShieldPU/ShieldCooldown.start()
+		else:
+			match body.difficulty:
+				1:
+					if perc_comp-5>=0:
+						perc_comp-=5
+						$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+					else:
+						game_over()
 		words_instantiated.erase(body)
 	body.queue_free()
 
@@ -95,19 +107,45 @@ func _on_end_game_area_body_entered(body: Node2D) -> void:
 var prev_word:= ""
 
 func _on_line_edit_text_changed(new_text: String) -> void:
+	print(prev_word)
+	print(new_text)
 	for word_instantiated in words_instantiated:
 		var text = word_instantiated.word_text
 		if text.begins_with(new_text):
 			word_instantiated.set_text("[color=green]" + new_text + "[/color]" + text.substr(new_text.length()))
-			prev_word = text
+			if prev_word == "":
+				prev_word = text
 		else:
 			word_instantiated.set_text(text)
+	if prev_word == "":
+		print("executed")
+		for i in range(len(new_text)):
+			var tmp = ""
+			var instantiated = ""
+			for j in range(len(new_text)):
+				if i!=j:
+					tmp+=new_text[j]
+			for word_instantiated in words_instantiated:
+				for j in range(len(word_instantiated.word_text)):
+					if i!=j:
+						instantiated+=word_instantiated.word_text[j]
+				if tmp == instantiated:
+					prev_word=word_instantiated.word_text
+					break
+				instantiated=""
+
+
+
+var temp_streak:= 0
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	var finded:= false
 	for word_instantiated in words_instantiated:
 		var text = word_instantiated.word_text
 		if text == new_text:
+			for pos in spawn_position:
+				if word_instantiated.position.x == pos[0]:
+					pos[1] = false
 			match  word_instantiated.difficulty:
 				1: 
 					perc_comp+=5
@@ -115,16 +153,53 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			words_instantiated.erase(word_instantiated)
 			word_instantiated.queue_free()
 			$LineEdit.text = ""
-			return
+			finded = true
+			streak+=1
+			$"Stats/Streak-stat".text=str(streak)
+			temp_streak+=1
+			match temp_streak:
+				3:
+					powerUP[0]+=1
+					$PU/OverclockPU/Panel/OverclockLabel.text= str(powerUP[0])
+				5:
+					powerUP[1]+=1
+					$PU/ShieldPU/Panel/ShieldLabel.text= str(powerUP[1])
+				7:
+					powerUP[2]+=1
+					$PU/BypassPU/Panel/BypassLabel.text= str(powerUP[2])
+					temp_streak=0
+			break
+
 	if finded==false:
 		if level.dictionary.has(prev_word):
-			match level.dictionary[prev_word]:
-				1:
+			for word_instantiated in words_instantiated:
+				if word_instantiated.word_text == prev_word:
+					for pos in spawn_position:
+						if word_instantiated.position.x == pos[0]:
+							pos[1] = false
+			if shield==true:
+				shield=false
+				$PU/ShieldPU/ShieldCooldown.start()
+			else:
+				match level.dictionary[prev_word]:
+					1:
+						if perc_comp-5>=0:
+							perc_comp-=5
+							$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+						else:
+							game_over()
+							return
+		else:
+			if shield==true:
+				shield=false
+				$PU/ShieldPU/ShieldCooldown.start()
+			else:
+				if perc_comp-5>=0:
 					perc_comp-=5
 					$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
-		else:
-			perc_comp-=5
-			$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+				else: 
+					game_over()
+					return
 		$LineEdit/AnimationPlayer.play("error")
 		for word_instantiated in words_instantiated:
 			if word_instantiated.word_text == prev_word:
@@ -133,3 +208,51 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 				word_instantiated.queue_free()
 				break
 		$LineEdit.text = ""
+		streak = 0
+		temp_streak = 0
+	prev_word=""
+		
+
+func game_over()->void:
+	print("GAME OVER")
+
+
+
+func _on_overclock_pressed() -> void:
+	if powerUP[0]>0:
+		powerUP[0]-=1
+		$PU/OverclockPU/Panel/OverclockLabel.text= str(powerUP[0])
+		$PU/OverclockPU/OverclockTimer.start()
+		speed_dec=15
+		for word_instantiated in words_instantiated:
+			word_instantiated.fall_speed-=15
+		$PU/OverclockPU/Overclock.disabled = true
+
+
+
+
+func _on_overclock_timer_timeout() -> void:
+	speed_dec = 0
+	for word_instantiated in words_instantiated:
+		word_instantiated.fall_speed+=15
+	$PU/OverclockPU/OverclockCooldown.start()
+
+
+
+
+func _on_overclock_cooldown_timeout() -> void:
+	$PU/OverclockPU/Overclock.disabled = false
+	
+
+func _on_shield_pressed() -> void:
+	if $PU/ShieldPU/ShieldCooldown.is_stopped()==true:
+		if powerUP[1]>0:
+			powerUP[1]-=1
+			$PU/ShieldPU/Panel/ShieldLabel.text= str(powerUP[1])
+			shield = true
+			$PU/ShieldPU/Shield.disabled = true
+
+
+
+func _on_shield_cooldown_timeout() -> void:
+	$PU/ShieldPU/Shield.disabled = false
