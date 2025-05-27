@@ -117,10 +117,14 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			$LineEdit.text = ""
 			return
 	if finded==false:
-		match level.dictionary[prev_word]:
-			1:
-				perc_comp-=5
-				$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+		if level.dictionary.has(prev_word):
+			match level.dictionary[prev_word]:
+				1:
+					perc_comp-=5
+					$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+		else:
+			perc_comp-=5
+			$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
 		$LineEdit/AnimationPlayer.play("error")
 		for word_instantiated in words_instantiated:
 			if word_instantiated.word_text == prev_word:

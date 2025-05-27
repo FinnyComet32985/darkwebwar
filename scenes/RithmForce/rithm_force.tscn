@@ -1,9 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://ba0b4ebvdyvu3"]
+[gd_scene load_steps=23 format=3 uid="uid://ba0b4ebvdyvu3"]
 
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_dv6lh"]
 [ext_resource type="Script" uid="uid://jl4tjy7bvk1n" path="res://scripts/RithmForce/rithm_force.gd" id="1_oxl41"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="2_13lqv"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_oxl41"]
+[ext_resource type="Texture2D" uid="uid://cyqxylhgd7a2p" path="res://assets/RithmForce/DarkWebWar-overclock.svg" id="4_4cied"]
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="5_vgjbp"]
+[ext_resource type="Texture2D" uid="uid://b8rrowtmgx4fl" path="res://assets/RithmForce/DarkWebWar-shield.svg" id="6_1qvpl"]
+[ext_resource type="Texture2D" uid="uid://b011tghdfm8so" path="res://assets/RithmForce/DarkWebWar-bypass.svg" id="7_qqutf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13lqv"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -22,6 +26,33 @@ Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_htuoc"]
 b = Vector2(970, 1)
+
+[sub_resource type="Animation" id="Animation_4cied"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(457, 486)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
 
 [sub_resource type="Animation" id="Animation_oxl41"]
 resource_name = "error"
@@ -51,38 +82,32 @@ tracks/1/keys = {
 "values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_4cied"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(457, 486)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [null]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vgjbp"]
 _data = {
 &"RESET": SubResource("Animation_4cied"),
 &"error": SubResource("Animation_oxl41")
 }
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1qvpl"]
+
+[sub_resource type="Theme" id="Theme_qqutf"]
+Panel/styles/panel = SubResource("StyleBoxEmpty_1qvpl")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43ypk"]
+bg_color = Color(0.0196078, 0.498039, 0.678431, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_jc4vc"]
+default_font = ExtResource("5_vgjbp")
+Panel/styles/panel = SubResource("StyleBoxFlat_43ypk")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_htuoc"]
 shader = ExtResource("2_13lqv")
@@ -213,13 +238,12 @@ shape = SubResource("SegmentShape2D_htuoc")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.771
+anchor_top = 0.75
 anchor_right = 0.5
-anchor_bottom = 0.771
+anchor_bottom = 0.75
 offset_left = -119.0
-offset_top = -13.608
 offset_right = 117.0
-offset_bottom = 17.392
+offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 keep_editing_on_text_submit = true
@@ -238,15 +262,122 @@ anchor_top = 0.81
 anchor_right = 0.5
 anchor_bottom = 0.95
 offset_left = -319.0
-offset_top = 0.119934
+offset_top = 8.12
 offset_right = 320.0
 offset_bottom = 0.400024
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 80
 alignment = 1
 
-[node name="Overdrive" type="TextureButton" parent="PU"]
+[node name="OverclockPU" type="Panel" parent="PU"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme = SubResource("Theme_qqutf")
+
+[node name="Overclock" type="TextureButton" parent="PU/OverclockPU"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 84.0
+offset_bottom = 83.0
+texture_normal = ExtResource("4_4cied")
+
+[node name="Panel" type="Panel" parent="PU/OverclockPU"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -9.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_jc4vc")
+
+[node name="OveeclockLabel" type="Label" parent="PU/OverclockPU/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_vgjbp")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShieldPU" type="Panel" parent="PU"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = SubResource("Theme_qqutf")
+
+[node name="Shield" type="TextureButton" parent="PU/ShieldPU"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 84.0
+offset_bottom = 83.0
+texture_normal = ExtResource("6_1qvpl")
+
+[node name="Panel" type="Panel" parent="PU/ShieldPU"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -9.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_jc4vc")
+
+[node name="ShieldLabel" type="Label" parent="PU/ShieldPU/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_vgjbp")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BypassPU" type="Panel" parent="PU"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = SubResource("Theme_qqutf")
+
+[node name="Bypass" type="TextureButton" parent="PU/BypassPU"]
+texture_filter = 1
+layout_mode = 2
+offset_right = 84.0
+offset_bottom = 83.0
+texture_normal = ExtResource("7_qqutf")
+stretch_mode = 3
+
+[node name="Panel" type="Panel" parent="PU/BypassPU"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -9.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = SubResource("Theme_jc4vc")
+
+[node name="BypassLabel" type="Label" parent="PU/BypassPU/Panel"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_vgjbp")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
