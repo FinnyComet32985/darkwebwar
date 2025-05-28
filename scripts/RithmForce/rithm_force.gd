@@ -37,7 +37,7 @@ func _ready() -> void:
 
 
 func init_level() -> void:
-	$StatusBar/Level.text = "LEVEL: " + str(n_level+1)
+	$StatusBar/Level.text = "LEVEL " + str(n_level+1)
 	$"Stats/PercComp-stat".text = str(perc_comp) + "%  [----------]"
 	level = RF_Level_definer.levels[n_level]
 	$GameTimer.wait_time = level.level_max_time
@@ -91,6 +91,7 @@ func _on_end_game_area_body_entered(body: Node2D) -> void:
 	if body is CharacterBody2D and words_instantiated.has(body):
 		if shield==true:
 			shield=false
+			$"PU/ShieldPU/ShieldTimer-sec/AnimationPlayer".play("cooldown")
 			$PU/ShieldPU/ShieldCooldown.start()
 		else:
 			match body.difficulty:
@@ -107,8 +108,6 @@ func _on_end_game_area_body_entered(body: Node2D) -> void:
 var prev_word:= ""
 
 func _on_line_edit_text_changed(new_text: String) -> void:
-	print(prev_word)
-	print(new_text)
 	for word_instantiated in words_instantiated:
 		var text = word_instantiated.word_text
 		if text.begins_with(new_text):
@@ -118,7 +117,6 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 		else:
 			word_instantiated.set_text(text)
 	if prev_word == "":
-		print("executed")
 		for i in range(len(new_text)):
 			var tmp = ""
 			var instantiated = ""
@@ -152,6 +150,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 					$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
 			words_instantiated.erase(word_instantiated)
 			word_instantiated.queue_free()
+			$LineEdit/AnimationPlayer.play("success")
 			$LineEdit.text = ""
 			finded = true
 			streak+=1
@@ -180,6 +179,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			if shield==true:
 				shield=false
 				$PU/ShieldPU/ShieldCooldown.start()
+				$"PU/ShieldPU/ShieldTimer-sec/AnimationPlayer".play("cooldown")
 			else:
 				match level.dictionary[prev_word]:
 					1:
@@ -193,6 +193,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			if shield==true:
 				shield=false
 				$PU/ShieldPU/ShieldCooldown.start()
+				$"PU/ShieldPU/ShieldTimer-sec/AnimationPlayer".play("cooldown")
 			else:
 				if perc_comp-5>=0:
 					perc_comp-=5
@@ -209,6 +210,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 				break
 		$LineEdit.text = ""
 		streak = 0
+		$"Stats/Streak-stat".text=str(streak)
 		temp_streak = 0
 	prev_word=""
 		
@@ -216,10 +218,13 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 func game_over()->void:
 	print("GAME OVER")
 
-
+func win_level()->void:
+	if n_level+1 < len(RF_Level_definer.levels):
+		n_level+=1
+		init_level()
 
 func _on_overclock_pressed() -> void:
-	if powerUP[0]>0:
+	if powerUP[0]>0 and $PU/OverclockPU/OverclockCooldown.is_stopped()==true:
 		powerUP[0]-=1
 		$PU/OverclockPU/Panel/OverclockLabel.text= str(powerUP[0])
 		$PU/OverclockPU/OverclockTimer.start()
@@ -227,6 +232,8 @@ func _on_overclock_pressed() -> void:
 		for word_instantiated in words_instantiated:
 			word_instantiated.fall_speed-=15
 		$PU/OverclockPU/Overclock.disabled = true
+		$"PU/OverclockPU/OverclockTimer-sec/AnimationPlayer".play("enabled")
+
 
 
 
@@ -236,6 +243,9 @@ func _on_overclock_timer_timeout() -> void:
 	for word_instantiated in words_instantiated:
 		word_instantiated.fall_speed+=15
 	$PU/OverclockPU/OverclockCooldown.start()
+	$"PU/OverclockPU/OverclockTimer-sec/AnimationPlayer".stop()
+	$"PU/OverclockPU/OverclockTimer-sec/AnimationPlayer".play("cooldown")
+	
 
 
 
@@ -251,8 +261,14 @@ func _on_shield_pressed() -> void:
 			$PU/ShieldPU/Panel/ShieldLabel.text= str(powerUP[1])
 			shield = true
 			$PU/ShieldPU/Shield.disabled = true
+			$"PU/ShieldPU/ShieldTimer-sec/AnimationPlayer".play("active")
+
 
 
 
 func _on_shield_cooldown_timeout() -> void:
 	$PU/ShieldPU/Shield.disabled = false
+
+
+func _on_critic_events_timer_timeout() -> void:
+	pass # Replace with function body.

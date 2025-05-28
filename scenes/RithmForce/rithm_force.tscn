@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ba0b4ebvdyvu3"]
+[gd_scene load_steps=46 format=3 uid="uid://ba0b4ebvdyvu3"]
 
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_dv6lh"]
 [ext_resource type="Script" uid="uid://jl4tjy7bvk1n" path="res://scripts/RithmForce/rithm_force.gd" id="1_oxl41"]
@@ -27,32 +27,93 @@ Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_htuoc"]
 b = Vector2(970, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v404y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imlcx"]
+bg_color = Color(1, 1, 1, 0)
+border_width_bottom = 2
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Theme_v404y"]
+LineEdit/font_sizes/font_size = 20
+LineEdit/fonts/font = ExtResource("5_vgjbp")
+LineEdit/styles/focus = SubResource("StyleBoxFlat_v404y")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_imlcx")
+
 [sub_resource type="Animation" id="Animation_4cied"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(457, 486)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/path = NodePath(".:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [Vector2(477, 472)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_styles/focus")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
 "values": [null]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Label:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(459, 477)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Label:theme_override_colors/font_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1yw4a"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2ou7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
 
 [sub_resource type="Animation" id="Animation_oxl41"]
 resource_name = "error"
@@ -60,32 +121,130 @@ length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.5, 0.733333, 0.966667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(457, 486), Vector2(470, 486), Vector2(457, 486), Vector2(440, 486), Vector2(457, 486)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.966667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.7, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(477, 472), Vector2(490, 472), Vector2(477, 472), Vector2(460, 472), Vector2(477, 472)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2333, 0.466667, 0.7, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(459, 477), Vector2(472, 477), Vector2(459, 477), Vector2(442, 477), Vector2(459, 477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Label:theme_override_colors/font_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:theme_override_styles/focus")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_1yw4a"), SubResource("StyleBoxFlat_n2ou7")]
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2f8eu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+border_color = Color(0.148768, 0.486128, 2.88785e-07, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gt3nc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 2
+
+[sub_resource type="Animation" id="Animation_qqutf"]
+resource_name = "success"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.273212, 0.631399, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_styles/focus")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_2f8eu"), SubResource("StyleBoxFlat_gt3nc")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Label:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(459, 477)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Label:theme_override_colors/font_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.273212, 0.631399, 0, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vgjbp"]
 _data = {
 &"RESET": SubResource("Animation_4cied"),
-&"error": SubResource("Animation_oxl41")
+&"error": SubResource("Animation_oxl41"),
+&"success": SubResource("Animation_qqutf")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1qvpl"]
@@ -108,6 +267,322 @@ corner_radius_bottom_left = 2
 [sub_resource type="Theme" id="Theme_jc4vc"]
 default_font = ExtResource("5_vgjbp")
 Panel/styles/panel = SubResource("StyleBoxFlat_43ypk")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qqutf"]
+
+[sub_resource type="Animation" id="Animation_jc4vc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_styles/panel")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StyleBoxEmpty_qqutf")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OverclockTimerLabel:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jc4vc"]
+bg_color = Color(0.685733, 3.10443e-06, 5.77569e-07, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="Animation" id="Animation_imlcx"]
+resource_name = "cooldown"
+length = 30.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 30),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OverclockTimerLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15.0667, 16.0333, 17.0667, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["30", "29", "28", "27", "26", "25", "24", "23", "22", "21", "20", "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_styles/panel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_jc4vc")]
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqutf"]
+bg_color = Color(0.148768, 0.486128, 2.88785e-07, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Animation" id="Animation_43ypk"]
+resource_name = "enabled"
+length = 15.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OverclockTimerLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_styles/panel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 15.0333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_qqutf"), SubResource("StyleBoxFlat_qqutf")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_imlcx"]
+_data = {
+&"RESET": SubResource("Animation_jc4vc"),
+&"cooldown": SubResource("Animation_imlcx"),
+&"enabled": SubResource("Animation_43ypk")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8nsmm"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Theme" id="Theme_4jcjk"]
+Panel/styles/panel = SubResource("StyleBoxFlat_8nsmm")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jcjk"]
+bg_color = Color(0.273212, 0.631399, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Animation" id="Animation_v404y"]
+resource_name = "active"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShieldTimerLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_styles/panel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_4jcjk")]
+}
+
+[sub_resource type="Animation" id="Animation_2f8eu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShieldTimerLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_styles/panel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StyleBoxEmpty_qqutf")]
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3yy1u"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="Animation" id="Animation_gt3nc"]
+resource_name = "cooldown"
+length = 35.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ShieldTimerLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20.0667, 21.0333, 22.0667, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["35", "34", "33", "32", "31", "30", "29", "28", "27", "26", "25", "24", "23", "22", "21", "20", "19", "18", "17", "16", "15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:theme_override_styles/panel")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_3yy1u")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2f8eu"]
+_data = {
+&"RESET": SubResource("Animation_2f8eu"),
+&"active": SubResource("Animation_v404y"),
+&"cooldown": SubResource("Animation_gt3nc")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_htuoc"]
 shader = ExtResource("2_13lqv")
@@ -209,6 +684,11 @@ layout_mode = 2
 theme = ExtResource("3_oxl41")
 text = "0% [----------]"
 
+[node name="VSeparator2" type="VSeparator" parent="Stats"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_oxl41")
+
 [node name="Streak" type="Label" parent="Stats"]
 layout_mode = 2
 theme = ExtResource("3_oxl41")
@@ -221,6 +701,8 @@ theme = ExtResource("3_oxl41")
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="SpawnerTimer" type="Timer" parent="."]
+
+[node name="CriticEventsTimer" type="Timer" parent="."]
 
 [node name="GameArea" type="Panel" parent="."]
 layout_mode = 1
@@ -245,6 +727,24 @@ position = Vector2(0, 332)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea/EndGameArea"]
 shape = SubResource("SegmentShape2D_htuoc")
 
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.753
+anchor_right = 0.5
+anchor_bottom = 0.753
+offset_left = -117.0
+offset_top = -10.944
+offset_right = -80.0
+offset_bottom = 17.056
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_vgjbp")
+theme_override_font_sizes/font_size = 27
+text = ">"
+
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -252,11 +752,14 @@ anchor_left = 0.5
 anchor_top = 0.75
 anchor_right = 0.5
 anchor_bottom = 0.75
-offset_left = -119.0
-offset_right = 117.0
-offset_bottom = 31.0
+offset_left = -99.0
+offset_top = -14.0
+offset_right = 118.0
+offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_v404y")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 keep_editing_on_text_submit = true
 caret_blink = true
 
@@ -317,11 +820,38 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="OverclockTimer-sec" type="Panel" parent="PU/OverclockPU"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -25.0
+offset_top = -13.0
+offset_bottom = 10.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qqutf")
+
+[node name="OverclockTimerLabel" type="Label" parent="PU/OverclockPU/OverclockTimer-sec"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_vgjbp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PU/OverclockPU/OverclockTimer-sec"]
+libraries = {
+&"": SubResource("AnimationLibrary_imlcx")
+}
+
 [node name="OverclockTimer" type="Timer" parent="PU/OverclockPU"]
 wait_time = 15.0
 one_shot = true
 
 [node name="OverclockCooldown" type="Timer" parent="PU/OverclockPU"]
+wait_time = 30.0
 one_shot = true
 
 [node name="ShieldPU" type="Panel" parent="PU"]
@@ -361,6 +891,35 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ShieldCooldown" type="Timer" parent="PU/ShieldPU"]
+wait_time = 35.0
+one_shot = true
+
+[node name="ShieldTimer-sec" type="Panel" parent="PU/ShieldPU"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -25.0
+offset_top = -13.0
+offset_bottom = 10.0
+grow_horizontal = 0
+theme = SubResource("Theme_4jcjk")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qqutf")
+
+[node name="ShieldTimerLabel" type="Label" parent="PU/ShieldPU/ShieldTimer-sec"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 26.0
+theme_override_fonts/font = ExtResource("5_vgjbp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PU/ShieldPU/ShieldTimer-sec"]
+libraries = {
+&"": SubResource("AnimationLibrary_2f8eu")
+}
 
 [node name="BypassPU" type="Panel" parent="PU"]
 custom_minimum_size = Vector2(100, 0)
@@ -408,6 +967,7 @@ mesh = SubResource("QuadMesh_oxl41")
 
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="timeout" from="SpawnerTimer" to="." method="_on_spawner_timer_timeout"]
+[connection signal="timeout" from="CriticEventsTimer" to="." method="_on_critic_events_timer_timeout"]
 [connection signal="body_entered" from="GameArea/EndGameArea" to="." method="_on_end_game_area_body_entered"]
 [connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
 [connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]

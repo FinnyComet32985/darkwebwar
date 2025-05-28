@@ -882,7 +882,7 @@ func continue_story():
 			await enable_button(1, "11") # continua la storia
 			buttons[0].grab_focus()
 		"10": #! gioca a defend the bazaar
-			get_tree().change_scene_to_file("res://scenes/DefendBazaar.tscn")
+			get_tree().change_scene_to_file("res://scenes/defend_bazaar.tscn")
 		"11": # continua la storia
 			await write_text(Global.get_scene_class("11").get_scene_text(), storyLable)
 			await enable_button(0, "11.1") # contatta DC
