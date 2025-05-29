@@ -599,8 +599,7 @@ script = ExtResource("2_bqqt6")
 [node name="Continue" type="Button" parent="Panel/Menu"]
 texture_filter = 1
 layout_mode = 1
-offset_left = 10.0
-offset_right = 244.0
+offset_right = 234.0
 offset_bottom = 56.0
 scale = Vector2(1.1, 1.1)
 focus_neighbor_top = NodePath("../Settings")

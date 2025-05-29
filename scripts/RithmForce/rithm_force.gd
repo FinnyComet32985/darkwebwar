@@ -31,9 +31,11 @@ func _process(_delta: float) -> void:
 
 
 func _ready() -> void:
+	$Captcha.process_mode = Node.PROCESS_MODE_ALWAYS
 	await get_tree().create_timer(5).timeout
 	init_level()
 	$LineEdit.grab_focus()
+
 
 
 func init_level() -> void:
@@ -45,6 +47,9 @@ func init_level() -> void:
 	possible_word = level.dictionary.keys()
 	$GameTimer.start()
 	$SpawnerTimer.start()
+	#! TEMP
+	$CriticEventsTimer.wait_time = 2
+	$CriticEventsTimer.start()
 
 
 func _on_game_timer_timeout() -> void:
@@ -270,5 +275,80 @@ func _on_shield_cooldown_timeout() -> void:
 	$PU/ShieldPU/Shield.disabled = false
 
 
+
 func _on_critic_events_timer_timeout() -> void:
-	pass # Replace with function body.
+	var event = 1 #! randi_range(0, 1)
+	if event == 0:
+		print("SCANSION")
+	else:
+		#* CAPTCHA
+		event = 1 #! randi_range(0, 3)
+		match event:
+			1:
+				get_tree().paused = true
+				$Captcha/AnimationPlayer.play("enter")
+				await $Captcha/AnimationPlayer.animation_finished
+				$Captcha/CaptchaMath.visible = true
+				var n1
+				var n2 
+				var op = randi_range(0, 3)
+				var ris: float
+				var operation: String
+				match op:
+					0:
+						n1 = randi_range(0, 20)
+						n2 = randi_range(0, 20)
+						ris = n1+n2
+						operation = str(n1)+" + "+str(n2)
+					1:
+						n1 = randi_range(0, 20)
+						n2 = randi_range(0, 20)
+						ris = n1-n2 if n1>n2 else n2-n1
+						operation = str(n1)+" - "+str(n2) if n1>n2 else str(n2)+" - "+str(n1)
+					2:
+						n1 = randi_range(0, 10)
+						n2 = randi_range(0, 10)
+						ris = n1*n2
+						operation = str(n1)+" * "+str(n2)
+					3:
+						n1 = randi_range(1, 10)
+						n2 = randi_range(1, 10)
+						ris = snapped(float(n1)/float(n2), 0.01) if n1>n2 else snapped(float(n2)/float(n1), 0.01)
+						operation = str(n1)+" / "+str(n2) if n1>n2 else str(n2)+" / "+str(n1)
+				$Captcha/CaptchaMath/Operation.text=operation
+				var responses = [-1000, -1000, -1000, -1000]
+				var correct_index = randi_range(0, 3)
+				responses[correct_index] = ris
+				for i in range(len(responses)):
+					if responses[i] == -1000:
+						responses[i] = ris + randi_range(1, 5) if randi_range(0, 1) == 0 else ris - randi_range(1, 5)
+				
+				$Captcha/CaptchaMath/Response/R1Container/R1.text = str(responses[0])
+				$Captcha/CaptchaMath/Response/R1Container/R1.response_id = 0
+				$Captcha/CaptchaMath/Response/R1Container/R1.correct = true if correct_index==0 else false
+
+				$Captcha/CaptchaMath/Response/R2Container/R2.text = str(responses[1])
+				$Captcha/CaptchaMath/Response/R2Container/R2.response_id = 1
+				$Captcha/CaptchaMath/Response/R2Container/R2.correct = true if correct_index==1 else false
+
+				$Captcha/CaptchaMath/Response/R3Container/R3.text = str(responses[2])
+				$Captcha/CaptchaMath/Response/R3Container/R3.response_id = 2
+				$Captcha/CaptchaMath/Response/R3Container/R3.correct = true if correct_index==2 else false
+
+				$Captcha/CaptchaMath/Response/R4Container/R4.text = str(responses[3])
+				$Captcha/CaptchaMath/Response/R4Container/R4.response_id = 3
+				$Captcha/CaptchaMath/Response/R4Container/R4.correct = true if correct_index==3 else false
+
+				$Captcha/CaptchaMath/Response/R1Container/R1.grab_focus()
+
+			2:
+				print("text")
+			3:
+				print("images")
+		
+		
+func responded(correct) -> void:
+	if correct==true:
+		get_tree().paused = false
+	else:
+		pass
