@@ -139,6 +139,14 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 var temp_streak:= 0
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
+	if new_text == ":1":
+		_on_overclock_pressed()
+		$LineEdit.text = ""
+		return
+	if new_text == ":2":
+		_on_shield_pressed()
+		$LineEdit.text = ""
+		return
 	var finded:= false
 	for word_instantiated in words_instantiated:
 		var text = word_instantiated.word_text
@@ -372,6 +380,7 @@ func _on_critic_events_timer_timeout() -> void:
 
 		2:
 			get_tree().paused = true
+			$Captcha/CaptchaWord/WordCaptchaInsert.text = ""
 			$Captcha/AnimationPlayer.play("enter")
 			await $Captcha/AnimationPlayer.animation_finished
 			$Captcha/CaptchaWord.visible = true
@@ -394,9 +403,12 @@ func _on_critic_events_timer_timeout() -> void:
 				$Captcha/CaptchaWord.visible=false
 				$Captcha/AnimationPlayer.play("RESET")
 				get_tree().paused = false
-				perc_comp-=5
-				$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
-				$LineEdit.grab_focus()
+				if perc_comp-5>=0:
+					perc_comp-=5
+					$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+					$LineEdit.grab_focus()
+				else:
+					game_over()
 		3:
 			print("images")
 		
@@ -407,7 +419,10 @@ func responded(correct) -> void:
 		$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
 		$LineEdit.grab_focus()
 	else:
-		perc_comp-=5
+		if perc_comp-5>=0:
+			perc_comp-=5
+		else:
+			game_over()
 
 
 func _on_bypass_pressed() -> void:
