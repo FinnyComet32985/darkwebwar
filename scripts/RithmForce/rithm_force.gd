@@ -24,6 +24,7 @@ var powerUP:= [ 0, 0, 0]
 var speed_dec:=0
 var shield:= false
 
+var prev_word:= ""
 
 func _process(_delta: float) -> void:
 	if $GameTimer!=null and $GameTimer.is_stopped() == false:
@@ -32,7 +33,6 @@ func _process(_delta: float) -> void:
 
 func _ready() -> void:
 	$Captcha.process_mode = Node.PROCESS_MODE_ALWAYS
-	await get_tree().create_timer(5).timeout
 	init_level()
 	$LineEdit.grab_focus()
 
@@ -45,10 +45,10 @@ func init_level() -> void:
 	$GameTimer.wait_time = level.level_max_time
 	$SpawnerTimer.wait_time = level.spawn_rate
 	possible_word = level.dictionary.keys()
+	await get_tree().create_timer(5).timeout
 	$GameTimer.start()
+	_on_spawner_timer_timeout()
 	$SpawnerTimer.start()
-	#! TEMP
-	$CriticEventsTimer.wait_time = 2
 	$CriticEventsTimer.start()
 
 
@@ -109,9 +109,6 @@ func _on_end_game_area_body_entered(body: Node2D) -> void:
 		words_instantiated.erase(body)
 	body.queue_free()
 
-
-var prev_word:= ""
-
 func _on_line_edit_text_changed(new_text: String) -> void:
 	for word_instantiated in words_instantiated:
 		var text = word_instantiated.word_text
@@ -151,11 +148,25 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 					pos[1] = false
 			match  word_instantiated.difficulty:
 				1: 
-					perc_comp+=5
-					$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+					if perc_comp+5<100:
+						perc_comp+=5
+						$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+					else:
+						reset_level()
+						win_level()
+						return
+				2:
+					if perc_comp+10<100:
+						perc_comp+=10
+						$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+					else:
+						reset_level()
+						win_level()
+						return
 			words_instantiated.erase(word_instantiated)
 			word_instantiated.queue_free()
 			$LineEdit/AnimationPlayer.play("success")
+			$Stats/AnimationPlayer.play("correct")
 			$LineEdit.text = ""
 			finded = true
 			streak+=1
@@ -207,6 +218,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 					game_over()
 					return
 		$LineEdit/AnimationPlayer.play("error")
+		$Stats/AnimationPlayer.play("error")
 		for word_instantiated in words_instantiated:
 			if word_instantiated.word_text == prev_word:
 				await word_instantiated.anim_error()
@@ -226,7 +238,23 @@ func game_over()->void:
 func win_level()->void:
 	if n_level+1 < len(RF_Level_definer.levels):
 		n_level+=1
+		reset_level()
 		init_level()
+
+func reset_level()->void:
+	perc_comp = 0
+	for word_instantiated in words_instantiated:
+		word_instantiated.queue_free()
+	words_instantiated = []
+	possible_word = []
+	perc_comp= 0
+	speed_dec=0
+	$GameTimer.stop()
+	$"Stats/RemTime-stat".text = " 0"
+	$SpawnerTimer.stop()
+	$CriticEventsTimer.stop()
+	prev_word=""
+	$LineEdit.text=""
 
 func _on_overclock_pressed() -> void:
 	if powerUP[0]>0 and $PU/OverclockPU/OverclockCooldown.is_stopped()==true:
@@ -277,78 +305,116 @@ func _on_shield_cooldown_timeout() -> void:
 
 
 func _on_critic_events_timer_timeout() -> void:
-	var event = 1 #! randi_range(0, 1)
-	if event == 0:
-		print("SCANSION")
-	else:
-		#* CAPTCHA
-		event = 1 #! randi_range(0, 3)
-		match event:
-			1:
-				get_tree().paused = true
-				$Captcha/AnimationPlayer.play("enter")
-				await $Captcha/AnimationPlayer.animation_finished
-				$Captcha/CaptchaMath.visible = true
-				var n1
-				var n2 
-				var op = randi_range(0, 3)
-				var ris: float
-				var operation: String
-				match op:
-					0:
-						n1 = randi_range(0, 20)
-						n2 = randi_range(0, 20)
-						ris = n1+n2
-						operation = str(n1)+" + "+str(n2)
-					1:
-						n1 = randi_range(0, 20)
-						n2 = randi_range(0, 20)
-						ris = n1-n2 if n1>n2 else n2-n1
-						operation = str(n1)+" - "+str(n2) if n1>n2 else str(n2)+" - "+str(n1)
-					2:
-						n1 = randi_range(0, 10)
-						n2 = randi_range(0, 10)
-						ris = n1*n2
-						operation = str(n1)+" * "+str(n2)
-					3:
-						n1 = randi_range(1, 10)
-						n2 = randi_range(1, 10)
-						ris = snapped(float(n1)/float(n2), 0.01) if n1>n2 else snapped(float(n2)/float(n1), 0.01)
-						operation = str(n1)+" / "+str(n2) if n1>n2 else str(n2)+" / "+str(n1)
-				$Captcha/CaptchaMath/Operation.text=operation
-				var responses = [-1000, -1000, -1000, -1000]
-				var correct_index = randi_range(0, 3)
-				responses[correct_index] = ris
-				for i in range(len(responses)):
-					if responses[i] == -1000:
-						responses[i] = ris + randi_range(1, 5) if randi_range(0, 1) == 0 else ris - randi_range(1, 5)
+	if randi_range(0, 59)>2:
+		return
+	
+	#* CAPTCHA
+	var event = randi_range(0, 2)
+	match event:
+		1:
+			get_tree().paused = true
+			$Captcha/AnimationPlayer.play("enter")
+			await $Captcha/AnimationPlayer.animation_finished
+			$Captcha/CaptchaMath.visible = true
+			if powerUP[2]>0:
+				$Captcha/CaptchaMath/Bypass.visible = true
+			var n1
+			var n2 
+			var op = randi_range(0, 3)
+			var ris: float
+			var operation: String
+			match op:
+				0:
+					n1 = randi_range(0, 20)
+					n2 = randi_range(0, 20)
+					ris = n1+n2
+					operation = str(n1)+" + "+str(n2)
+				1:
+					n1 = randi_range(0, 20)
+					n2 = randi_range(0, 20)
+					ris = n1-n2 if n1>n2 else n2-n1
+					operation = str(n1)+" - "+str(n2) if n1>n2 else str(n2)+" - "+str(n1)
+				2:
+					n1 = randi_range(0, 10)
+					n2 = randi_range(0, 10)
+					ris = n1*n2
+					operation = str(n1)+" * "+str(n2)
+				3:
+					n1 = randi_range(1, 10)
+					n2 = randi_range(1, 10)
+					ris = snapped(float(n1)/float(n2), 0.01) if n1>n2 else snapped(float(n2)/float(n1), 0.01)
+					operation = str(n1)+" / "+str(n2) if n1>n2 else str(n2)+" / "+str(n1)
+			$Captcha/CaptchaMath/Operation.text=operation
+			var responses = [-1000, -1000, -1000, -1000]
+			var correct_index = randi_range(0, 3)
+			responses[correct_index] = ris
+			for i in range(len(responses)):
+				if responses[i] == -1000:
+					responses[i] = ris + randi_range(1, 5) if randi_range(0, 1) == 0 else ris - randi_range(1, 5)
 				
-				$Captcha/CaptchaMath/Response/R1Container/R1.text = str(responses[0])
-				$Captcha/CaptchaMath/Response/R1Container/R1.response_id = 0
-				$Captcha/CaptchaMath/Response/R1Container/R1.correct = true if correct_index==0 else false
+			$Captcha/CaptchaMath/Response/R1Container/R1.text = str(responses[0])
+			$Captcha/CaptchaMath/Response/R1Container/R1.response_id = 0
+			$Captcha/CaptchaMath/Response/R1Container/R1.correct = true if correct_index==0 else false
 
-				$Captcha/CaptchaMath/Response/R2Container/R2.text = str(responses[1])
-				$Captcha/CaptchaMath/Response/R2Container/R2.response_id = 1
-				$Captcha/CaptchaMath/Response/R2Container/R2.correct = true if correct_index==1 else false
+			$Captcha/CaptchaMath/Response/R2Container/R2.text = str(responses[1])
+			$Captcha/CaptchaMath/Response/R2Container/R2.response_id = 1
+			$Captcha/CaptchaMath/Response/R2Container/R2.correct = true if correct_index==1 else false
 
-				$Captcha/CaptchaMath/Response/R3Container/R3.text = str(responses[2])
-				$Captcha/CaptchaMath/Response/R3Container/R3.response_id = 2
-				$Captcha/CaptchaMath/Response/R3Container/R3.correct = true if correct_index==2 else false
+			$Captcha/CaptchaMath/Response/R3Container/R3.text = str(responses[2])
+			$Captcha/CaptchaMath/Response/R3Container/R3.response_id = 2
+			$Captcha/CaptchaMath/Response/R3Container/R3.correct = true if correct_index==2 else false
 
-				$Captcha/CaptchaMath/Response/R4Container/R4.text = str(responses[3])
-				$Captcha/CaptchaMath/Response/R4Container/R4.response_id = 3
-				$Captcha/CaptchaMath/Response/R4Container/R4.correct = true if correct_index==3 else false
+			$Captcha/CaptchaMath/Response/R4Container/R4.text = str(responses[3])
+			$Captcha/CaptchaMath/Response/R4Container/R4.response_id = 3
+			$Captcha/CaptchaMath/Response/R4Container/R4.correct = true if correct_index==3 else false
 
-				$Captcha/CaptchaMath/Response/R1Container/R1.grab_focus()
+			$Captcha/CaptchaMath/Response/R1Container/R1.grab_focus()
 
-			2:
-				print("text")
-			3:
-				print("images")
+		2:
+			get_tree().paused = true
+			$Captcha/AnimationPlayer.play("enter")
+			await $Captcha/AnimationPlayer.animation_finished
+			$Captcha/CaptchaWord.visible = true
+			var word = level.dictionary.keys()[randi_range(0, level.dictionary.size()-1)]
+			$Captcha/CaptchaWord/WordWaved.text = word
+			if powerUP[2]>0:
+				$Captcha/CaptchaWord/Bypass.visible = true
+			$Captcha/CaptchaWord/WordCaptchaInsert.grab_focus()
+			var response = await $Captcha/CaptchaWord/WordCaptchaInsert.text_submitted
+			if response == word:
+				$Captcha/CaptchaWord/WordCaptchaInsert/AnimationPlayer.play("success")
+				await $Captcha/CaptchaWord/WordCaptchaInsert/AnimationPlayer.animation_finished
+				$Captcha/CaptchaWord.visible=false
+				$Captcha/AnimationPlayer.play("RESET")
+				get_tree().paused = false
+				$LineEdit.grab_focus()
+			else:
+				$Captcha/CaptchaWord/WordCaptchaInsert/AnimationPlayer.play("error")
+				await $Captcha/CaptchaWord/WordCaptchaInsert/AnimationPlayer.animation_finished
+				$Captcha/CaptchaWord.visible=false
+				$Captcha/AnimationPlayer.play("RESET")
+				get_tree().paused = false
+				perc_comp-=5
+				$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+				$LineEdit.grab_focus()
+		3:
+			print("images")
 		
 		
 func responded(correct) -> void:
 	if correct==true:
 		get_tree().paused = false
+		$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
+		$LineEdit.grab_focus()
 	else:
-		pass
+		perc_comp-=5
+
+
+func _on_bypass_pressed() -> void:
+	powerUP[2]-=1
+	$PU/BypassPU/Panel/BypassLabel.text= str(powerUP[2])
+	$Captcha/CaptchaMath.visible=false
+	$Captcha/CaptchaWord.visible=false
+	$Captcha/AnimationPlayer.play("RESET")
+	get_tree().paused = false
+	

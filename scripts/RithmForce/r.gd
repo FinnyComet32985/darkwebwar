@@ -17,7 +17,7 @@ func _on_pressed() -> void:
 		$"../AnimationPlayer".play("error")
 		await $"../AnimationPlayer".animation_finished
 		$".".disabled = true
-		get_tree().current_scene.responded(response_id, correct)
+		get_tree().current_scene.responded(correct)
 	else:
 		$"../AnimationPlayer".play("correct")
 		await $"../AnimationPlayer".animation_finished
