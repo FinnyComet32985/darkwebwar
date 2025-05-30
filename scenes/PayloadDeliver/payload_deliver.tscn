@@ -1,0 +1,279 @@
+[gd_scene load_steps=17 format=3 uid="uid://b3umfrgkfl1aa"]
+
+[ext_resource type="Script" uid="uid://5do3iwu0rim2" path="res://scripts/PayloadDeliver/payload_deliver.gd" id="1_76tr2"]
+[ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_207pf"]
+[ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="2_o47ow"]
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_sb5o3"]
+[ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_qt2g7"]
+[ext_resource type="Texture2D" uid="uid://by5g73pwcj145" path="res://assets/DefendBazaar/defences/DarkWebWar-Firewall.svg" id="4_qt2g7"]
+[ext_resource type="Texture2D" uid="uid://djkcesiwc3w32" path="res://assets/RithmForce/DarkWebWar-line.svg" id="5_0ftgf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13lqv"]
+bg_color = Color(0, 0, 0.654902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_101rs"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_htuoc"]
+Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
+
+[sub_resource type="Theme" id="Theme_0ftgf"]
+Label/font_sizes/font_size = 25
+Label/fonts/font = ExtResource("2_sb5o3")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsu3c"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_76tr2"]
+Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dws16"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_htuoc"]
+shader = ExtResource("2_o47ow")
+
+[sub_resource type="QuadMesh" id="QuadMesh_oxl41"]
+size = Vector2(1152, 648)
+center_offset = Vector3(576, 324, 0)
+
+[node name="PayloadDeliver" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_13lqv")
+script = ExtResource("1_76tr2")
+
+[node name="StatusBar" type="Control" parent="."]
+z_index = 1
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="ColorRect" type="Panel" parent="StatusBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 30.0
+offset_top = 50.0
+offset_right = -30.3201
+offset_bottom = 55.0
+grow_horizontal = 2
+theme = SubResource("Theme_htuoc")
+
+[node name="Label" type="Label" parent="StatusBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_207pf")
+theme_override_font_sizes/font_size = 30
+text = "Payload Deliver"
+
+[node name="Level" type="Label" parent="StatusBar"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -15.0
+offset_right = -30.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_207pf")
+theme_override_font_sizes/font_size = 30
+text = "LEVEL 0"
+
+[node name="Status-container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.665
+anchor_top = 0.3
+anchor_right = 0.95
+anchor_bottom = 0.656
+offset_left = 0.104004
+offset_bottom = -194.088
+grow_horizontal = 0
+
+[node name="Status-label" type="Label" parent="Status-container"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_0ftgf")
+text = "STATUS"
+
+[node name="Separator" type="Panel" parent="Status-container"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme = SubResource("Theme_76tr2")
+
+[node name="Stat" type="VBoxContainer" parent="Status-container"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_dws16")
+
+[node name="TargetSec" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="target-label" type="Label" parent="Status-container/Stat/TargetSec"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+text = "Target:"
+
+[node name="target-stat" type="Label" parent="Status-container/Stat/TargetSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+
+[node name="HSeparator4" type="HSeparator" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxFlat_dws16")
+
+[node name="RemaningTime" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="remaning-time-label" type="Label" parent="Status-container/Stat/RemaningTime"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+text = "Tempo rimanente:"
+
+[node name="remaning-time-stat" type="Label" parent="Status-container/Stat/RemaningTime"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+
+[node name="TTLSec" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+
+[node name="ttl-label" type="Label" parent="Status-container/Stat/TTLSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+text = "TTL: "
+
+[node name="ttl-stat" type="Label" parent="Status-container/Stat/TTLSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+
+[node name="FurtSec" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+
+[node name="furt-label" type="Label" parent="Status-container/Stat/FurtSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+text = "Furtività: "
+
+[node name="furt-stat" type="Label" parent="Status-container/Stat/FurtSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+
+[node name="HSeparator3" type="HSeparator" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxFlat_dws16")
+
+[node name="PackDeliveredSec" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="deliverd-label" type="Label" parent="Status-container/Stat/PackDeliveredSec"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("3_qt2g7")
+text = "Pacchetti conseganti:"
+
+[node name="delivered-stat" type="Label" parent="Status-container/Stat/PackDeliveredSec"]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+vertical_alignment = 2
+
+[node name="PlayZone" type="Panel" parent="."]
+offset_left = 31.0
+offset_top = 87.0
+offset_right = 723.0
+offset_bottom = 629.0
+
+[node name="CurrentNode" type="TextureRect" parent="PlayZone"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.8
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_qt2g7")
+
+[node name="PossibleNextNode" type="HBoxContainer" parent="PlayZone"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.171
+anchor_top = 0.35
+anchor_right = 0.829
+anchor_bottom = 0.481
+offset_left = 0.0680084
+offset_right = -0.0679932
+offset_bottom = -31.002
+grow_horizontal = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="PossibleNode" type="TextureRect" parent="PlayZone/PossibleNextNode"]
+layout_mode = 2
+texture = ExtResource("4_qt2g7")
+
+[node name="CurrentNode2" type="TextureRect" parent="PlayZone/PossibleNextNode"]
+layout_mode = 2
+texture = ExtResource("4_qt2g7")
+
+[node name="Line2D" type="Line2D" parent="PlayZone"]
+texture_filter = 1
+texture_repeat = 3
+points = PackedVector2Array(344, 357, 281, 269)
+width = 5.0
+texture = ExtResource("5_0ftgf")
+texture_mode = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
+z_index = 3
+material = SubResource("ShaderMaterial_htuoc")
+mesh = SubResource("QuadMesh_oxl41")

@@ -32,7 +32,7 @@ Panel/styles/panel = SubResource("StyleBoxFlat_wq2sp")
 Label/font_sizes/font_size = 25
 Label/fonts/font = ExtResource("2_dr1i0")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsu3c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0n24t"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
@@ -40,7 +40,7 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="Theme" id="Theme_i3icg"]
-Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
+Panel/styles/panel = SubResource("StyleBoxFlat_0n24t")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee5cj"]
 
@@ -251,14 +251,14 @@ text = "LEVEL 0"
 
 [node name="SideBar" type="VBoxContainer" parent="."]
 anchors_preset = -1
-anchor_left = 0.7
+anchor_left = 0.668
 anchor_top = 0.15
 anchor_right = 0.97
-anchor_bottom = 0.15
-offset_left = -36.4
+anchor_bottom = 0.908
+offset_left = 0.463867
 offset_top = 0.399994
 offset_right = 7.55994
-offset_bottom = 197.2
+offset_bottom = -293.984
 
 [node name="Status-container" type="VBoxContainer" parent="SideBar"]
 layout_mode = 2
