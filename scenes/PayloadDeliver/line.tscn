@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxysyit6l7stl"]
+
+[ext_resource type="Texture2D" uid="uid://djkcesiwc3w32" path="res://assets/RithmForce/DarkWebWar-line.svg" id="1_4nyi4"]
+[ext_resource type="Script" uid="uid://cb3fw5r2tnngt" path="res://scripts/PayloadDeliver/line.gd" id="2_ghnkd"]
+
+[node name="Line" type="Line2D"]
+texture_filter = 1
+texture_repeat = 3
+width = 5.0
+texture = ExtResource("1_4nyi4")
+texture_mode = 1
+script = ExtResource("2_ghnkd")

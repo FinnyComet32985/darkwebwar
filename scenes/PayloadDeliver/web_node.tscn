@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj22mcwy4ppt1"]
+
+[ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="1_0wqyc"]
+[ext_resource type="Script" uid="uid://bgfo82uct57th" path="res://scripts/PayloadDeliver/web_node.gd" id="2_lr02u"]
+
+[node name="WebNode" type="Button"]
+texture_filter = 1
+custom_minimum_size = Vector2(70, 70)
+offset_right = 8.0
+offset_bottom = 8.0
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_lr02u")
+
+[node name="IP" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 10.0
+offset_right = 48.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_0wqyc")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

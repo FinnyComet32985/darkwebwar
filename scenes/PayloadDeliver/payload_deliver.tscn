@@ -1,12 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3umfrgkfl1aa"]
+[gd_scene load_steps=16 format=3 uid="uid://b3umfrgkfl1aa"]
 
 [ext_resource type="Script" uid="uid://5do3iwu0rim2" path="res://scripts/PayloadDeliver/payload_deliver.gd" id="1_76tr2"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_207pf"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="2_o47ow"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_sb5o3"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_qt2g7"]
-[ext_resource type="Texture2D" uid="uid://by5g73pwcj145" path="res://assets/DefendBazaar/defences/DarkWebWar-Firewall.svg" id="4_qt2g7"]
-[ext_resource type="Texture2D" uid="uid://djkcesiwc3w32" path="res://assets/RithmForce/DarkWebWar-line.svg" id="5_0ftgf"]
+[ext_resource type="Texture2D" uid="uid://luxbwmfynt13" path="res://assets/temp/router.png" id="5_0ftgf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13lqv"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -140,10 +139,9 @@ theme_override_constants/separation = 25
 
 [node name="target-label" type="Label" parent="Status-container/Stat/TargetSec"]
 texture_filter = 1
-custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("3_qt2g7")
-text = "Target:"
+text = "Target: "
 
 [node name="target-stat" type="Label" parent="Status-container/Stat/TargetSec"]
 texture_filter = 1
@@ -203,73 +201,61 @@ layout_mode = 2
 theme_override_constants/separation = 15
 theme_override_styles/separator = SubResource("StyleBoxFlat_dws16")
 
-[node name="PackDeliveredSec" type="HBoxContainer" parent="Status-container/Stat"]
-layout_mode = 2
-theme_override_constants/separation = 25
-
-[node name="deliverd-label" type="Label" parent="Status-container/Stat/PackDeliveredSec"]
-texture_filter = 1
-layout_mode = 2
-size_flags_vertical = 0
-theme = ExtResource("3_qt2g7")
-text = "Pacchetti conseganti:"
-
-[node name="delivered-stat" type="Label" parent="Status-container/Stat/PackDeliveredSec"]
-texture_filter = 1
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
-theme = ExtResource("3_qt2g7")
-vertical_alignment = 2
+[node name="GameTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="PlayZone" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 31.0
 offset_top = 87.0
 offset_right = 723.0
 offset_bottom = 629.0
 
-[node name="CurrentNode" type="TextureRect" parent="PlayZone"]
+[node name="CurrentNode" type="VBoxContainer" parent="PlayZone"]
+custom_minimum_size = Vector2(70, 70)
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.8
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.8
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -180.0
+offset_right = 64.0
+offset_bottom = -96.0
 grow_horizontal = 2
 grow_vertical = 0
-texture = ExtResource("4_qt2g7")
+theme_override_constants/separation = 18
+
+[node name="TextureRect" type="TextureRect" parent="PlayZone/CurrentNode"]
+texture_filter = 1
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("5_0ftgf")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="IP" type="Label" parent="PlayZone/CurrentNode"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_qt2g7")
+text = "192.198.12.3"
+horizontal_alignment = 1
 
 [node name="PossibleNextNode" type="HBoxContainer" parent="PlayZone"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.171
-anchor_top = 0.35
-anchor_right = 0.829
-anchor_bottom = 0.481
-offset_left = 0.0680084
-offset_right = -0.0679932
-offset_bottom = -31.002
+anchor_top = 0.245
+anchor_right = 0.828
+anchor_bottom = 0.375
+offset_left = -0.332001
+offset_top = 0.209991
+offset_right = 0.0239258
+offset_bottom = -0.250015
 grow_horizontal = 2
 theme_override_constants/separation = 100
 alignment = 1
-
-[node name="PossibleNode" type="TextureRect" parent="PlayZone/PossibleNextNode"]
-layout_mode = 2
-texture = ExtResource("4_qt2g7")
-
-[node name="CurrentNode2" type="TextureRect" parent="PlayZone/PossibleNextNode"]
-layout_mode = 2
-texture = ExtResource("4_qt2g7")
-
-[node name="Line2D" type="Line2D" parent="PlayZone"]
-texture_filter = 1
-texture_repeat = 3
-points = PackedVector2Array(344, 357, 281, 269)
-width = 5.0
-texture = ExtResource("5_0ftgf")
-texture_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
