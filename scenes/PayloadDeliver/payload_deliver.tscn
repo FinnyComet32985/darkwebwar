@@ -263,3 +263,5 @@ alignment = 1
 z_index = 3
 material = SubResource("ShaderMaterial_htuoc")
 mesh = SubResource("QuadMesh_oxl41")
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

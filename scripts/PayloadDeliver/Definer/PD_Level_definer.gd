@@ -12,12 +12,12 @@ var levels = [
 			"start_node_id": "START_L1",
 			"target_node_id": "TARGET_L1",
 			"nodes": {
-				"START_L1": {"ip": "192.168.1.1", "type": "router", "connections": ["R1_L1"]},
-				"R1_L1":    {"ip": "192.168.1.2", "type": "router", "connections": ["START_L1", "S1_L1"]},
-				"S1_L1":    {"ip": "192.168.1.3", "type": "switch", "connections": ["R1_L1", "R2_L1", "R3_L1"]}, # Switch con più connessioni
-				"R2_L1":    {"ip": "192.168.1.4", "type": "router", "connections": ["S1_L1", "TARGET_L1"]}, # Percorso verso il target
-				"R3_L1":    {"ip": "192.168.1.5", "type": "router", "connections": ["S1_L1"]}, # Ramo secondario/vicolo cieco per esplorazione TTL
-				"TARGET_L1":{"ip": "10.0.0.1", "type": "router", "connections": ["R2_L1"]} # Nodo Target
+				"START_L1": {"ip": "192.168.1.1", "type": "router", "connections": ["R1_L1"]}, # IP di partenza, rete locale
+				"R1_L1":    {"ip": "172.16.5.10", "type": "router", "connections": ["START_L1", "S1_L1"]}, # Nodo di transizione verso un'altra classe di IP
+				"S1_L1":    {"ip": "10.1.0.1",    "type": "switch", "connections": ["R1_L1", "R2_L1", "R3_L1"]}, # Switch. Target è 10.0.0.1. Giocatore deve notare il cambio nel secondo ottetto.
+				"R2_L1":    {"ip": "10.0.1.10",   "type": "router", "connections": ["S1_L1", "TARGET_L1"]}, # Percorso corretto: 10.0.x.x è più vicino a 10.0.0.1
+				"R3_L1":    {"ip": "10.1.2.20",   "type": "router", "connections": ["S1_L1"]}, # Vicolo cieco: 10.1.x.x è simile allo switch ma non al target.
+				"TARGET_L1":{"ip": "10.0.0.1",    "type": "finish", "connections": ["R2_L1"]} # Nodo Target
 			}
 		}
 	),
@@ -32,14 +32,16 @@ var levels = [
 			"start_node_id": "START_L2",
 			"target_node_id": "TARGET_L2",
 			"nodes": {
-				"START_L2": {"ip": "192.168.2.1", "type": "router", "connections": ["FW1_L2", "P1_L2"]}, # Scelta iniziale
-				"FW1_L2":   {"ip": "192.168.2.2", "type": "firewall", "connections": ["START_L2", "R1_L2"]}, # -20% Furtività, percorso breve (3 hop totali)
-				"R1_L2":    {"ip": "192.168.2.3", "type": "router", "connections": ["FW1_L2", "TARGET_L2"]},
-				"P1_L2":    {"ip": "192.168.2.4", "type": "proxy", "connections": ["START_L2", "R2_L2"]},    # +10% Furtività, percorso più lungo (5 hop totali)
-				"R2_L2":    {"ip": "192.168.2.5", "type": "router", "connections": ["P1_L2", "S1_L2"]},
-				"S1_L2":    {"ip": "192.168.2.6", "type": "switch", "connections": ["R2_L2", "R3_L2"]},
-				"R3_L2":    {"ip": "192.168.2.7", "type": "router", "connections": ["S1_L2", "TARGET_L2"]},
-				"TARGET_L2":{"ip": "10.0.1.1", "type": "router", "connections": ["R1_L2", "R3_L2"]} # Nodo Target
+				"START_L2": {"ip": "192.168.2.1", "type": "router", "connections": ["FW1_L2", "P1_L2"]}, # Partenza da una rete "locale"
+				# Percorso Firewall: IP suggerisce una via diretta alla rete 10.0.x.x, ma è un Firewall (-20% Furtività)
+				"FW1_L2":   {"ip": "10.0.50.2",   "type": "firewall", "connections": ["START_L2", "R1_L2"]}, 
+				"R1_L2":    {"ip": "10.0.25.3",   "type": "router", "connections": ["FW1_L2", "TARGET_L2"]}, # IP progressivamente più vicino al target
+				# Percorso Proxy: IP suggerisce un instradamento diverso (172.16.x.x), più lungo ma il Proxy aiuta la Furtività (+10%)
+				"P1_L2":    {"ip": "172.16.10.4", "type": "proxy", "connections": ["START_L2", "R2_L2"]},    
+				"R2_L2":    {"ip": "172.16.20.5", "type": "router", "connections": ["P1_L2", "S1_L2"]},
+				"S1_L2":    {"ip": "172.16.30.6", "type": "switch", "connections": ["R2_L2", "R3_L2"]},
+				"R3_L2":    {"ip": "10.0.75.7",   "type": "router", "connections": ["S1_L2", "TARGET_L2"]}, # Ritorno alla rete 10.0.x.x, ma terzo ottetto più "lontano" rispetto a R1_L2
+				"TARGET_L2":{"ip": "10.0.1.1", "type": "finish", "connections": ["R1_L2", "R3_L2"]} # Nodo Target
 			}
 		}
 	),
