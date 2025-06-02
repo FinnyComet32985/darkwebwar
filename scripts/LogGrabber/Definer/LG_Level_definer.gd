@@ -20,7 +20,7 @@ var levels = [
 				"content": "SUBJECT: Your Entry Ticket (Encrypted)\n\nBODY: Vabgk1930XJTMB67$qpznvMNS75%trlszPQWI82+ubdgr...\nDECRYPTION KEY HINT: My initials, year of first major hack.\nCONTENT (DECRYPTED): IP: 192.168.34.76, PORT: 23331, PASS: prometeus. Welcome to the Echo Chamber. - DK. (This should be deleted.)",
 				"father": null
 			},
-			"my_secret_projects_folder": {
+			"my_secret_projects": {
 				"type": "folder",
 				"father": null,
 				"children": ["project_alpha_notes.log", "backup_12_details.log", "utils_folder"]
@@ -37,7 +37,7 @@ var levels = [
 				"content": "BACKUP_12 - Algoritmo di cifratura avanzata. Chiave variabile basata su sequenze matematiche non lineari. Unica copia. Non divulgare. Potrebbe essere utile per comunicazioni sicure nell'Echo Chamber.",
 				"father": "my_secret_projects_folder"
 			},
-			"utils_folder": {
+			"utils": {
 				"type": "folder",
 				"father": "my_secret_projects_folder",
 				"children": ["camouflage_script_v1.sh"]
@@ -46,7 +46,7 @@ var levels = [
 				"type": "script",
 				"father": "utils_folder"
 			},
-			"bbs_public_logs_folder": {
+			"bbs_public_logs": {
 				"type": "folder",
 				"father": null,
 				"children": ["digital_underground_chat_generic.log"]

@@ -191,6 +191,7 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="PlayZone" type="Panel" parent="."]
+layout_mode = 0
 offset_left = 31.0
 offset_top = 87.0
 offset_right = 723.0
