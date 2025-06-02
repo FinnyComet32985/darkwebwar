@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bljqe40xmgfke"
-path="res://.godot/imported/DarkWebWar-Log.svg-f563e8c8ac654f7e393e501de750e700.ctex"
+uid="uid://du15uky7qqlyc"
+path="res://.godot/imported/bin.svg-cbf00958f70bfed83322a53d495fe0a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/LogGrabber/DarkWebWar-Log.svg"
-dest_files=["res://.godot/imported/DarkWebWar-Log.svg-f563e8c8ac654f7e393e501de750e700.ctex"]
+source_file="res://assets/LogGrabber/bin.svg"
+dest_files=["res://.godot/imported/bin.svg-cbf00958f70bfed83322a53d495fe0a1.ctex"]
 
 [params]
 

@@ -15,7 +15,7 @@ var levels = [
 			"system_boot.log": {
 				"type": "log",
 				"delete": false,
-				"content": "System v4.86DX2. Boot sequence complete. All peripherals nominal. Welcome, Alex. Current time: 23:07. Standard OS log.",
+				"content": "System v4.86DX2.\n\nBoot sequence complete.\nAll peripherals nominal.\n\nWelcome, Alex.\nCurrent time: 23:07.\n\nStandard OS log.",
 				"father": "C:"
 			},
 			"dk_invite_encrypted.log": { # Riferimento a Storia ID "1.3"

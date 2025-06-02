@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c13cksn42u525"]
+[gd_scene load_steps=25 format=3 uid="uid://c13cksn42u525"]
 
 [ext_resource type="Script" uid="uid://ily5fmn7w251" path="res://scripts/LogGrabber/log_grabber.gd" id="1_l3202"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_xxsig"]
@@ -6,6 +6,8 @@
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="3_24ckl"]
 [ext_resource type="Theme" uid="uid://c80rex24q765u" path="res://assets/LogGrabber/log_grabber.tres" id="4_l3202"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="4_o4edx"]
+[ext_resource type="Texture2D" uid="uid://bljqe40xmgfke" path="res://assets/LogGrabber/DarkWebWar-Log.svg" id="6_7x2t2"]
+[ext_resource type="Texture2D" uid="uid://du15uky7qqlyc" path="res://assets/LogGrabber/bin.svg" id="6_tkbep"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24ckl"]
 bg_color = Color(0, 0, 0.666667, 1)
@@ -37,6 +39,36 @@ corner_radius_bottom_left = 50
 Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2t2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3202"]
+bg_color = Color(0.0979903, 0.26183, 0.387085, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0n24t"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_7x2t2"]
+Panel/styles/panel = SubResource("StyleBoxFlat_0n24t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wk0m5"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgwru"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mm56t"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_t64k5"]
+Button/colors/font_focus_color = Color(0.831373, 0, 0.117647, 1)
+Button/colors/font_hover_color = Color(0.831373, 0, 0.117647, 1)
+Button/colors/font_hover_pressed_color = Color(0.831373, 0, 0.117647, 1)
+Button/styles/focus = SubResource("StyleBoxFlat_wk0m5")
+Button/styles/normal = SubResource("StyleBoxFlat_tgwru")
+Button/styles/pressed = SubResource("StyleBoxFlat_mm56t")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3202"]
 shader = ExtResource("2_0vh85")
@@ -239,10 +271,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_l3202")
-text = " c://"
 vertical_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PlayZone"]
@@ -255,6 +287,126 @@ offset_bottom = 508.0
 
 [node name="fs_container" type="VBoxContainer" parent="PlayZone/ScrollContainer"]
 layout_mode = 2
+
+[node name="LogViewerSec" type="Control" parent="."]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="LogViewerSec"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.028
+anchor_top = 0.134
+anchor_right = 0.628
+anchor_bottom = 1.0
+offset_left = -0.256001
+offset_top = 0.167999
+offset_right = -0.456055
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.133333, 0.133333, 0.913725)
+
+[node name="LogViewer" type="Panel" parent="LogViewerSec"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = 108.0
+offset_top = 120.0
+offset_right = 650.0
+offset_bottom = 599.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l3202")
+
+[node name="TextureRect" type="TextureRect" parent="LogViewerSec/LogViewer"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 71.0
+offset_bottom = 88.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_7x2t2")
+
+[node name="Title" type="Label" parent="LogViewerSec/LogViewer"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 59.0
+offset_top = 10.0
+offset_right = 217.0
+offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("3_24ckl")
+theme_override_font_sizes/font_size = 25
+text = "Prova"
+vertical_alignment = 1
+
+[node name="Separator" type="Panel" parent="LogViewerSec/LogViewer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 54.0
+offset_right = -10.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme = SubResource("Theme_7x2t2")
+
+[node name="Description" type="RichTextLabel" parent="LogViewerSec/LogViewer"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 71.0
+offset_right = 525.0
+offset_bottom = 399.0
+theme_override_fonts/normal_font = ExtResource("3_24ckl")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LogViewerSec/LogViewer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -199.0
+offset_top = -53.0
+offset_right = 200.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Delete" type="Button" parent="LogViewerSec/LogViewer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+theme = SubResource("Theme_t64k5")
+theme_override_colors/font_hover_color = Color(0.83302, 0, 0.117182, 1)
+theme_override_colors/icon_hover_color = Color(0.83302, 0, 0.117182, 1)
+theme_override_colors/font_color = Color(1, 0.12549, 0.184314, 1)
+theme_override_fonts/font = ExtResource("3_24ckl")
+theme_override_font_sizes/font_size = 20
+text = "Elimina"
+icon = ExtResource("6_tkbep")
+flat = true
+alignment = 2
+expand_icon = true
+
+[node name="Mantain" type="Button" parent="LogViewerSec/LogViewer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+theme_override_colors/font_hover_color = Color(0.419813, 0.419813, 0.419813, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "X Mantieni"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

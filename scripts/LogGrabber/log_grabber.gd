@@ -3,6 +3,7 @@ extends Panel
 var button_scene = preload("res://scenes/LogGrabber/button.tscn")
 
 @onready var fs_section = $PlayZone/ScrollContainer/fs_container
+@onready var path_label = $PlayZone/Func/Path/Label
 
 var n_level:= 1 
 var level: LG_Level_class
@@ -41,10 +42,22 @@ func init_level() -> void:
 	else:
 		printerr("Cartella 'C:' o i suoi figli non trovati nella definizione del livello.")
 		
-	undo.append("C:")
+	if !undo.has("C:"): # Assicurati che C: sia aggiunto solo una volta se init_level viene chiamato più volte
+		undo.append("C:")
+	_update_path_label()
 
 func open_log(_name: String) -> void:
-	pass
+	$LogViewerSec.visible = true
+	$LogViewerSec/LogViewer/Title.text = _name
+	$LogViewerSec/LogViewer/Description.text = level.file_system[_name]["content"]
+	$LogViewerSec/LogViewer.visible = true
+
+func _update_path_label() -> void:
+	if path_label:
+		if !undo.is_empty():
+			path_label.text = "/".join(undo)
+		else:
+			path_label.text = "" # In caso undo sia vuoto (non dovrebbe accadere dopo init)
 
 func open_folder(_name: String, is_history_navigation: bool = false) -> void:
 	if !is_history_navigation:
@@ -64,6 +77,8 @@ func open_folder(_name: String, is_history_navigation: bool = false) -> void:
 				printerr("Elemento figlio o tipo mancante nel file_system per: ", child_name, " dentro ", _name)
 	else:
 		printerr("Cartella non trovata o senza figli: ", _name)
+	
+	_update_path_label()
 
 
 func open_script(_name: String) -> void:	
