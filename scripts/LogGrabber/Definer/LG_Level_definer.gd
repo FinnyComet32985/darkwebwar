@@ -8,34 +8,38 @@ var levels = [
 		180, # game time (secondi)
 		60,  # scan_timer (secondi)
 		{ # file_system
+			"C:": {
+				"type": "folder",
+				"children": ["system_boot.log", "dk_invite_encrypted.log", "my_secret_projects", "bbs_public_logs"]
+			},
 			"system_boot.log": {
 				"type": "log",
 				"delete": false,
 				"content": "System v4.86DX2. Boot sequence complete. All peripherals nominal. Welcome, Alex. Current time: 23:07. Standard OS log.",
-				"father": null
+				"father": "C:"
 			},
 			"dk_invite_encrypted.log": { # Riferimento a Storia ID "1.3"
 				"type": "log",
 				"delete": true,
 				"content": "SUBJECT: Your Entry Ticket (Encrypted)\n\nBODY: Vabgk1930XJTMB67$qpznvMNS75%trlszPQWI82+ubdgr...\nDECRYPTION KEY HINT: My initials, year of first major hack.\nCONTENT (DECRYPTED): IP: 192.168.34.76, PORT: 23331, PASS: prometeus. Welcome to the Echo Chamber. - DK. (This should be deleted.)",
-				"father": null
+				"father": "C:"
 			},
 			"my_secret_projects": {
 				"type": "folder",
-				"father": null,
-				"children": ["project_alpha_notes.log", "backup_12_details.log", "utils_folder"]
+				"father": "C:",
+				"children": ["project_alpha_notes.log", "backup_12_details.log", "utils"]
 			},
 			"project_alpha_notes.log": { # Riferimento a Storia ID "0.0.2"
 				"type": "log",
 				"delete": true,
 				"content": "PROGETTO_ALFA - Sistema di routing distribuito. Rifiutato da MicroTech ('troppo sperimentale'). Potenziale rivoluzionario. Appunti su sviluppi futuri e possibili implementazioni per reti anonime. Mantenere segreto.",
-				"father": "my_secret_projects_folder"
+				"father": "my_secret_projects"
 			},
 			"backup_12_details.log": { # Riferimento a Storia ID "0.0.1"
 				"type": "log",
 				"delete": true,
 				"content": "BACKUP_12 - Algoritmo di cifratura avanzata. Chiave variabile basata su sequenze matematiche non lineari. Unica copia. Non divulgare. Potrebbe essere utile per comunicazioni sicure nell'Echo Chamber.",
-				"father": "my_secret_projects_folder"
+				"father": "my_secret_projects"
 			},
 			"utils": {
 				"type": "folder",
@@ -44,11 +48,11 @@ var levels = [
 			},
 			"camouflage_script_v1.sh": {
 				"type": "script",
-				"father": "utils_folder"
+				"father": "utils"
 			},
 			"bbs_public_logs": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["digital_underground_chat_generic.log"]
 			},
 			"digital_underground_chat_generic.log": { # Riferimento a Storia ID "1.2.1"

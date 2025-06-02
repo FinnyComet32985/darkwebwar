@@ -1,11 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://bru8easpmx32y"]
+[gd_scene load_steps=5 format=3 uid="uid://bru8easpmx32y"]
 
 [ext_resource type="Script" uid="uid://5ai30s3mcugu" path="res://scripts/LogGrabber/button.gd" id="2_yjm8a"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p2rpb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r8you"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjm8a"]
+
 [node name="Button" type="Button"]
-custom_minimum_size = Vector2(500, 0)
+texture_filter = 1
+custom_minimum_size = Vector2(500, 20)
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.408329, 0.408329, 0.408329, 1)
+theme_override_colors/font_color = Color(0.77084, 0.770839, 0.770839, 1)
+theme_override_colors/font_pressed_color = Color(0.407843, 0.407843, 0.407843, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p2rpb")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_r8you")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yjm8a")
+flat = true
 alignment = 0
 expand_icon = true
 script = ExtResource("2_yjm8a")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
