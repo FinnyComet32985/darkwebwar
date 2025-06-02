@@ -21,6 +21,7 @@ Global="*res://scripts/global.gd"
 DB_Level_definer="*res://scripts/DefendBazaar/definers/DB_level_definer.gd"
 RF_Level_definer="*res://scripts/RithmForce/Definers/RF_level_definer.gd"
 PD_Level_definer="*res://scripts/PayloadDeliver/Definer/PD_Level_definer.gd"
+LG_Level_definer="*res://scripts/LogGrabber/Definer/LG_Level_definer.gd"
 
 [display]
 

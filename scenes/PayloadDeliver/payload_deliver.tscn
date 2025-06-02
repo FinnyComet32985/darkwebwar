@@ -24,7 +24,7 @@ Panel/styles/panel = SubResource("StyleBoxFlat_101rs")
 Label/font_sizes/font_size = 25
 Label/fonts/font = ExtResource("2_sb5o3")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsu3c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ftgf"]
 bg_color = Color(1, 1, 1, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
@@ -32,7 +32,7 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
 [sub_resource type="Theme" id="Theme_76tr2"]
-Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
+Panel/styles/panel = SubResource("StyleBoxFlat_0ftgf")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dws16"]
 

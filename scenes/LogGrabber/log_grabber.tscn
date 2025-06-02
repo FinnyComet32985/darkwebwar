@@ -1,7 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c13cksn42u525"]
+[gd_scene load_steps=16 format=3 uid="uid://c13cksn42u525"]
 
+[ext_resource type="Script" uid="uid://ily5fmn7w251" path="res://scripts/LogGrabber/log_grabber.gd" id="1_l3202"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_xxsig"]
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="2_0vh85"]
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="3_24ckl"]
+[ext_resource type="Theme" uid="uid://c80rex24q765u" path="res://assets/LogGrabber/log_grabber.tres" id="4_l3202"]
+[ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="4_o4edx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24ckl"]
 bg_color = Color(0, 0, 0.666667, 1)
@@ -18,6 +22,22 @@ corner_radius_bottom_left = 50
 [sub_resource type="Theme" id="Theme_o4edx"]
 Panel/styles/panel = SubResource("StyleBoxFlat_8ln24")
 
+[sub_resource type="Theme" id="Theme_l3202"]
+Label/font_sizes/font_size = 25
+Label/fonts/font = ExtResource("3_24ckl")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsu3c"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_tkbep"]
+Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2t2"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3202"]
 shader = ExtResource("2_0vh85")
 
@@ -32,6 +52,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_24ckl")
+script = ExtResource("1_l3202")
 
 [node name="StatusBar" type="Control" parent="."]
 layout_mode = 2
@@ -62,7 +83,7 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_xxsig")
 theme_override_font_sizes/font_size = 30
-text = "Re-DoS Terminal"
+text = "Log Grabber"
 
 [node name="Label2" type="Label" parent="StatusBar"]
 texture_filter = 1
@@ -81,6 +102,158 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_xxsig")
 theme_override_font_sizes/font_size = 30
 text = "V 1.0"
+
+[node name="Status-container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.665
+anchor_top = 0.3
+anchor_right = 0.95
+anchor_bottom = 0.656
+offset_left = 0.104004
+offset_bottom = -50.688
+grow_horizontal = 0
+
+[node name="Status-label" type="Label" parent="Status-container"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 0
+theme = SubResource("Theme_l3202")
+text = "STATUS"
+
+[node name="Separator" type="Panel" parent="Status-container"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme = SubResource("Theme_tkbep")
+
+[node name="Stat" type="VBoxContainer" parent="Status-container"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 7
+theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
+
+[node name="RemaningTime" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="remaning-time-label" type="Label" parent="Status-container/Stat/RemaningTime"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+text = "Tempo rimanente:"
+
+[node name="remaning-time-stat" type="Label" parent="Status-container/Stat/RemaningTime"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+
+[node name="RemaningScanTime" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="remaning-scan-time-label" type="Label" parent="Status-container/Stat/RemaningScanTime"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+text = "Tempo alla scansione:"
+
+[node name="remaning-scan-time-stat" type="Label" parent="Status-container/Stat/RemaningScanTime"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+
+[node name="HSeparator4" type="HSeparator" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
+
+[node name="TTLSec" type="HBoxContainer" parent="Status-container/Stat"]
+layout_mode = 2
+
+[node name="ttl-label" type="Label" parent="Status-container/Stat/TTLSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+text = "Log rimanenti: "
+
+[node name="ttl-stat" type="Label" parent="Status-container/Stat/TTLSec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+
+[node name="HSeparator3" type="HSeparator" parent="Status-container/Stat"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
+
+[node name="GameTimer" type="Timer" parent="."]
+
+[node name="PlayZone" type="Panel" parent="."]
+offset_left = 31.0
+offset_top = 87.0
+offset_right = 723.0
+offset_bottom = 629.0
+
+[node name="Func" type="HBoxContainer" parent="PlayZone"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.124
+offset_left = -30.2
+offset_top = -6.1
+offset_right = 0.200012
+offset_bottom = 4.792
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="Nav" type="HBoxContainer" parent="PlayZone/Func"]
+texture_filter = 1
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Back" type="Button" parent="PlayZone/Func/Nav"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme = ExtResource("4_l3202")
+text = "<"
+
+[node name="Forw" type="Button" parent="PlayZone/Func/Nav"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme = ExtResource("4_l3202")
+text = ">"
+
+[node name="Path" type="Panel" parent="PlayZone/Func"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("4_l3202")
+
+[node name="Label" type="Label" parent="PlayZone/Func/Path"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_l3202")
+text = " c://"
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PlayZone"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+offset_left = 26.0
+offset_top = 108.0
+offset_right = 667.0
+offset_bottom = 508.0
+
+[node name="fs_container" type="VBoxContainer" parent="PlayZone/ScrollContainer"]
+layout_mode = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

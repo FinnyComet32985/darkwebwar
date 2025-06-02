@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://c80rex24q765u"]
+
+[ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="1_c11xf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxxyk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c11xf"]
+bg_color = Color(0.133196, 0.133196, 0.133196, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c11xf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mxxyk"]
+bg_color = Color(0.230315, 0.230315, 0.230315, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ho4ad"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[resource]
+Button/font_sizes/font_size = 50
+Button/fonts/font = ExtResource("1_c11xf")
+Button/styles/focus = SubResource("StyleBoxEmpty_mxxyk")
+Button/styles/hover = SubResource("StyleBoxFlat_c11xf")
+Button/styles/normal = SubResource("StyleBoxEmpty_c11xf")
+Button/styles/pressed = SubResource("StyleBoxFlat_mxxyk")
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_c11xf")
+Panel/styles/panel = SubResource("StyleBoxFlat_ho4ad")
