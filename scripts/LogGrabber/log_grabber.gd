@@ -5,11 +5,15 @@ var button_scene = preload("res://scenes/LogGrabber/button.tscn")
 @onready var fs_section = $PlayZone/ScrollContainer/fs_container
 @onready var path_label = $PlayZone/Func/Path/Label
 
-var n_level:= 1 
+var n_level:= 1
 var level: LG_Level_class
+var current_level_file_system: Dictionary
 
 var undo: Array[String] = []
 var redo: Array[String] = []
+
+var logs_to_delete_count = 0
+
 
 func _ready() -> void:
 
@@ -17,16 +21,22 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if $GameTimer != null && $GameTimer.wait_time > 0:
-		$"Status-container/Stat/RemaningTime/remaning-time-stat".text = str(int($GameTimer.wait_time))+ " s"
+		$"Status-container/Stat/RemaningTime/remaning-time-stat".text = str(int($GameTimer.time_left))+ " s"
+	if $ScanTimer != null && $ScanTimer.wait_time > 0:
+		$"Status-container/Stat/RemaningScanTime/remaning-scan-time-stat".text = str(int($ScanTimer.time_left))+ " s"
 
 
 func init_level() -> void:
 	level = LG_Level_definer.get_level(n_level)
+	current_level_file_system = level.file_system.duplicate(true)
+
 	if $GameTimer:
 		$GameTimer.wait_time = level.time
 
 	undo.clear()
 	redo.clear()
+	logs_to_delete_count = 0
+
 
 	for child in fs_section.get_children():
 		child.queue_free()
@@ -42,9 +52,30 @@ func init_level() -> void:
 	else:
 		printerr("Cartella 'C:' o i suoi figli non trovati nella definizione del livello.")
 		
-	if !undo.has("C:"): # Assicurati che C: sia aggiunto solo una volta se init_level viene chiamato più volte
+	if !undo.has("C:"):
 		undo.append("C:")
 	_update_path_label()
+
+	for item_name in level.file_system:
+		if level.file_system[item_name].has("type") and level.file_system[item_name]["type"] == "log" and level.file_system[item_name].has("delete") and level.file_system[item_name]["delete"]:
+			logs_to_delete_count += 1
+	$"Status-container/Stat/RemLog/rem-log-stat".text = str(logs_to_delete_count)
+
+	$ScanTimer.wait_time = level.scan_timer
+	
+	$GameTimer.start()
+	$ScanTimer.start()
+
+
+func _on_game_timer_timeout() -> void:
+	game_over()
+
+func game_over()->void:
+	print("GAME OVER")
+
+func game_win()->void:
+	print("GAME WIN")
+
 
 func open_log(_name: String) -> void:
 	$LogViewerSec.visible = true
@@ -67,9 +98,9 @@ func open_folder(_name: String, is_history_navigation: bool = false) -> void:
 	for child in fs_section.get_children():
 		child.queue_free()
 
-	if level.file_system.has(_name) and level.file_system[_name].has("children"):
-		for child_name in level.file_system[_name]["children"]:
-			if level.file_system.has(child_name) and level.file_system[child_name].has("type"):
+	if current_level_file_system.has(_name) and current_level_file_system[_name].has("children"):
+		for child_name in current_level_file_system[_name]["children"]:
+			if current_level_file_system.has(child_name) and current_level_file_system[child_name].has("type"):
 				var element = button_scene.instantiate()
 				element.init_button(child_name, level.file_system[child_name]["type"])
 				fs_section.add_child(element)
@@ -103,3 +134,33 @@ func _on_forw_pressed() -> void:
 	
 	open_folder(next_folder, true)
 	
+
+
+func _on_delete_pressed() -> void:
+	if level.file_system.has($LogViewerSec/LogViewer/Title.text):
+		if level.file_system[$LogViewerSec/LogViewer/Title.text]["delete"] == true:
+			logs_to_delete_count -= 1
+			$"Status-container/Stat/RemLog/rem-log-stat".text = str(logs_to_delete_count)
+			if logs_to_delete_count == 0:
+				game_win()
+		else:
+			if $ScanTimer.wait_time-10> 20 && $ScanTimer.time_left-10>0:
+				var temp_time_wait = $ScanTimer.wait_time-10
+				var temp_time_left = $ScanTimer.time_left-10
+				$ScanTimer.stop()
+				$ScanTimer.wait_time = temp_time_left
+				$ScanTimer.start()
+				$ScanTimer.wait_time = temp_time_wait
+			
+	if current_level_file_system.has($LogViewerSec/LogViewer/Title.text):
+		current_level_file_system.erase($LogViewerSec/LogViewer/Title.text)
+	open_folder(undo.back(), true)
+
+	$LogViewerSec/LogViewer.visible = false
+	$LogViewerSec.visible = false
+
+
+
+func _on_mantain_pressed() -> void:
+	$LogViewerSec/LogViewer.visible = false
+	$LogViewerSec.visible = false

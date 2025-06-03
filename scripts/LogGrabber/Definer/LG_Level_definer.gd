@@ -71,15 +71,19 @@ var levels = [
 		240, # game time (secondi)
 		45,  # scan_timer (secondi)
 		{ # file_system
+			"C:": {
+				"type": "folder",
+				"children": ["dc_briefing.log", "phantom_known_dirs_folder", "echo_chamber_shared_folder"]
+			},
 			"dc_briefing.log": { # Messaggio da DestinyComet
 				"type": "log",
 				"delete": false,
 				"content": "From: DESTINYCOMET\nTo: £\nSubject: Operation Phoenix Takedown - Phase 1\n\n£, we need concrete evidence linking PHANTOM to Black Nexus and his alias 'Phoenix'. Search his known directories and any shared Echo Chamber resources he had access to. Look for access logs, code snippets, financial trails, or any mention of his real identity. Gather everything suspicious. Time is critical. -DC",
-				"father": null
+				"father": "C:"
 			},
 			"phantom_known_dirs_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["repo_access_16_01.log", "bn_code_fragments_P-M.log", "financial_analysis_folder", "personal_notes_phantom_folder"]
 			},
 			"repo_access_16_01.log": { # Riferimento a Storia ID "11 P.S." e "11.2"
@@ -122,7 +126,7 @@ var levels = [
 			},
 			"echo_chamber_shared_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["sb_daily_traffic_report.log", "ec_dev_general_chat.log"]
 			},
 			"sb_daily_traffic_report.log": {
@@ -147,15 +151,19 @@ var levels = [
 		210, # game time (secondi)
 		40,  # scan_timer (secondi)
 		{ # file_system
+			"C:": {
+				"type": "folder",
+				"children": ["urgent_warning.log", "alex_nexus_dev_workstation_folder", "shadow_nexus_public_data_folder"]
+			},
 			"urgent_warning.log": {
 				"type": "log",
 				"delete": false,
 				"content": "ALERT - IMMEDIATE ACTION REQUIRED:\nSystem intrusion detected on Shadow Nexus master server. IP trace leads to law enforcement. All personnel with admin access must sanitize their activity logs and personal files related to Project Nexus IMMEDIATELY. This is not a drill. Evacuate digital presence.",
-				"father": null
+				"father": "C:"
 			},
 			"alex_nexus_dev_workstation_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["nexus_core_commits_by_alex.log", "private_comms_nexus_team.log", "nexus_access_credentials_alex.log", "revenue_share_agreement_alex_nexus.log", "data_wipe_script.sh"]
 			},
 			"nexus_core_commits_by_alex.log": {
@@ -188,7 +196,7 @@ var levels = [
 			},
 			"shadow_nexus_public_data_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["nexus_public_forum_archive.log", "nexus_api_docs_public.log"]
 			},
 			"nexus_public_forum_archive.log": {
@@ -213,15 +221,19 @@ var levels = [
 		260, # game time (secondi)
 		40,  # scan_timer (secondi)
 		{ # file_system
+			"C:": {
+				"type": "folder",
+				"children": ["dc_update_phoenix_hunt.log", "bn_deep_server_dive_folder", "shadow_bazaar_maintenance_logs_folder"]
+			},
 			"dc_update_phoenix_hunt.log": {
 				"type": "log",
 				"delete": false,
 				"content": "From: DESTINYCOMET\nTo: £\nSubject: RE: Phoenix Takedown - Phase 2\n\n£, PHANTOM is covering his tracks well. We need something more direct. Check deeper server logs on BN if you can get access, look for encrypted communications he might have overlooked, or any direct financial links to 'Phoenix' operations. His real identity is still elusive. -DC",
-				"father": null
+				"father": "C:"
 			},
 			"bn_deep_server_dive_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["phantom_bn_server_access.log", "encrypted_comms_phantom_supplier.log", "recovered_phantom_personal_folder", "admin_utils_bn_folder"]
 			},
 			"phantom_bn_server_access.log": {
@@ -264,7 +276,7 @@ var levels = [
 			},
 			"shadow_bazaar_maintenance_logs_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["sb_uptime_report_current.log", "ec_crypto_advancements_chat.log"]
 			},
 			"sb_uptime_report_current.log": {
@@ -289,15 +301,19 @@ var levels = [
 		300, # game time (secondi)
 		30,  # scan_timer (secondi)
 		{ # file_system
+			"C:": {
+				"type": "folder",
+				"children": ["dk_final_instructions.log", "alex_sb_modifications_folder", "shadow_bazaar_public_relations_folder"]
+			},
 			"dk_final_instructions.log": {
 				"type": "log",
 				"delete": false,
 				"content": "From: DARKKNIGHT\nTo: £\nSubject: Operation Sundown - Final Checklist\n\n£, the window for our exit is closing. Authorities are sniffing around SB due to 'unforeseen market diversification'. Before we activate Protocol Nebbia, ensure ALL your personal traces related to the 'grey market' additions are GONE. This includes comms, transaction overrides, code mods. No mistakes. Rendezvous at Zulu point, 0300. -DK",
-				"father": null
+				"father": "C:"
 			},
 			"alex_sb_modifications_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["sb_illegal_goods_mod_alex.log", "comms_alex_vendor_nightshade.log", "sb_transaction_override_alex.log", "dk_escape_plan_alex_notes.log", "secure_delete_utility.sh"]
 			},
 			"sb_illegal_goods_mod_alex.log": {
@@ -330,7 +346,7 @@ var levels = [
 			},
 			"shadow_bazaar_public_relations_folder": {
 				"type": "folder",
-				"father": null,
+				"father": "C:",
 				"children": ["sb_user_feedback_general.log", "dk_opsec_reminder_echo_chamber.log"]
 			},
 			"sb_user_feedback_general.log": {

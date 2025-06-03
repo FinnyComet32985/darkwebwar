@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c13cksn42u525"]
+[gd_scene load_steps=28 format=3 uid="uid://c13cksn42u525"]
 
 [ext_resource type="Script" uid="uid://ily5fmn7w251" path="res://scripts/LogGrabber/log_grabber.gd" id="1_l3202"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_xxsig"]
@@ -41,8 +41,8 @@ Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2t2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3202"]
-bg_color = Color(0.831373, 0, 0.117647, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iysct"]
+bg_color = Color(0.115109, 0.296059, 0.434522, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0n24t"]
 bg_color = Color(1, 1, 1, 1)
@@ -90,6 +90,9 @@ Button/styles/focus = SubResource("StyleBoxFlat_wk0m5")
 Button/styles/hover = SubResource("StyleBoxFlat_t64k5")
 Button/styles/normal = SubResource("StyleBoxFlat_tgwru")
 Button/styles/pressed = SubResource("StyleBoxFlat_mm56t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3202"]
+bg_color = Color(0.831373, 0, 0.117647, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3202"]
 shader = ExtResource("2_0vh85")
@@ -222,16 +225,16 @@ layout_mode = 2
 theme_override_constants/separation = 15
 theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
 
-[node name="TTLSec" type="HBoxContainer" parent="Status-container/Stat"]
+[node name="RemLog" type="HBoxContainer" parent="Status-container/Stat"]
 layout_mode = 2
 
-[node name="ttl-label" type="Label" parent="Status-container/Stat/TTLSec"]
+[node name="rem-log-label" type="Label" parent="Status-container/Stat/RemLog"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("4_o4edx")
 text = "Log rimanenti: "
 
-[node name="ttl-stat" type="Label" parent="Status-container/Stat/TTLSec"]
+[node name="rem-log-stat" type="Label" parent="Status-container/Stat/RemLog"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("4_o4edx")
@@ -242,6 +245,8 @@ theme_override_constants/separation = 15
 theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
 
 [node name="GameTimer" type="Timer" parent="."]
+
+[node name="ScanTimer" type="Timer" parent="."]
 
 [node name="PlayZone" type="Panel" parent="."]
 layout_mode = 0
@@ -342,7 +347,7 @@ offset_left = 108.0
 offset_top = 120.0
 offset_right = 650.0
 offset_bottom = 599.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_l3202")
+theme_override_styles/panel = SubResource("StyleBoxFlat_iysct")
 
 [node name="TextureRect" type="TextureRect" parent="LogViewerSec/LogViewer"]
 layout_mode = 0
@@ -428,6 +433,7 @@ theme_override_font_sizes/font_size = 20
 text = "X Mantieni"
 
 [node name="HideSec" type="Control" parent="."]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -564,12 +570,14 @@ theme_override_font_sizes/font_size = 20
 text = "X Chiudi"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
 z_index = 3
 material = SubResource("ShaderMaterial_l3202")
 mesh = SubResource("QuadMesh_tkbep")
 
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="pressed" from="PlayZone/Func/Nav/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="PlayZone/Func/Nav/Forw" to="." method="_on_forw_pressed"]
+[connection signal="pressed" from="LogViewerSec/LogViewer/HBoxContainer/Delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="LogViewerSec/LogViewer/HBoxContainer/Mantain" to="." method="_on_mantain_pressed"]
