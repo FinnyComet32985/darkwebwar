@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c13cksn42u525"]
+[gd_scene load_steps=27 format=3 uid="uid://c13cksn42u525"]
 
 [ext_resource type="Script" uid="uid://ily5fmn7w251" path="res://scripts/LogGrabber/log_grabber.gd" id="1_l3202"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_xxsig"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="4_o4edx"]
 [ext_resource type="Texture2D" uid="uid://bljqe40xmgfke" path="res://assets/LogGrabber/DarkWebWar-Log.svg" id="6_7x2t2"]
 [ext_resource type="Texture2D" uid="uid://du15uky7qqlyc" path="res://assets/LogGrabber/bin.svg" id="6_tkbep"]
+[ext_resource type="Texture2D" uid="uid://c2xnnfija63rv" path="res://assets/LogGrabber/DarkWebWar-Script.svg" id="8_wk0m5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24ckl"]
 bg_color = Color(0, 0, 0.666667, 1)
@@ -41,7 +42,7 @@ Panel/styles/panel = SubResource("StyleBoxFlat_dsu3c")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2t2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3202"]
-bg_color = Color(0.0979903, 0.26183, 0.387085, 1)
+bg_color = Color(0.831373, 0, 0.117647, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0n24t"]
 bg_color = Color(1, 1, 1, 1)
@@ -54,19 +55,39 @@ corner_radius_bottom_left = 50
 Panel/styles/panel = SubResource("StyleBoxFlat_0n24t")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wk0m5"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t64k5"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tgwru"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mm56t"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="Theme" id="Theme_t64k5"]
+Button/colors/font_color = Color(1, 0.12549, 0.184314, 1)
 Button/colors/font_focus_color = Color(0.831373, 0, 0.117647, 1)
 Button/colors/font_hover_color = Color(0.831373, 0, 0.117647, 1)
 Button/colors/font_hover_pressed_color = Color(0.831373, 0, 0.117647, 1)
+Button/colors/font_outline_color = Color(0.637843, 0.637843, 0.637843, 1)
+Button/colors/font_pressed_color = Color(0.75079, 3.80474e-05, 0.101931, 1)
+Button/colors/icon_hover_color = Color(0.831373, 0, 0.117647, 1)
+Button/colors/icon_normal_color = Color(1, 0.12549, 0.184314, 1)
+Button/colors/icon_pressed_color = Color(0.663303, 0, 0.0848837, 1)
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("3_24ckl")
 Button/styles/focus = SubResource("StyleBoxFlat_wk0m5")
+Button/styles/hover = SubResource("StyleBoxFlat_t64k5")
 Button/styles/normal = SubResource("StyleBoxFlat_tgwru")
 Button/styles/pressed = SubResource("StyleBoxFlat_mm56t")
 
@@ -385,17 +406,14 @@ alignment = 1
 
 [node name="Delete" type="Button" parent="LogViewerSec/LogViewer/HBoxContainer"]
 texture_filter = 1
-custom_minimum_size = Vector2(130, 0)
+custom_minimum_size = Vector2(115, 0)
 layout_mode = 2
 theme = SubResource("Theme_t64k5")
-theme_override_colors/font_hover_color = Color(0.83302, 0, 0.117182, 1)
-theme_override_colors/icon_hover_color = Color(0.83302, 0, 0.117182, 1)
-theme_override_colors/font_color = Color(1, 0.12549, 0.184314, 1)
+theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("3_24ckl")
 theme_override_font_sizes/font_size = 20
 text = "Elimina"
 icon = ExtResource("6_tkbep")
-flat = true
 alignment = 2
 expand_icon = true
 
@@ -403,12 +421,150 @@ expand_icon = true
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("4_o4edx")
-theme_override_colors/font_hover_color = Color(0.419813, 0.419813, 0.419813, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.601223, 0.601223, 0.601223, 1)
+theme_override_colors/font_pressed_color = Color(0.533037, 0.533037, 0.533037, 1)
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "X Mantieni"
 
+[node name="HideSec" type="Control" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="HideSec"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.028
+anchor_top = 0.134
+anchor_right = 0.628
+anchor_bottom = 1.0
+offset_left = -0.256001
+offset_top = 0.167999
+offset_right = -0.456055
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.133333, 0.133333, 0.133333, 0.913725)
+
+[node name="Injector" type="Panel" parent="HideSec"]
+z_index = 2
+layout_mode = 0
+offset_left = 108.0
+offset_top = 120.0
+offset_right = 650.0
+offset_bottom = 599.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l3202")
+
+[node name="TextureRect" type="TextureRect" parent="HideSec/Injector"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 71.0
+offset_bottom = 88.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_wk0m5")
+
+[node name="Title" type="Label" parent="HideSec/Injector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 59.0
+offset_top = 10.0
+offset_right = 217.0
+offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("3_24ckl")
+theme_override_font_sizes/font_size = 25
+text = "Injector"
+vertical_alignment = 1
+
+[node name="V" type="Label" parent="HideSec/Injector"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -94.0
+offset_top = 11.0
+offset_right = -24.0
+offset_bottom = 47.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("3_24ckl")
+theme_override_font_sizes/font_size = 25
+text = "V 3.2"
+vertical_alignment = 1
+
+[node name="Separator" type="Panel" parent="HideSec/Injector"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 10.0
+offset_top = 54.0
+offset_right = -10.0
+offset_bottom = 59.0
+grow_horizontal = 2
+theme = SubResource("Theme_7x2t2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HideSec/Injector"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 85.0
+offset_right = 532.0
+offset_bottom = 247.0
+
+[node name="Patch-sec" type="HBoxContainer" parent="HideSec/Injector/VBoxContainer"]
+layout_mode = 2
+
+[node name="Patch-lab" type="Label" parent="HideSec/Injector/VBoxContainer/Patch-sec"]
+layout_mode = 2
+text = "Patch: "
+
+[node name="Patch-stat" type="Label" parent="HideSec/Injector/VBoxContainer/Patch-sec"]
+layout_mode = 2
+text = "[----------]  0%"
+
+[node name="Inject-sec" type="HBoxContainer" parent="HideSec/Injector/VBoxContainer"]
+layout_mode = 2
+
+[node name="Inject-lab" type="Label" parent="HideSec/Injector/VBoxContainer/Inject-sec"]
+layout_mode = 2
+text = "Inject: "
+
+[node name="Inject-stat" type="Label" parent="HideSec/Injector/VBoxContainer/Inject-sec"]
+layout_mode = 2
+text = "[----------]  0%"
+
+[node name="Description" type="RichTextLabel" parent="HideSec/Injector"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 13.0
+offset_top = 71.0
+offset_right = 525.0
+offset_bottom = 399.0
+theme_override_fonts/normal_font = ExtResource("3_24ckl")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+
+[node name="Mantain" type="Button" parent="HideSec/Injector"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 215.0
+offset_top = 426.0
+offset_right = 328.0
+offset_bottom = 466.0
+theme = ExtResource("4_o4edx")
+theme_override_colors/font_hover_color = Color(0.601223, 0.601223, 0.601223, 1)
+theme_override_colors/font_pressed_color = Color(0.533037, 0.533037, 0.533037, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 20
+text = "X Chiudi"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="CanvasLayer"]
 z_index = 3

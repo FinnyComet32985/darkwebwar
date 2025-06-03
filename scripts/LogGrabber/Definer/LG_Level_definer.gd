@@ -43,7 +43,7 @@ var levels = [
 			},
 			"utils": {
 				"type": "folder",
-				"father": "my_secret_projects_folder",
+				"father": "my_secret_projects",
 				"children": ["camouflage_script_v1.sh"]
 			},
 			"camouflage_script_v1.sh": {
@@ -59,7 +59,7 @@ var levels = [
 				"type": "log",
 				"delete": false,
 				"content": "<BYTEBANDIT> overclocked cpu, kernel panic\n<BLASING> check heatsink?\n<DATANINJA> fbi raid in pittsburgh?\nStandard BBS chatter. Nothing compromising here.",
-				"father": "bbs_public_logs_folder"
+				"father": "bbs_public_logs"
 			}
 		}
 	),
