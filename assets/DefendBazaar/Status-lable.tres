@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bb87hvawhj1p3"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bb87hvawhj1p3"]
 
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="1_3wcl6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ys0vm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2n1ea"]
 
@@ -11,10 +13,12 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8pnv6"]
 
 [resource]
+Button/colors/font_disabled_color = Color(0.393085, 0.393086, 0.393085, 1)
 Button/colors/font_outline_color = Color(0.10748, 0.10748, 0.10748, 1)
 Button/font_sizes/font_size = 15
 Button/fonts/font = ExtResource("1_3wcl6")
 Button/icons/icon = null
+Button/styles/disabled = SubResource("StyleBoxEmpty_ys0vm")
 Button/styles/focus = SubResource("StyleBoxEmpty_2n1ea")
 Button/styles/hover = SubResource("StyleBoxEmpty_21ot0")
 Button/styles/normal = SubResource("StyleBoxEmpty_2j57x")

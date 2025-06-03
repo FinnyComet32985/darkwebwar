@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c13cksn42u525"]
+[gd_scene load_steps=34 format=3 uid="uid://c13cksn42u525"]
 
 [ext_resource type="Script" uid="uid://ily5fmn7w251" path="res://scripts/LogGrabber/log_grabber.gd" id="1_l3202"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_xxsig"]
@@ -93,6 +93,128 @@ Button/styles/pressed = SubResource("StyleBoxFlat_mm56t")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l3202"]
 bg_color = Color(0.831373, 0, 0.117647, 1)
+
+[sub_resource type="Animation" id="Animation_wk0m5"]
+resource_name = "patch"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Patch-stat:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.6, 0.833333, 1.03333, 1.25833, 1.49167, 1.825, 2.11667, 2.41667, 2.75, 2.98333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["[----------]   0%", "[#---------]  10%", "[###-------]  30%", "[###-------]  35%", "[####------]  40%", "[#####-----]  50%", "[######----]  60%", "[#######---]  70%", "[########--]  80%", "[#########-]  90%", "[#########-]  95%", "[##########] 100%"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Patch-stat:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tgwru"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Patch-stat:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["[----------]  0%"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Patch-stat:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm56t"]
+_data = {
+&"RESET": SubResource("Animation_tgwru"),
+&"patch": SubResource("Animation_wk0m5")
+}
+
+[sub_resource type="Animation" id="Animation_mm56t"]
+resource_name = "inject"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inject-stat:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.4, 0.566667, 0.8, 1.03333, 1.26667, 1.43333, 1.63333, 1.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["[----------]   0%", "[#---------]  10%", "[###-------]  30%", "[####------]  40%", "[#####-----]  50%", "[######----]  60%", "[#######---]  70%", "[########--]  80%", "[#########-]  90%", "[##########] 100%"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Inject-stat:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t64k5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Inject-stat:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["[----------]  0%"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Inject-stat:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t64k5"]
+_data = {
+&"RESET": SubResource("Animation_t64k5"),
+&"inject": SubResource("Animation_mm56t")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l3202"]
 shader = ExtResource("2_0vh85")
@@ -247,6 +369,7 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_7x2t2")
 [node name="GameTimer" type="Timer" parent="."]
 
 [node name="ScanTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="PlayZone" type="Panel" parent="."]
 layout_mode = 0
@@ -302,6 +425,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_l3202")
 vertical_alignment = 1
+clip_text = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PlayZone"]
 custom_minimum_size = Vector2(0, 400)
@@ -432,7 +556,7 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "X Mantieni"
 
-[node name="HideSec" type="Control" parent="."]
+[node name="ScanSec" type="Control" parent="."]
 visible = false
 z_index = 1
 layout_mode = 1
@@ -442,7 +566,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="HideSec"]
+[node name="ColorRect" type="ColorRect" parent="ScanSec"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.028
@@ -457,16 +581,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.133333, 0.133333, 0.133333, 0.913725)
 
-[node name="Injector" type="Panel" parent="HideSec"]
+[node name="Injector" type="Panel" parent="ScanSec"]
+visible = false
 z_index = 2
 layout_mode = 0
 offset_left = 108.0
 offset_top = 120.0
 offset_right = 650.0
-offset_bottom = 599.0
+offset_bottom = 564.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_l3202")
 
-[node name="TextureRect" type="TextureRect" parent="HideSec/Injector"]
+[node name="TextureRect" type="TextureRect" parent="ScanSec/Injector"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 6.0
@@ -475,7 +600,7 @@ offset_bottom = 88.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_wk0m5")
 
-[node name="Title" type="Label" parent="HideSec/Injector"]
+[node name="Title" type="Label" parent="ScanSec/Injector"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 59.0
@@ -487,7 +612,7 @@ theme_override_font_sizes/font_size = 25
 text = "Injector"
 vertical_alignment = 1
 
-[node name="V" type="Label" parent="HideSec/Injector"]
+[node name="Version" type="Label" parent="ScanSec/Injector"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 1
@@ -503,7 +628,7 @@ theme_override_font_sizes/font_size = 25
 text = "V 3.2"
 vertical_alignment = 1
 
-[node name="Separator" type="Panel" parent="HideSec/Injector"]
+[node name="Separator" type="Panel" parent="ScanSec/Injector"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 1
 anchors_preset = 10
@@ -515,53 +640,124 @@ offset_bottom = 59.0
 grow_horizontal = 2
 theme = SubResource("Theme_7x2t2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HideSec/Injector"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScanSec/Injector"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 85.0
 offset_right = 532.0
-offset_bottom = 247.0
+offset_bottom = 192.0
+theme_override_constants/separation = 30
 
-[node name="Patch-sec" type="HBoxContainer" parent="HideSec/Injector/VBoxContainer"]
+[node name="Patch-sec" type="HBoxContainer" parent="ScanSec/Injector/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="Patch-lab" type="Label" parent="HideSec/Injector/VBoxContainer/Patch-sec"]
+[node name="Patch-lab" type="Label" parent="ScanSec/Injector/VBoxContainer/Patch-sec"]
+texture_filter = 1
 layout_mode = 2
-text = "Patch: "
+theme = ExtResource("4_o4edx")
+theme_override_font_sizes/font_size = 30
+text = "Patch:  "
 
-[node name="Patch-stat" type="Label" parent="HideSec/Injector/VBoxContainer/Patch-sec"]
+[node name="Patch-stat" type="Label" parent="ScanSec/Injector/VBoxContainer/Patch-sec"]
+texture_filter = 1
 layout_mode = 2
+theme = ExtResource("4_o4edx")
+theme_override_font_sizes/font_size = 30
 text = "[----------]  0%"
 
-[node name="Inject-sec" type="HBoxContainer" parent="HideSec/Injector/VBoxContainer"]
-layout_mode = 2
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScanSec/Injector/VBoxContainer/Patch-sec"]
+libraries = {
+&"": SubResource("AnimationLibrary_mm56t")
+}
 
-[node name="Inject-lab" type="Label" parent="HideSec/Injector/VBoxContainer/Inject-sec"]
+[node name="Inject-sec" type="HBoxContainer" parent="ScanSec/Injector/VBoxContainer"]
 layout_mode = 2
+alignment = 1
+
+[node name="Inject-lab" type="Label" parent="ScanSec/Injector/VBoxContainer/Inject-sec"]
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+theme_override_font_sizes/font_size = 30
 text = "Inject: "
 
-[node name="Inject-stat" type="Label" parent="HideSec/Injector/VBoxContainer/Inject-sec"]
+[node name="Inject-stat" type="Label" parent="ScanSec/Injector/VBoxContainer/Inject-sec"]
 layout_mode = 2
+theme = ExtResource("4_o4edx")
+theme_override_font_sizes/font_size = 30
 text = "[----------]  0%"
 
-[node name="Description" type="RichTextLabel" parent="HideSec/Injector"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 13.0
-offset_top = 71.0
-offset_right = 525.0
-offset_bottom = 399.0
-theme_override_fonts/normal_font = ExtResource("3_24ckl")
-theme_override_font_sizes/normal_font_size = 20
-bbcode_enabled = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScanSec/Injector/VBoxContainer/Inject-sec"]
+libraries = {
+&"": SubResource("AnimationLibrary_t64k5")
+}
 
-[node name="Mantain" type="Button" parent="HideSec/Injector"]
+[node name="term" type="Panel" parent="ScanSec/Injector"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.45
+anchor_right = 0.9
+anchor_bottom = 0.67
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ScanSec/Injector/term"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.02
+anchor_right = 0.98
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+scroll_following = true
+
+[node name="Button" type="VBoxContainer" parent="ScanSec/Injector"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 322.0
+offset_right = 532.0
+offset_bottom = 413.0
+theme_override_constants/separation = 40
+
+[node name="Patch-sec" type="HBoxContainer" parent="ScanSec/Injector/Button"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Patch" type="Button" parent="ScanSec/Injector/Button/Patch-sec"]
 texture_filter = 1
 layout_mode = 2
-offset_left = 215.0
-offset_top = 426.0
-offset_right = 328.0
-offset_bottom = 466.0
+theme = ExtResource("4_o4edx")
+theme_override_colors/font_hover_color = Color(0.601223, 0.601223, 0.601223, 1)
+theme_override_colors/font_pressed_color = Color(0.533037, 0.533037, 0.533037, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 25
+text = "🩹 Patch"
+
+[node name="Patch_timer" type="Timer" parent="ScanSec/Injector/Button/Patch-sec/Patch"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Inject" type="Button" parent="ScanSec/Injector/Button/Patch-sec"]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("4_o4edx")
+theme_override_colors/font_hover_color = Color(0.601223, 0.601223, 0.601223, 1)
+theme_override_colors/font_pressed_color = Color(0.533037, 0.533037, 0.533037, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 25
+text = "💉 Inject"
+
+[node name="Inject_timer" type="Timer" parent="ScanSec/Injector/Button/Patch-sec/Inject"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Close" type="Button" parent="ScanSec/Injector/Button"]
+texture_filter = 1
+layout_mode = 2
 theme = ExtResource("4_o4edx")
 theme_override_colors/font_hover_color = Color(0.601223, 0.601223, 0.601223, 1)
 theme_override_colors/font_pressed_color = Color(0.533037, 0.533037, 0.533037, 1)
@@ -577,7 +773,13 @@ material = SubResource("ShaderMaterial_l3202")
 mesh = SubResource("QuadMesh_tkbep")
 
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="ScanTimer" to="." method="_on_scan_timer_timeout"]
 [connection signal="pressed" from="PlayZone/Func/Nav/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="PlayZone/Func/Nav/Forw" to="." method="_on_forw_pressed"]
 [connection signal="pressed" from="LogViewerSec/LogViewer/HBoxContainer/Delete" to="." method="_on_delete_pressed"]
 [connection signal="pressed" from="LogViewerSec/LogViewer/HBoxContainer/Mantain" to="." method="_on_mantain_pressed"]
+[connection signal="pressed" from="ScanSec/Injector/Button/Patch-sec/Patch" to="." method="_on_patch_pressed"]
+[connection signal="timeout" from="ScanSec/Injector/Button/Patch-sec/Patch/Patch_timer" to="." method="_on_patch_timer_timeout"]
+[connection signal="pressed" from="ScanSec/Injector/Button/Patch-sec/Inject" to="." method="_on_inject_pressed"]
+[connection signal="timeout" from="ScanSec/Injector/Button/Patch-sec/Inject/Inject_timer" to="." method="_on_inject_timer_timeout"]
+[connection signal="pressed" from="ScanSec/Injector/Button/Close" to="." method="_on_close_pressed"]

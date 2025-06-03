@@ -14,6 +14,7 @@ var redo: Array[String] = []
 
 var logs_to_delete_count = 0
 
+var injected:= false
 
 func _ready() -> void:
 
@@ -112,9 +113,6 @@ func open_folder(_name: String, is_history_navigation: bool = false) -> void:
 	_update_path_label()
 
 
-func open_script(_name: String) -> void:	
-	pass
-
 func _on_back_pressed() -> void:
 	if undo.size() <= 1:
 		return
@@ -164,3 +162,68 @@ func _on_delete_pressed() -> void:
 func _on_mantain_pressed() -> void:
 	$LogViewerSec/LogViewer.visible = false
 	$LogViewerSec.visible = false
+
+
+
+func _on_scan_timer_timeout() -> void:
+	if injected == false:
+		game_over()
+	else:
+		injected = false
+		$ScanTimer.wait_time -=10
+		$ScanTimer.start()
+
+var opened_script: String = ""
+
+func open_script(_name: String) -> void:	
+	$"ScanSec/Injector/VBoxContainer/Patch-sec/AnimationPlayer".play("RESET")
+	$"ScanSec/Injector/VBoxContainer/Inject-sec/AnimationPlayer".play("RESET")
+	$ScanSec.visible = true
+	$ScanSec/Injector.visible = true
+	$"ScanSec/Injector/Button/Patch-sec/Patch".disabled = false
+	$"ScanSec/Injector/Button/Patch-sec/Inject".disabled = true
+	opened_script = _name
+
+func _on_patch_pressed() -> void:
+	$"ScanSec/Injector/Button/Patch-sec/Patch/Patch_timer".start()
+	$"ScanSec/Injector/Button/Patch-sec/Patch".disabled = true
+	$"ScanSec/Injector/Button/Patch-sec/Inject".disabled = true
+	$ScanSec/Injector/Button/Close.disabled = true
+	$"ScanSec/Injector/VBoxContainer/Patch-sec/AnimationPlayer".play("patch")
+	for i in range(4):
+		$ScanSec/Injector/term/RichTextLabel.text += level.file_system[opened_script]["injection_output"][i]+"\n"
+		await get_tree().create_timer(0.8).timeout
+
+func _on_patch_timer_timeout() -> void:
+	$"ScanSec/Injector/Button/Patch-sec/Inject".disabled = false
+
+func _on_inject_pressed() -> void:
+	$"ScanSec/Injector/Button/Patch-sec/Inject/Inject_timer".start()
+	$"ScanSec/Injector/Button/Patch-sec/Inject".disabled = true
+	$"ScanSec/Injector/VBoxContainer/Inject-sec/AnimationPlayer".play("inject")
+	for i in range(4, 8):
+		$ScanSec/Injector/term/RichTextLabel.text += level.file_system[opened_script]["injection_output"][i]+"\n"
+		await get_tree().create_timer(0.5).timeout
+
+func _on_inject_timer_timeout() -> void:
+	injected = true
+	$ScanSec/Injector/Button/Close.disabled = false
+
+
+func _on_close_pressed() -> void:
+	if injected == true:
+		var temp_scan_time_rem = $ScanTimer.time_left
+		var temp_game_time_left = $GameTimer.time_left
+		$ScanTimer.stop()
+		if $ScanTimer.wait_time - 10 > 20:
+			$ScanTimer.wait_time -= 10 
+		$GameTimer.wait_time = temp_game_time_left-temp_scan_time_rem
+		$ScanTimer.start()
+		$GameTimer.start()
+		$ScanSec.visible = false
+		$ScanSec/Injector.visible = false
+		injected = false
+
+	else:
+		$ScanSec.visible = false
+		$ScanSec/Injector.visible = false

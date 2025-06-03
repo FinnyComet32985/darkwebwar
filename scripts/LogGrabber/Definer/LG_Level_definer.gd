@@ -6,7 +6,7 @@ var levels = [
 	# Contesto: Alex ha appena ricevuto l'invito da DK e sta muovendo i primi passi.
 	LG_Level_class.new(
 		180, # game time (secondi)
-		60,  # scan_timer (secondi)
+		40,  # scan_timer (secondi)
 		{ # file_system
 			"C:": {
 				"type": "folder",
@@ -48,7 +48,17 @@ var levels = [
 			},
 			"camouflage_script_v1.sh": {
 				"type": "script",
-				"father": "utils"
+				"father": "utils",
+				"injection_output": [
+					"Initializing injection sequence...",
+					"Target script: camouflage_script_v1.sh",
+					"Analyzing script structure... [color=green][OK][/color]",
+					"Identifying injection points... [color=green][OK][/color]",
+					"Preparing payload: 'stealth_module_generic.payload'",
+					"Injecting stealth module at offset 0x00BEEF...",
+					"Verifying integrity post-injection... [color=green][OK][/color]",
+					"Stealth protocol active. Camouflage successful."
+				]
 			},
 			"bbs_public_logs": {
 				"type": "folder",
@@ -122,7 +132,17 @@ var levels = [
 			},
 			"evasion_script_dev.sh": {
 				"type": "script",
-				"father": "personal_notes_phantom_folder"
+				"father": "personal_notes_phantom_folder",
+				"injection_output": [
+					"Accessing evasion_script_dev.sh...",
+					"Security layer detected... Attempting bypass...",
+					"Bypass successful. Modifying execution flow...",
+					"Inserting network listener on port 7749 (UDP)...",
+					"Obfuscating backdoor entry point with poly_morph_v2...",
+					"Adding self-destruct trigger on multiple failed auths...",
+					"Finalizing changes and recompiling...",
+					"Evasion script compromised for re-entry. Camouflage active."
+				]
 			},
 			"echo_chamber_shared_folder": {
 				"type": "folder",
@@ -192,7 +212,18 @@ var levels = [
 			},
 			"data_wipe_script.sh": {
 				"type": "script",
-				"father": "alex_nexus_dev_workstation_folder"
+				"father": "alex_nexus_dev_workstation_folder",
+				"injection_output": [
+					"Target: data_wipe_script.sh",
+					"Analyzing wipe routines: standard, DoD 5220.22-M, Gutmann...",
+					"Locating master deletion function 'shred_data_final()...'",
+					"Patching core logic:",
+					"  EXCLUDE_PATTERN_ADD: /home/alex/.ssh/authorized_keys",
+					"  EXCLUDE_PATTERN_ADD: /tmp/backdoor_payload.bin",
+					"  HOOK_ADD: PRE_WIPE_EXEC -> /usr/bin/custom_persistence_agent",
+					"Recompiling script with modifications... [DONE]",
+					"Wipe script now preserves designated assets. Camouflage active."
+				]
 			},
 			"shadow_nexus_public_data_folder": {
 				"type": "folder",
@@ -272,7 +303,16 @@ var levels = [
 			},
 			"bn_stealth_mode.sh": {
 				"type": "script",
-				"father": "admin_utils_bn_folder"
+				"father": "admin_utils_bn_folder",
+				"injection_output": [
+					"Engaging BN_STEALTH_MODE.SH modification protocol...",
+					"Disabling standard logging facilities (syslog, auditd)... [OK]",
+					"Rerouting network traffic through anonymizer TOR_proxy_chain_3...",
+					"Injecting covert channel module 'whisper_daemon_v3.1'...",
+					"Binding to ephemeral port range 60000-61000 (TCP/UDP)...",
+					"Stealth mode enhanced with persistent access point.",
+					"System ready. Camouflage successful."
+				]
 			},
 			"shadow_bazaar_maintenance_logs_folder": {
 				"type": "folder",
@@ -342,7 +382,18 @@ var levels = [
 			},
 			"secure_delete_utility.sh": {
 				"type": "script",
-				"father": "alex_sb_modifications_folder"
+				"father": "alex_sb_modifications_folder",
+				"injection_output": [
+					"Initializing Secure Delete Utility patch...",
+					"Target: secure_delete_utility.sh",
+					"Scanning for shredding algorithms... Found: 'sdelete_custom', 'zero_fill'",
+					"Injecting conditional bypass for user '£_override_admin'...",
+					"Modifying overwrite passes for file patterns matching '*.log_archive'...",
+					"Payload: 'preserve_and_hide_metadata.dll'",
+					"Embedding payload into resource section...",
+					"Checksum verification... [PASSED]",
+					"Secure delete now has selective preservation. Camouflage complete."
+				]
 			},
 			"shadow_bazaar_public_relations_folder": {
 				"type": "folder",
