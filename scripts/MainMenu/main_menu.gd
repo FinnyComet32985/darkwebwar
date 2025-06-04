@@ -48,7 +48,6 @@ func check_file():
 			Global.save_data = {}
 	else:
 		$Continue.visible = 0
-		  # Creo il file
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -58,12 +57,18 @@ func _notification(what):
 func _on_new_game_pressed() -> void:
 	$".".visible = 0
 	$"../username".visible = 1
+	var random_pitch = randf_range(0.1, 2)
+	$"../../AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"../../AudioStreamPlayer-click".play()
 	
 
 
 func _on_settings_pressed() -> void:
 	$".".visible = 0
 	$"../Settings".visible= 1
+	var random_pitch = randf_range(0.1, 2)
+	$"../../AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"../../AudioStreamPlayer-click".play()
 
 
 func _on_username_input_text_submitted(new_text: String) -> void:
@@ -75,6 +80,9 @@ func _on_username_input_text_submitted(new_text: String) -> void:
 	$"../loading/AnimationPlayer".play("loading")
 	Global.scrivi_su_file(Global.save_data, path)
 	Global.scrivi_su_file(Global.temp, Global.path_visited)
+	var random_pitch = randf_range(0.1, 2)
+	$"../../AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"../../AudioStreamPlayer-click".play()
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "loading":
@@ -117,6 +125,9 @@ func _on_continue_pressed() -> void:
 	$"../loading".visible = 1
 	$"../loading/AnimationPlayer".play("loading")
 	Global.load_visited()
+	var random_pitch = randf_range(0.1, 2)
+	$"../../AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"../../AudioStreamPlayer-click".play()
 	
 
 func _on_visibility_changed() -> void:

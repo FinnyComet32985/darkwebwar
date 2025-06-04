@@ -146,6 +146,9 @@ func _input(event):
 
 
 func _on_button_pressed() -> void:
+	var random_pitch = randf_range(0.1, 2)
+	$"AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"AudioStreamPlayer-click".play()
 	Global.get_scene_class(buttons[0].scene_id).set_visited()
 	Global.save_data["scene"] = buttons[0].scene_id
 	clear_buttons()
@@ -154,6 +157,9 @@ func _on_button_pressed() -> void:
 
 
 func _on_button_2_pressed() -> void:
+	var random_pitch = randf_range(0.1, 2)
+	$"AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"AudioStreamPlayer-click".play()
 	Global.get_scene_class(buttons[1].scene_id).set_visited()
 	Global.save_data["scene"] = buttons[1].scene_id
 	clear_buttons()
@@ -161,6 +167,9 @@ func _on_button_2_pressed() -> void:
 
 
 func _on_button_3_pressed() -> void:
+	var random_pitch = randf_range(0.1, 2)
+	$"AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"AudioStreamPlayer-click".play()
 	Global.get_scene_class(buttons[2].scene_id).set_visited()
 	Global.save_data["scene"] = buttons[2].scene_id
 	clear_buttons()
@@ -168,18 +177,27 @@ func _on_button_3_pressed() -> void:
 
 
 func _on_button_4_pressed() -> void:
+	var random_pitch = randf_range(0.1, 2)
+	$"AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"AudioStreamPlayer-click".play()
 	Global.get_scene_class(buttons[3].scene_id).set_visited()
 	Global.save_data["scene"] = buttons[3].scene_id
 	clear_buttons()
 	continue_story()
 
 func _on_button_5_pressed() -> void:
+	var random_pitch = randf_range(0.1, 2)
+	$"AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"AudioStreamPlayer-click".play()
 	Global.get_scene_class(buttons[4].scene_id).set_visited()
 	Global.save_data["scene"] = buttons[4].scene_id
 	clear_buttons()
 	continue_story()
 
 func _on_button_6_pressed() -> void:
+	var random_pitch = randf_range(0.1, 2)
+	$"AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"AudioStreamPlayer-click".play()
 	Global.get_scene_class(buttons[5].scene_id).set_visited()
 	Global.save_data["scene"] = buttons[5].scene_id
 	clear_buttons()

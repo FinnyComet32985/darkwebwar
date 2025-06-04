@@ -39,6 +39,9 @@ func _input(event):
 
 func _on_start_pressed() -> void:
 	Global.save_data["scene"]="0"
+	var random_pitch = randf_range(0.1, 2)
+	$"../../AudioStreamPlayer-click".pitch_scale = random_pitch
+	$"../../AudioStreamPlayer-click".play()
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
 
 

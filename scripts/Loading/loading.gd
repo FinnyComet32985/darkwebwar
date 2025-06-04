@@ -26,6 +26,11 @@ func get_loading_lable(path: String) -> String:
 		return "C:\\"+path+">"
 	
 func start_intro():
+	$StudioSec/AnimationPlayer.play("intro")
+	await $StudioSec/AnimationPlayer.animation_finished
+	$StudioSec.queue_free()
+	
+
 	#blinking _
 	for i in 5:
 		cursor = !cursor
