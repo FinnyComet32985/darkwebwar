@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3umfrgkfl1aa"]
+[gd_scene load_steps=17 format=3 uid="uid://b3umfrgkfl1aa"]
 
 [ext_resource type="Script" uid="uid://5do3iwu0rim2" path="res://scripts/PayloadDeliver/payload_deliver.gd" id="1_76tr2"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_207pf"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="2_sb5o3"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_qt2g7"]
 [ext_resource type="Texture2D" uid="uid://luxbwmfynt13" path="res://assets/temp/router.png" id="5_0ftgf"]
+[ext_resource type="AudioStream" uid="uid://5rqq0hg5wfb5" path="res://assets/PayloadDeliver/Dreams.mp3" id="6_76tr2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13lqv"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -256,6 +257,11 @@ offset_bottom = -0.250015
 grow_horizontal = 2
 theme_override_constants/separation = 100
 alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_76tr2")
+autoplay = true
+parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -68,7 +68,7 @@ func _ready():
 	if Global.save_data["settings"]["crt"] == false:
 		$CanvasLayer.visible = false
 	$CriticalEvent.process_mode = Node.PROCESS_MODE_ALWAYS
-	
+	$AudioStreamPlayer.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_level(n_level_playing)
 
 func _process(_delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c13cksn42u525"]
+[gd_scene load_steps=35 format=3 uid="uid://c13cksn42u525"]
 
 [ext_resource type="Script" uid="uid://ily5fmn7w251" path="res://scripts/LogGrabber/log_grabber.gd" id="1_l3202"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_xxsig"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bljqe40xmgfke" path="res://assets/LogGrabber/DarkWebWar-Log.svg" id="6_7x2t2"]
 [ext_resource type="Texture2D" uid="uid://du15uky7qqlyc" path="res://assets/LogGrabber/bin.svg" id="6_tkbep"]
 [ext_resource type="Texture2D" uid="uid://c2xnnfija63rv" path="res://assets/LogGrabber/DarkWebWar-Script.svg" id="8_wk0m5"]
+[ext_resource type="AudioStream" uid="uid://bj5cgr0vawfp" path="res://assets/LogGrabber/Chase.mp3" id="9_tgwru"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24ckl"]
 bg_color = Color(0, 0, 0.666667, 1)
@@ -764,6 +765,11 @@ theme_override_colors/font_pressed_color = Color(0.533037, 0.533037, 0.533037, 1
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 20
 text = "X Chiudi"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_tgwru")
+autoplay = true
+parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

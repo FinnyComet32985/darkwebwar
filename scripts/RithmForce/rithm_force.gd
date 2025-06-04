@@ -33,6 +33,7 @@ func _process(_delta: float) -> void:
 
 func _ready() -> void:
 	$Captcha.process_mode = Node.PROCESS_MODE_ALWAYS
+	$AudioStreamPlayer.process_mode = Node.PROCESS_MODE_ALWAYS
 	init_level()
 	$LineEdit.grab_focus()
 

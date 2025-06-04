@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=37 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://b7fdmadvjre3" path="res://scripts/DefendBazaar/static_defence_menu.gd" id="10_toq7d"]
 [ext_resource type="Script" uid="uid://bfk8lh4twq4kp" path="res://scripts/DefendBazaar/defence_menu_builder.gd" id="10_wq2sp"]
 [ext_resource type="Texture2D" uid="uid://bjheenom4sshi" path="res://assets/DefendBazaar/GUI/DarkWebWar-activateIcon.svg" id="11_wq2sp"]
+[ext_resource type="AudioStream" uid="uid://bm2s60xom123x" path="res://assets/DefendBazaar/Arcade.mp3" id="14_0n24t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -1319,6 +1320,11 @@ one_shot = true
 [node name="CriticSocialEngeeniering" type="Timer" parent="CriticalEvent"]
 wait_time = 10.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_0n24t")
+autoplay = true
+parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://ba0b4ebvdyvu3"]
+[gd_scene load_steps=87 format=3 uid="uid://ba0b4ebvdyvu3"]
 
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_dv6lh"]
 [ext_resource type="Script" uid="uid://jl4tjy7bvk1n" path="res://scripts/RithmForce/rithm_force.gd" id="1_oxl41"]
@@ -11,6 +11,7 @@
 [ext_resource type="Shader" uid="uid://llx61vh71dm0" path="res://assets/RithmForce/distorsion_v1.gdshader" id="8_imlcx"]
 [ext_resource type="Theme" uid="uid://dj67k3x7g7hfu" path="res://assets/main_menu/main_menu_button_white.tres" id="9_jc4vc"]
 [ext_resource type="Script" uid="uid://c5ogxpqor5yjt" path="res://scripts/RithmForce/r.gd" id="10_imlcx"]
+[ext_resource type="AudioStream" uid="uid://dnif1213363s6" path="res://assets/RithmForce/Pixel.mp3" id="11_v404y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13lqv"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -2309,6 +2310,11 @@ flat = true
 libraries = {
 &"": SubResource("AnimationLibrary_otwd4")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_v404y")
+autoplay = true
+parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
