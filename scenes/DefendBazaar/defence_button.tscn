@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bau6xo8nxq5p5"]
+[gd_scene load_steps=6 format=3 uid="uid://bau6xo8nxq5p5"]
 
 [ext_resource type="Script" uid="uid://cm32frsqb58e2" path="res://scripts/DefendBazaar/defence.gd" id="1_cjsyo"]
+[ext_resource type="AudioStream" uid="uid://hooere0du4e3" path="res://assets/DefendBazaar/upgrade.mp3" id="2_asa2s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjsyo"]
 size = Vector2(56, 56)
@@ -66,5 +67,8 @@ theme_override_font_sizes/font_size = 15
 text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_asa2s")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

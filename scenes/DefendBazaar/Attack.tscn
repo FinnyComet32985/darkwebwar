@@ -1,10 +1,69 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxdvhdb3nq0vg"]
+[gd_scene load_steps=14 format=3 uid="uid://dxdvhdb3nq0vg"]
 
 [ext_resource type="Script" uid="uid://bwhaur2ovh0qi" path="res://scripts/DefendBazaar/attack.gd" id="1_45h55"]
+[ext_resource type="Texture2D" uid="uid://bqlbuj48aj2wd" path="res://assets/DefendBazaar/DarkWebWar-Anim.svg" id="2_twiyg"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_twiyg"]
+[ext_resource type="AudioStream" uid="uid://cks1fhtsld2q" path="res://assets/DefendBazaar/explosion.mp3" id="4_o2qn7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_45h55"]
 size = Vector2(84, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2qn7"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(0, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8o0p"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(120, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dfsi"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(240, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bawug"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(360, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sbws"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(480, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt5t0"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(600, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow6lt"]
+atlas = ExtResource("2_twiyg")
+region = Rect2(720, 0, 120, 121)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpucv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2qn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8o0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dfsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bawug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sbws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt5t0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ow6lt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Attack" type="CharacterBody2D"]
 script = ExtResource("1_45h55")
@@ -32,6 +91,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 expand_mode = 1
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D"]
+visible = false
+texture_filter = 1
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_vpucv")
+frame = 6
+frame_progress = 1.0
+
 [node name="Attack" type="Label" parent="."]
 texture_filter = 1
 offset_left = -85.0
@@ -51,3 +118,6 @@ offset_bottom = 46.0
 theme = ExtResource("3_twiyg")
 theme_override_font_sizes/font_size = 12
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_o2qn7")

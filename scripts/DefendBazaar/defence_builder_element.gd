@@ -19,6 +19,7 @@ func init_element() -> void:
 	$Cost.text=str(build_cost)+" ₿"
 
 func _on_build_pressed() -> void:
+	$Build/AudioStreamPlayer.play()
 	var defendBazaar=get_tree().current_scene
 	defendBazaar.btc-=defendBazaar.get_defence_other_info(defence_type, 0)[0]
 	defendBazaar.update_btc()
@@ -28,5 +29,6 @@ func _on_build_pressed() -> void:
 
 
 func _on_help_pressed() -> void:
+	$Help/AudioStreamPlayer2.play()
 	$"../../../".visible = false
 	get_tree().current_scene.open_def_builder_info(defence_type)

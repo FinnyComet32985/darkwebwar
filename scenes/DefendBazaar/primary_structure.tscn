@@ -1,9 +1,54 @@
-[gd_scene load_steps=3 format=3 uid="uid://drsqid4m6tif0"]
+[gd_scene load_steps=11 format=3 uid="uid://drsqid4m6tif0"]
 
 [ext_resource type="Script" uid="uid://cmrrt8dtutcu1" path="res://scripts/DefendBazaar/primary_structure.gd" id="1_n4rci"]
+[ext_resource type="Texture2D" uid="uid://e73m11o2ydka" path="res://assets/DefendBazaar/DarkWebWar-Exp2.svg" id="2_bilg4"]
+[ext_resource type="AudioStream" uid="uid://cd3enh2i8rybj" path="res://assets/DefendBazaar/error.wav" id="3_ep46l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dxcaj"]
 size = Vector2(58.5, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep46l"]
+atlas = ExtResource("2_bilg4")
+region = Rect2(0, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmeuj"]
+atlas = ExtResource("2_bilg4")
+region = Rect2(120, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohk44"]
+atlas = ExtResource("2_bilg4")
+region = Rect2(240, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6uyk"]
+atlas = ExtResource("2_bilg4")
+region = Rect2(360, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cha2p"]
+atlas = ExtResource("2_bilg4")
+region = Rect2(480, 0, 120, 122)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cha2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep46l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmeuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohk44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6uyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cha2p")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="PrimaryStructure" type="Area2D"]
 input_pickable = false
@@ -11,5 +56,17 @@ script = ExtResource("1_n4rci")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_dxcaj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(5.96046e-08, -63)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_cha2p")
+frame = 4
+frame_progress = 1.0
+
+[node name="destroy" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ep46l")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

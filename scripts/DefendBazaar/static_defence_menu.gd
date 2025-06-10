@@ -26,6 +26,7 @@ func init_static_defence(p_type:String, p_static_defence_type: String, p_name: S
 
 
 func open_menu() -> void:
+	$"../../Open_menu".play()
 	$"./Info/Tipo/tipo".text = static_defence_type
 	$"./Info/Tipo/tipo-stat".text = static_defence_name
 	$"./Info/State/VBoxContainer/state_stat".text = "❌ - [0]" if state == false else "✅ - ["+str(remaining_wave)+"]"

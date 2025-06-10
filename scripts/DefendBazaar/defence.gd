@@ -21,6 +21,7 @@ func set_type(new_type: String) -> void:
 	$Panel/Label.text = str(level)
 
 func open_menu() -> void:
+	$"../../../Open_menu".play()
 	if type!="":
 		var other_info = $"../../../".get_defence_other_info(self.type, self.level)
 		cost = other_info[0]
@@ -38,6 +39,7 @@ func upgrade() -> void:
 		$"../../../".btc=$"../../../".btc-cost
 		$"../../../".update_btc()
 		self.level+=1
+		$AudioStreamPlayer.play()
 		if level==max_level:
 			$"../../DefenceMenu/Info/Level/level_stat".text = "MAX"
 			$"../../DefenceMenu/Info/Level/UpgradeButton".visible=0
@@ -73,6 +75,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			if body.life > 0:
 				body.continue_new_curve() 
 			else:
+				await body.explode()
 				body.queue_free()
 	if finded==false:
 		body.continue_new_curve()

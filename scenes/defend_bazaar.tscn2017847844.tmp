@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://xvsuu1xly0mk"]
+[gd_scene load_steps=40 format=3 uid="uid://xvsuu1xly0mk"]
 
 [ext_resource type="Script" uid="uid://bjoq84bhjvvql" path="res://scripts/DefendBazaar/defend_bazaar.gd" id="1_i3icg"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_rao2o"]
@@ -6,7 +6,6 @@
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
 [ext_resource type="Script" uid="uid://buj2btobv46jw" path="res://scripts/DefendBazaar/defence_menu.gd" id="5_7n4du"]
-[ext_resource type="AudioStream" uid="uid://bhhhucylxe5o2" path="res://assets/DefendBazaar/coin.mp3" id="5_chp7l"]
 [ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="5_frwa5"]
 [ext_resource type="Script" uid="uid://chf1sry8duw5j" path="res://scenes/wave_timer.gd" id="5_jyyir"]
 [ext_resource type="Texture2D" uid="uid://bp7nkwpvpxrmc" path="res://assets/DefendBazaar/GUI/DarkWebWar-infoIco.svg" id="5_n7olq"]
@@ -16,10 +15,6 @@
 [ext_resource type="Script" uid="uid://bfk8lh4twq4kp" path="res://scripts/DefendBazaar/defence_menu_builder.gd" id="10_wq2sp"]
 [ext_resource type="Texture2D" uid="uid://bjheenom4sshi" path="res://assets/DefendBazaar/GUI/DarkWebWar-activateIcon.svg" id="11_wq2sp"]
 [ext_resource type="AudioStream" uid="uid://bm2s60xom123x" path="res://assets/DefendBazaar/Arcade.mp3" id="14_0n24t"]
-[ext_resource type="AudioStream" uid="uid://c6k64pmoqd4ho" path="res://assets/DefendBazaar/activate.mp3" id="14_4dpe1"]
-[ext_resource type="AudioStream" uid="uid://dwho0g4qoob6d" path="res://assets/DefendBazaar/critical.mp3" id="15_chp7l"]
-[ext_resource type="AudioStream" uid="uid://dbrdwldcpe8ur" path="res://assets/DefendBazaar/menu open.wav" id="15_cib6q"]
-[ext_resource type="AudioStream" uid="uid://b0i7mfi516utt" path="res://assets/DefendBazaar/menu close.wav" id="16_l14l1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -50,33 +45,6 @@ Panel/styles/panel = SubResource("StyleBoxFlat_0n24t")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ee5cj"]
 
-[sub_resource type="Animation" id="Animation_cib6q"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("conf-stat:theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("conf-label:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_0n24t"]
 resource_name = "error"
 tracks/0/type = "value"
@@ -104,130 +72,37 @@ tracks/1/keys = {
 "values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_cib6q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("conf-stat:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("conf-label:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l14l1"]
 _data = {
 &"RESET": SubResource("Animation_cib6q"),
 &"error": SubResource("Animation_0n24t")
-}
-
-[sub_resource type="Animation" id="Animation_26007"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("integ-stat:theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("integ-label:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_l14l1"]
-resource_name = "error"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("integ-stat:theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("integ-label:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_chp7l"]
-_data = {
-&"RESET": SubResource("Animation_26007"),
-&"error": SubResource("Animation_l14l1")
-}
-
-[sub_resource type="Animation" id="Animation_4dpe1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("disp-stat:theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("disp-label:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_chp7l"]
-resource_name = "error"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("disp-stat:theme_override_colors/font_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("disp-label:theme_override_colors/font_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ii4l8"]
-_data = {
-&"RESET": SubResource("Animation_4dpe1"),
-&"error": SubResource("Animation_chp7l")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsu3c"]
@@ -539,20 +414,13 @@ layout_mode = 2
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[----------]"
 
 [node name="integ-label" type="Label" parent="SideBar/Status-container/Stat/Integ"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "INTEGRITA'"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SideBar/Status-container/Stat/Integ"]
-libraries = {
-&"": SubResource("AnimationLibrary_chp7l")
-}
 
 [node name="Disp" type="HBoxContainer" parent="SideBar/Status-container/Stat"]
 layout_mode = 2
@@ -561,20 +429,13 @@ layout_mode = 2
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "[----------]"
 
 [node name="disp-label" type="Label" parent="SideBar/Status-container/Stat/Disp"]
 texture_filter = 1
 layout_mode = 2
 theme = ExtResource("3_dsu3c")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "DISPONIBILITA'"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SideBar/Status-container/Stat/Disp"]
-libraries = {
-&"": SubResource("AnimationLibrary_ii4l8")
-}
 
 [node name="HSeparator3" type="HSeparator" parent="SideBar/Status-container/Stat"]
 layout_mode = 2
@@ -602,9 +463,6 @@ vertical_alignment = 2
 
 [node name="BtcGen" type="Timer" parent="SideBar/Status-container/Stat/BTC"]
 wait_time = 5.5
-
-[node name="Coin" type="AudioStreamPlayer" parent="SideBar/Status-container/Stat/BTC"]
-stream = ExtResource("5_chp7l")
 
 [node name="HSeparator" type="HSeparator" parent="SideBar"]
 layout_mode = 2
@@ -1177,9 +1035,6 @@ flat = true
 vertical_icon_alignment = 2
 expand_icon = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate"]
-stream = ExtResource("14_4dpe1")
-
 [node name="VBoxContainer2" type="VBoxContainer" parent="PlayZone/StaticDefenceMenu/Info/State"]
 layout_mode = 2
 
@@ -1533,19 +1388,10 @@ one_shot = true
 wait_time = 10.0
 one_shot = true
 
-[node name="Error" type="AudioStreamPlayer" parent="CriticalEvent"]
-stream = ExtResource("15_chp7l")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_0n24t")
 autoplay = true
 parameters/looping = true
-
-[node name="Open_menu" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_cib6q")
-
-[node name="Close_menu" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("16_l14l1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

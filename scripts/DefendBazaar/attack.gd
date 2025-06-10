@@ -64,3 +64,12 @@ func make_damage(structure_type) -> void:
 
 func reload_life() -> void:
 	$Life.text = str(life)
+
+func explode() -> void:
+	$CollisionShape2D/TextureRect.visible = false
+	$Attack.visible = false
+	$Life.visible = false
+	$CollisionShape2D/AnimatedSprite2D.visible = true
+	$CollisionShape2D/AnimatedSprite2D.play("default")
+	$AudioStreamPlayer.play()
+	await $CollisionShape2D/AnimatedSprite2D.animation_finished

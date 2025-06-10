@@ -207,10 +207,16 @@ func init_level(n_level:int) -> void:
 #* UPDATE FUNCTIONS
 
 func update_stat(new_conf, new_integ, new_disp) -> void:
+	if self.conf > new_conf:
+		$"SideBar/Status-container/Stat/Conf/AnimationPlayer".play("error")
 	$"SideBar/Status-container/Stat/Conf/conf-stat".text="["+"#".repeat(new_conf)+"-".repeat(10-new_conf)+"]" 
 	self.conf = new_conf
+	if self.integ > new_integ:
+		$"SideBar/Status-container/Stat/Integ/AnimationPlayer".play("error")
 	$"SideBar/Status-container/Stat/Integ/integ-stat".text="["+"#".repeat(new_integ)+"-".repeat(10-new_integ)+"]" 
 	self.integ = new_integ
+	if self.disp > new_disp:
+		$"SideBar/Status-container/Stat/Disp/AnimationPlayer".play("error")
 	$"SideBar/Status-container/Stat/Disp/disp-stat".text="["+"#".repeat(new_disp)+"-".repeat(10-new_disp)+"]" 
 	self.disp = new_disp
 
@@ -282,10 +288,12 @@ func _on_upgrade_button_pressed() -> void:
 
 
 func _on_button_pressed() -> void:
+	$Close_menu.play()
 	$PlayZone/DefenceMenu.visible=0
 
 
 func _on_btc_gen_timeout() -> void:
+	$"SideBar/Status-container/Stat/BTC/Coin".play()
 	btc += 10
 	update_btc()
 
@@ -505,6 +513,7 @@ func _on_critical_event_timeout() -> void:
 		if $CriticalEvent/Critic0Day.is_stopped() == false:
 			return
 		else:
+			$CriticalEvent/Error.play()
 			event = 0
 			get_tree().paused = true
 			var random_number_attack = randi_range(0, len(level.critical_events["0 day"])-1)
@@ -520,6 +529,7 @@ func _on_critical_event_timeout() -> void:
 		if $CriticalEvent/CriticSocialEngeeniering.is_stopped() == false:
 			return
 		else:
+			$CriticalEvent/Error.play()
 			event = 1
 			get_tree().paused = true
 			var random_number_attack = randi_range(0, len(level.critical_events["Social Engineering"])-1)
@@ -548,6 +558,7 @@ func _on_critical_event_timeout() -> void:
 func _on_close_button_pressed() -> void:
 	critical_event_closed.emit()
 	get_tree().paused = false
+	$Close_menu.play()
 	$CriticalEvent/AnimationPlayer.play("RESET")
 
 
@@ -630,6 +641,7 @@ func _on_info_button_antivirus_pressed() -> void:
 
 
 func _on_back_button_pressed() -> void:
+	$Close_menu.play()
 	$PlayZone/StaticDefenceMenu.visible = false
 
 
@@ -659,6 +671,7 @@ func _on_activate_pressed() -> void:
 	if $PlayZone/StaticDefenceMenu.type=="Patch":
 		if level.static_defence[0].activation_cost>btc:
 			return
+		$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate/AudioStreamPlayer.play()
 		btc-=level.static_defence[0].activation_cost
 		update_btc()
 		static_defence[0]["state"] = true
@@ -668,6 +681,7 @@ func _on_activate_pressed() -> void:
 	if $PlayZone/StaticDefenceMenu.type=="Phishing":
 		if level.static_defence[1].activation_cost>btc:
 			return
+		$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate/AudioStreamPlayer.play()
 		btc-=level.static_defence[1].activation_cost
 		update_btc()
 		static_defence[1]["state"] = true
@@ -677,6 +691,7 @@ func _on_activate_pressed() -> void:
 	if $PlayZone/StaticDefenceMenu.type=="Antivirus":
 		if level.static_defence[2].activation_cost>btc:
 			return
+		$PlayZone/StaticDefenceMenu/Info/State/VBoxContainer/Activate/AudioStreamPlayer.play()
 		btc-=level.static_defence[2].activation_cost
 		update_btc()
 		static_defence[2]["state"] = true
