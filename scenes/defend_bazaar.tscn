@@ -6,7 +6,7 @@
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="3_dr1i0"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_dsu3c"]
 [ext_resource type="Script" uid="uid://buj2btobv46jw" path="res://scripts/DefendBazaar/defence_menu.gd" id="5_7n4du"]
-[ext_resource type="AudioStream" uid="uid://bhhhucylxe5o2" path="res://assets/DefendBazaar/coin.mp3" id="5_chp7l"]
+[ext_resource type="AudioStream" uid="uid://bhhhucylxe5o2" path="res://assets/music_effect/coin.mp3" id="5_chp7l"]
 [ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="5_frwa5"]
 [ext_resource type="Script" uid="uid://chf1sry8duw5j" path="res://scenes/wave_timer.gd" id="5_jyyir"]
 [ext_resource type="Texture2D" uid="uid://bp7nkwpvpxrmc" path="res://assets/DefendBazaar/GUI/DarkWebWar-infoIco.svg" id="5_n7olq"]
@@ -16,10 +16,10 @@
 [ext_resource type="Script" uid="uid://bfk8lh4twq4kp" path="res://scripts/DefendBazaar/defence_menu_builder.gd" id="10_wq2sp"]
 [ext_resource type="Texture2D" uid="uid://bjheenom4sshi" path="res://assets/DefendBazaar/GUI/DarkWebWar-activateIcon.svg" id="11_wq2sp"]
 [ext_resource type="AudioStream" uid="uid://bm2s60xom123x" path="res://assets/DefendBazaar/Arcade.mp3" id="14_0n24t"]
-[ext_resource type="AudioStream" uid="uid://c6k64pmoqd4ho" path="res://assets/DefendBazaar/activate.mp3" id="14_4dpe1"]
-[ext_resource type="AudioStream" uid="uid://dwho0g4qoob6d" path="res://assets/DefendBazaar/critical.mp3" id="15_chp7l"]
-[ext_resource type="AudioStream" uid="uid://dbrdwldcpe8ur" path="res://assets/DefendBazaar/menu open.wav" id="15_cib6q"]
-[ext_resource type="AudioStream" uid="uid://b0i7mfi516utt" path="res://assets/DefendBazaar/menu close.wav" id="16_l14l1"]
+[ext_resource type="AudioStream" uid="uid://c6k64pmoqd4ho" path="res://assets/music_effect/activate.mp3" id="14_4dpe1"]
+[ext_resource type="AudioStream" uid="uid://dwho0g4qoob6d" path="res://assets/music_effect/critical.mp3" id="15_chp7l"]
+[ext_resource type="AudioStream" uid="uid://dbrdwldcpe8ur" path="res://assets/music_effect/menu open.wav" id="15_cib6q"]
+[ext_resource type="AudioStream" uid="uid://b0i7mfi516utt" path="res://assets/music_effect/menu close.wav" id="16_l14l1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rao2o"]
 bg_color = Color(0, 0, 0.654902, 1)

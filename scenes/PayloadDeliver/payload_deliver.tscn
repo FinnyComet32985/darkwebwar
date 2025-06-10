@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3umfrgkfl1aa"]
+[gd_scene load_steps=20 format=3 uid="uid://b3umfrgkfl1aa"]
 
 [ext_resource type="Script" uid="uid://5do3iwu0rim2" path="res://scripts/PayloadDeliver/payload_deliver.gd" id="1_76tr2"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="1_207pf"]
@@ -7,6 +7,9 @@
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="3_qt2g7"]
 [ext_resource type="Texture2D" uid="uid://luxbwmfynt13" path="res://assets/temp/router.png" id="5_0ftgf"]
 [ext_resource type="AudioStream" uid="uid://5rqq0hg5wfb5" path="res://assets/PayloadDeliver/Dreams.mp3" id="6_76tr2"]
+[ext_resource type="AudioStream" uid="uid://hooere0du4e3" path="res://assets/music_effect/upgrade.mp3" id="8_d4r4v"]
+[ext_resource type="AudioStream" uid="uid://dbrdwldcpe8ur" path="res://assets/music_effect/menu open.wav" id="8_lufgy"]
+[ext_resource type="AudioStream" uid="uid://b0i7mfi516utt" path="res://assets/music_effect/menu close.wav" id="9_d4r4v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13lqv"]
 bg_color = Color(0, 0, 0.654902, 1)
@@ -257,6 +260,15 @@ offset_bottom = -0.250015
 grow_horizontal = 2
 theme_override_constants/separation = 100
 alignment = 1
+
+[node name="next" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lufgy")
+
+[node name="next_negative" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_d4r4v")
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_d4r4v")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_76tr2")

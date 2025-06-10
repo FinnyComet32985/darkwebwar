@@ -1,0 +1,60 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://c1i8hedu7gkx4"]
+
+[ext_resource type="Texture2D" uid="uid://bqlbuj48aj2wd" path="res://assets/DefendBazaar/DarkWebWar-Anim.svg" id="1_mmqgf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2qn7"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(0, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8o0p"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(120, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4dfsi"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(240, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bawug"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(360, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sbws"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(480, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt5t0"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(600, 0, 120, 121)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow6lt"]
+atlas = ExtResource("1_mmqgf")
+region = Rect2(720, 0, 120, 121)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2qn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8o0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4dfsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bawug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sbws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt5t0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ow6lt")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]

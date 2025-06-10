@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://dsr82xn4rxeyx" path="res://scripts/DefendBazaar/defence_builder_element.gd" id="1_pqfsq"]
 [ext_resource type="Theme" uid="uid://bb87hvawhj1p3" path="res://assets/DefendBazaar/Status-lable.tres" id="1_r7qhh"]
 [ext_resource type="Texture2D" uid="uid://br5lwdq4uiw7h" path="res://assets/DefendBazaar/GUI/DarkWebWar-HelpIco.svg" id="3_hgi3t"]
-[ext_resource type="AudioStream" uid="uid://dbrdwldcpe8ur" path="res://assets/DefendBazaar/menu open.wav" id="4_duypt"]
+[ext_resource type="AudioStream" uid="uid://dbrdwldcpe8ur" path="res://assets/music_effect/menu open.wav" id="4_duypt"]
 [ext_resource type="Texture2D" uid="uid://b26xx5avw4wm2" path="res://assets/DefendBazaar/GUI/DarkWebWar-BuilIco.svg" id="4_hgi3t"]
-[ext_resource type="AudioStream" uid="uid://c8vmjs0irhbd2" path="res://assets/DefendBazaar/create.mp3" id="5_wk4k2"]
+[ext_resource type="AudioStream" uid="uid://c8vmjs0irhbd2" path="res://assets/music_effect/create.mp3" id="5_wk4k2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hgi3t"]
 

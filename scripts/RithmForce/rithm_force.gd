@@ -108,6 +108,8 @@ func _on_end_game_area_body_entered(body: Node2D) -> void:
 					else:
 						game_over()
 		words_instantiated.erase(body)
+	$Error.play()
+	await body.destruct()
 	body.queue_free()
 
 func _on_line_edit_text_changed(new_text: String) -> void:
@@ -158,6 +160,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 			match  word_instantiated.difficulty:
 				1: 
 					if perc_comp+5<100:
+						$Correct.play()
 						perc_comp+=5
 						$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
 					else:
@@ -167,6 +170,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 				2:
 					if perc_comp+10<100:
 						perc_comp+=10
+						$Correct.play()
 						$"Stats/PercComp-stat".text = str(perc_comp) + " %  [" + "#".repeat(int(perc_comp/10))+ "-".repeat(10-int(perc_comp/10)) + "]"
 					else:
 						reset_level()
@@ -226,6 +230,7 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 				else: 
 					game_over()
 					return
+		$Error.play()
 		$LineEdit/AnimationPlayer.play("error")
 		$Stats/AnimationPlayer.play("error")
 		for word_instantiated in words_instantiated:
@@ -267,6 +272,7 @@ func reset_level()->void:
 
 func _on_overclock_pressed() -> void:
 	if powerUP[0]>0 and $PU/OverclockPU/OverclockCooldown.is_stopped()==true:
+		$PU_audio.play()
 		powerUP[0]-=1
 		$PU/OverclockPU/Panel/OverclockLabel.text= str(powerUP[0])
 		$PU/OverclockPU/OverclockTimer.start()
@@ -299,6 +305,7 @@ func _on_overclock_cooldown_timeout() -> void:
 func _on_shield_pressed() -> void:
 	if $PU/ShieldPU/ShieldCooldown.is_stopped()==true:
 		if powerUP[1]>0:
+			$PU_audio.play()
 			powerUP[1]-=1
 			$PU/ShieldPU/Panel/ShieldLabel.text= str(powerUP[1])
 			shield = true
@@ -316,13 +323,13 @@ func _on_shield_cooldown_timeout() -> void:
 func _on_critic_events_timer_timeout() -> void:
 	if randi_range(0, 59)>2:
 		return
-	
 	#* CAPTCHA
 	var event = randi_range(0, 2)
 	match event:
 		1:
 			get_tree().paused = true
 			$Captcha/AnimationPlayer.play("enter")
+			$Event.play()
 			await $Captcha/AnimationPlayer.animation_finished
 			$Captcha/CaptchaMath.visible = true
 			if powerUP[2]>0:
@@ -383,6 +390,7 @@ func _on_critic_events_timer_timeout() -> void:
 			get_tree().paused = true
 			$Captcha/CaptchaWord/WordCaptchaInsert.text = ""
 			$Captcha/AnimationPlayer.play("enter")
+			$Event.play()
 			await $Captcha/AnimationPlayer.animation_finished
 			$Captcha/CaptchaWord.visible = true
 			var word = level.dictionary.keys()[randi_range(0, level.dictionary.size()-1)]
@@ -428,6 +436,7 @@ func responded(correct) -> void:
 
 func _on_bypass_pressed() -> void:
 	powerUP[2]-=1
+	$PU_audio.play()
 	$PU/BypassPU/Panel/BypassLabel.text= str(powerUP[2])
 	$Captcha/CaptchaMath.visible=false
 	$Captcha/CaptchaWord.visible=false

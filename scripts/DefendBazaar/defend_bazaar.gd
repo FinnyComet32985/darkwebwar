@@ -427,29 +427,39 @@ func _on_router_body_entered(body: Node2D) -> void:
 		var defined_paths = find_path(prefered_target)
 		
 		if len(defined_paths)!=0:
-			# var effective_defence = level.get_effective_defence(body.attack_type)
-			# var excluded_paths = []
+			var effective_defence = level.get_effective_defence(body.attack_type)
+			var paths_with_defenses = []
+			var paths_without_defenses = []
 
-			# for defence in effective_defence:
-			# 	for path in defined_paths:
-			# 		for node in path:
-			# 			if node.type== defence:
-			# 				excluded_paths.append(path)
+			for path_candidate in defined_paths:
+				var path_has_defense = false
+				for node in path_candidate:
+					if effective_defence.has(node.type): 
+						path_has_defense = true
+						break
+				if path_has_defense:
+					paths_with_defenses.append(path_candidate)
+				else:
+					paths_without_defenses.append(path_candidate)
 
-			# var optimal_paths = []
-			# for path in defined_paths:
-			# 	if not excluded_paths.has(path):
-			# 		optimal_paths.append(path)
+			var random_chance = randi_range(0, 99)
+			var chosen_path 
+
+			if random_chance < 70: # 70% di probabilità di scegliere un percorso con difese
+				if len(paths_with_defenses) > 0:
+					chosen_path = paths_with_defenses[randi_range(0, len(paths_with_defenses)-1)]
+				elif len(paths_without_defenses) > 0: # Fallback: nessun percorso con difese, ne sceglie uno senza
+					chosen_path = paths_without_defenses[randi_range(0, len(paths_without_defenses)-1)]
+				# Se anche paths_without_defenses è vuoto, chosen_path rimarrà null, ma questo non dovrebbe accadere
+				# se defined_paths non è vuoto, poiché ogni percorso definito dovrebbe cadere in una delle due categorie.
+			else: # 30% di probabilità di scegliere un percorso senza difese
+				if len(paths_without_defenses) > 0:
+					chosen_path = paths_without_defenses[randi_range(0, len(paths_without_defenses)-1)]
+				elif len(paths_with_defenses) > 0: # Fallback: nessun percorso senza difese, ne sceglie uno con
+					chosen_path = paths_with_defenses[randi_range(0, len(paths_with_defenses)-1)]
 			
-			# if len(optimal_paths)==0:
-			# 	body.set_curve_to_follow(defined_paths[randi_range(0, len(defined_paths)-1)])
-			# elif len(optimal_paths)==1:
-			# 	body.set_curve_to_follow(optimal_paths[0])
-			# else:
-			# 	body.set_curve_to_follow(optimal_paths[randi_range(0, len(optimal_paths)-1)])
-			#* rimossa la logica che fa evitare anche le difese
-			# per reimplementarla cancellare la linea sotto e decommentare
-			body.set_curve_to_follow(defined_paths[randi_range(0, len(defined_paths)-1)])
+			# chosen_path dovrebbe essere sempre assegnato qui se defined_paths non è vuoto.
+			body.set_curve_to_follow(chosen_path)
 		else:
 			body.queue_free()
 			return

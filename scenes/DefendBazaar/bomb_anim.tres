@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://5tonj81nwbxt"]
+
+[ext_resource type="Texture2D" uid="uid://e73m11o2ydka" path="res://assets/DefendBazaar/DarkWebWar-Exp2.svg" id="1_41u64"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep46l"]
+atlas = ExtResource("1_41u64")
+region = Rect2(0, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmeuj"]
+atlas = ExtResource("1_41u64")
+region = Rect2(120, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohk44"]
+atlas = ExtResource("1_41u64")
+region = Rect2(240, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6uyk"]
+atlas = ExtResource("1_41u64")
+region = Rect2(360, 0, 120, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cha2p"]
+atlas = ExtResource("1_41u64")
+region = Rect2(480, 0, 120, 122)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ep46l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmeuj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ohk44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6uyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cha2p")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]

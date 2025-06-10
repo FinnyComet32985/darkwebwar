@@ -22,3 +22,9 @@ func anim_error():
 	$AnimationPlayer.play("error")
 	await $AnimationPlayer.animation_finished
 	return
+
+func destruct() -> void:
+	$RichTextLabel.visible = false
+	$AnimatedSprite2D.visible=true
+	$AnimatedSprite2D.play("default")
+	await $AnimatedSprite2D.animation_finished

@@ -28,6 +28,7 @@ func set_attributes() -> void:
 
 func _on_pressed() -> void:
 	if id == get_tree().current_scene.level.map["target_node_id"]:
+		get_tree().current_scene.get_node("win").play()
 		get_tree().current_scene.n_level += 1
 		get_tree().current_scene.init_level()
 	else:
@@ -40,4 +41,8 @@ func _on_pressed() -> void:
 			get_tree().current_scene.update_game_ttl()
 			get_tree().current_scene.update_furt("honeypot")
 		get_tree().current_scene.set_current_node(id)
+		if type == "honeypot" || type == "firewall":
+			get_tree().current_scene.get_node("next_negative").play()
+		else: 
+			get_tree().current_scene.get_node("next").play()
 		get_tree().current_scene.set_next_nodes(id)
