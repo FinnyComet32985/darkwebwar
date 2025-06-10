@@ -12,8 +12,8 @@ var levels := [
 		{ # costi per upgrade edifici piazzabili 
 			"Firewall": [1, 3, 6, 0],
 			"WAF": [2, 1, 3, 0],
-			"IDS": [1, 3, 6, 0],
-			"Rate Limiter": [3, 2, 7, 0]
+			"IDS": [1, 3, 0],
+			"Rate Limiter": [3, 2, 0]
 			# altro
 		},
 		"res://assets/DefendBazaar/levels/DarkWebWar-Level 1.svg",
@@ -37,7 +37,7 @@ var levels := [
 			DB_Attack_class.new("Port scanning", {"Firewall": [10, 15, 20], "IDS": [20, 25], "Rate Limiter": [5, 10] }, 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}), 
 			DB_Attack_class.new("Banner grabbing", {"Firewall": [20, 30, 30]}, 30, {"transaction_server": [1, 0, 0], "file_server": [1, 0, 0]}),
 			DB_Attack_class.new("Path trasversal", {"WAF": [20, 25, 30]}, 30, {"file_server": [3, 2, 1]}),
-			DB_Attack_class.new("DDoS", {"Firewall": [10, 15, 20], "Rate Limiter": [20]}, 30, {"transaction_server": [0, 0, 2], "file_server": [0, 0, 2]}),
+			DB_Attack_class.new("DDoS", {"Firewall": [10, 15, 20], "Rate Limiter": [15, 20]}, 30, {"transaction_server": [0, 0, 2], "file_server": [0, 0, 2]}),
 		],
 		{ # ondate
 			0: [0, 10],

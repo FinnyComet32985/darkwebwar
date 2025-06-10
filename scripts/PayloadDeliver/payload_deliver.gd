@@ -8,7 +8,7 @@ var icons = {
 	"switch": preload("res://assets/RithmForce/web_node/DarkWebWar-Switch.svg"),
 	"proxy": preload("res://assets/RithmForce/web_node/DarkWebWar-Proxy.svg"),
 	"firewall": preload("res://assets/DefendBazaar/defences/DarkWebWar-Firewall.svg"),
-	"honeypot": preload("res://assets/temp/Honeypot.png"),
+	"honeypot": preload("res://assets/temp/router.png"),
 	"ratelimiter": preload("res://assets/DefendBazaar/defences/DarkWebWar-RateLimiter.svg")
 }
 
@@ -115,6 +115,9 @@ func update_game_timer():
 	else:
 		game_over()
 
+func update_game_ttl() -> void:
+	if ttl-3 > 0:
+		ttl -= 3
 
 func _on_game_timer_timeout() -> void:
 	game_over()

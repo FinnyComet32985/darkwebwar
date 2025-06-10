@@ -36,6 +36,8 @@ func _on_pressed() -> void:
 			get_tree().current_scene.update_furt(type)
 		if type == "ratelimiter":
 			get_tree().current_scene.update_game_timer()
-
+		if type == "honeypot":
+			get_tree().current_scene.update_game_ttl()
+			get_tree().current_scene.update_furt("honeypot")
 		get_tree().current_scene.set_current_node(id)
 		get_tree().current_scene.set_next_nodes(id)
