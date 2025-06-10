@@ -419,26 +419,29 @@ func _on_router_body_entered(body: Node2D) -> void:
 		var defined_paths = find_path(prefered_target)
 		
 		if len(defined_paths)!=0:
-			var effective_defence = level.get_effective_defence(body.attack_type)
-			var excluded_paths = []
+			# var effective_defence = level.get_effective_defence(body.attack_type)
+			# var excluded_paths = []
 
-			for defence in effective_defence:
-				for path in defined_paths:
-					for node in path:
-						if node.type== defence:
-							excluded_paths.append(path)
+			# for defence in effective_defence:
+			# 	for path in defined_paths:
+			# 		for node in path:
+			# 			if node.type== defence:
+			# 				excluded_paths.append(path)
 
-			var optimal_paths = []
-			for path in defined_paths:
-				if not excluded_paths.has(path):
-					optimal_paths.append(path)
+			# var optimal_paths = []
+			# for path in defined_paths:
+			# 	if not excluded_paths.has(path):
+			# 		optimal_paths.append(path)
 			
-			if len(optimal_paths)==0:
-				body.set_curve_to_follow(defined_paths[randi_range(0, len(defined_paths)-1)])
-			elif len(optimal_paths)==1:
-				body.set_curve_to_follow(optimal_paths[0])
-			else:
-				body.set_curve_to_follow(optimal_paths[randi_range(0, len(optimal_paths)-1)])
+			# if len(optimal_paths)==0:
+			# 	body.set_curve_to_follow(defined_paths[randi_range(0, len(defined_paths)-1)])
+			# elif len(optimal_paths)==1:
+			# 	body.set_curve_to_follow(optimal_paths[0])
+			# else:
+			# 	body.set_curve_to_follow(optimal_paths[randi_range(0, len(optimal_paths)-1)])
+			#* rimossa la logica che fa evitare anche le difese
+			# per reimplementarla cancellare la linea sotto e decommentare
+			body.set_curve_to_follow(defined_paths[randi_range(0, len(defined_paths)-1)])
 		else:
 			body.queue_free()
 			return

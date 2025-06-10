@@ -4,7 +4,9 @@ var attack_redunction = preload("res://scenes/DefendBazaar/defence_attack_redunc
 
 
 func open_menu(type:String, icon:Resource, attacks: Array):
-	$"Efficenzy-container/VBoxContainer".get_children().clear()
+	var elements = $"Efficenzy-container/VBoxContainer".get_children()
+	for element in elements:
+		element.queue_free()
 	$".".visible=true
 	$"Info/Tipo/tipo-stat".text = type
 	$Info/Tipo/tipo.texture = icon
