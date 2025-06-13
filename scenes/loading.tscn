@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://mvoe3lhvalfl"]
+[gd_scene load_steps=17 format=3 uid="uid://mvoe3lhvalfl"]
 
 [ext_resource type="Shader" uid="uid://d4gwjpxtjcl33" path="res://assets/crt.gdshader" id="1_101rs"]
 [ext_resource type="Script" uid="uid://doy3c2dn48r0o" path="res://scripts/Loading/loading.gd" id="1_ir5ef"]
 [ext_resource type="FontFile" uid="uid://huc86qp5pn77" path="res://assets/fonts/MorePerfectDOSVGA.ttf" id="2_yc7uc"]
 [ext_resource type="Texture2D" uid="uid://ceb3lvnmhpj33" path="res://assets/re-dos.png" id="2_yt702"]
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="3_dhqfv"]
+[ext_resource type="AudioStream" uid="uid://fkkio4o0ppvb" path="res://assets/tension-booster-01-250483.mp3" id="4_2ytni"]
+[ext_resource type="AudioStream" uid="uid://dflvnpnmxcuaq" path="res://assets/start-computeraif-14572.mp3" id="6_nxo4k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt702"]
 bg_color = Color(0, 0, 0, 1)
@@ -74,7 +76,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_yt702"]
 resource_name = "intro"
-length = 3.0
+length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -82,7 +84,7 @@ tracks/0/path = NodePath("TextureRect:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 2.56667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
@@ -94,7 +96,7 @@ tracks/1/path = NodePath("A:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 0.375),
 "update": 0,
 "values": [Vector2(556, -70), Vector2(556, 79.5)]
@@ -106,7 +108,7 @@ tracks/2/path = NodePath("Production:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(2, 2.5),
+"times": PackedFloat32Array(5.06667, 6),
 "transitions": PackedFloat32Array(1, 0.375),
 "update": 0,
 "values": [Vector2(379, 700), Vector2(379, 482.5)]
@@ -118,7 +120,7 @@ tracks/3/path = NodePath("TextureRect:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(1, 1.5),
+"times": PackedFloat32Array(2.56667, 4.03333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.8, 0.8)]
@@ -130,7 +132,7 @@ tracks/4/path = NodePath("../Panel:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(3),
+"times": PackedFloat32Array(9.96667),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -237,6 +239,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_2ytni")
 }
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="StudioSec"]
+stream = ExtResource("4_2ytni")
+autoplay = true
+
 [node name="Panel" type="Panel" parent="."]
 visible = false
 layout_mode = 1
@@ -315,6 +321,9 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 scroll_following = true
 autowrap_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Panel"]
+stream = ExtResource("6_nxo4k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

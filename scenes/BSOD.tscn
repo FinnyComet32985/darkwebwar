@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7e6t2x46tc1o"]
+[gd_scene load_steps=7 format=3 uid="uid://b7e6t2x46tc1o"]
 
 [ext_resource type="FontFile" uid="uid://esft5pncgqoe" path="res://assets/fonts/More Perfect - tilda rew.ttf" id="1_l7t72"]
+[ext_resource type="AudioStream" uid="uid://dwho0g4qoob6d" path="res://assets/music_effect/critical.mp3" id="2_p36xw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa6cv"]
 bg_color = Color(0, 0, 0.666667, 1)
@@ -181,3 +182,7 @@ root_node = NodePath("../Label2")
 libraries = {
 &"": SubResource("AnimationLibrary_ca42v")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_p36xw")
+autoplay = true

@@ -14,6 +14,7 @@ func load_settings() -> void:
 	$ScrollContainer/VBoxContainer/Animazioni.button_pressed = Global.save_data["settings"]["skip_animation"]
 	
 func _on_back_pressed() -> void:
+	$"../../AudioStreamPlayer-click".play()
 	$".".visible = 0 
 	$"../Menu".visible = 1
 

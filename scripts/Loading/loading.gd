@@ -31,6 +31,7 @@ func start_intro():
 	$StudioSec.queue_free()
 	
 
+	$Panel/AudioStreamPlayer.play()
 	#blinking _
 	for i in 5:
 		cursor = !cursor

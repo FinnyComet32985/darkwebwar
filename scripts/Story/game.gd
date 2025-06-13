@@ -942,14 +942,14 @@ func continue_story():
 			await enable_button(1, "16") # continua la storia
 			buttons[0].grab_focus()
 		"15": #! minigioco
-			pass
+			get_tree().change_scene_to_file("res://scenes/RithmForce/rithm_force.tscn")
 		"16": # continua la storia
 			await write_text(Global.get_scene_class("16").get_scene_text(), storyLable)
 			await enable_button(0, "16.1") # minigico 
 			await enable_button(1, "16.2") # continua la storia
 			buttons[0].grab_focus()
 		"16.1": #! minigioco
-			pass
+			get_tree().change_scene_to_file("res://scenes/PayloadDeliver/payload_deliver.tscn")
 		"16.2": #  finali
 			await write_text(Global.get_scene_class("16.2").get_scene_text(), storyLable)
 			if Global.get_scene_class("13.1").get_visited() == true:
@@ -971,7 +971,7 @@ func continue_story():
 			buttons[0].grab_focus()
 		
 		"17.1.1": #! minigioco
-			pass
+			get_tree().change_scene_to_file("res://scenes/LogGrabber/log_grabber.tscn")
 		"17.1.2": # continua la storia
 			await write_text(Global.get_scene_class("17.1.2").get_scene_text(), storyLable)
 			# FINE
@@ -990,7 +990,7 @@ func continue_story():
 			await enable_button(1, "17.2.1.2") # continua la storia
 			buttons[0].grab_focus()
 		"17.2.1.1": #! gioca al minigioco
-			pass
+			get_tree().change_scene_to_file("res://scenes/LogGrabber/log_grabber.tscn")
 		"17.2.1.2": # finale
 			await write_text(Global.get_scene_class("17.2.1.2").get_scene_text(), storyLable)
 
@@ -1018,7 +1018,7 @@ func continue_story():
 			await enable_button(1, "18.1.2") # continua la storia
 			buttons[0].grab_focus()
 		"18.1.1": #! gioca al minigioco
-			pass
+			get_tree().change_scene_to_file("res://scenes/LogGrabber/log_grabber.tscn")
 		"18.1.2": # finale
 			await write_text(Global.get_scene_class("18.1.2").get_scene_text(), storyLable)
 		
@@ -1030,7 +1030,7 @@ func continue_story():
 			buttons[0].grab_focus()
 		
 		"18.2.1": #! minigioco 
-			pass
+			get_tree().change_scene_to_file("res://scenes/LogGrabber/log_grabber.tscn")
 		"18.2.2":
 			await write_text(Global.get_scene_class("18.2.2").get_scene_text(), storyLable)
 			await enable_button(0, "18.2.2.1") # sacrificio
